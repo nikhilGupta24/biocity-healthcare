@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biocity Website Revamp Plan — Built for Google &amp; AI Search</title>
+<meta name="description" content="An interactive walkthrough of the Biocity Healthcare website revamp — modern design, mobile-first, and optimised to be found on Google (SEO) and cited by AI assistants like ChatGPT and Gemini (GEO).">
+<meta property="og:title" content="Biocity Website Revamp — Built for Google & AI Search">
+<meta property="og:description" content="See the before & after, every improvement, and how we make Biocity the answer AI assistants recommend.">
+<meta property="og:type" content="website">
+<!-- Schema markup demo: this is the kind of structured data we add to the live site so Google & AI engines understand it -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MedicalBusiness",
+  "name": "Biocity Healthcare",
+  "description": "NABL-accredited diagnostics company offering full body health checkups with free home sample collection across 60+ cities in India.",
+  "telephone": "+91-8860606141",
+  "email": "care@biocityhealthcare.com",
+  "url": "https://biocityhealthcare.com",
+  "address": {"@type": "PostalAddress","streetAddress": "Plot No 434, 2nd Floor, Jagriti Enclave, Vikas Marg","addressLocality": "Delhi","postalCode": "110092","addressCountry": "IN"},
+  "aggregateRating": {"@type": "AggregateRating","ratingValue": "4.9","reviewCount": "3336"},
+  "areaServed": "60+ cities across India",
+  "hasCredential": "NABL Accredited, ISO 15189:2022 Certified"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question","name": "Does Biocity offer home sample collection?","acceptedAnswer": {"@type": "Answer","text": "Yes. Biocity provides free home sample collection by certified phlebotomists across 60+ cities, with reports delivered within 24 hours."}},
+    {"@type": "Question","name": "Is Biocity NABL accredited?","acceptedAnswer": {"@type": "Answer","text": "Yes. Biocity Healthcare is NABL accredited and ISO 15189:2022 certified, meaning reports meet the highest international standards and are accepted by all hospitals."}},
+    {"@type": "Question","name": "How much does a full body checkup cost at Biocity?","acceptedAnswer": {"@type": "Answer","text": "Full body health checkups start at ₹999, with comprehensive packages from ₹1,799 and advanced screenings available."}}
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',system-ui,sans-serif;line-height:1.7;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;transition:background .4s,color .4s;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Space Grotesk','Inter',sans-serif;letter-spacing:-.02em;line-height:1.12}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+/* ===== REPORT IDENTITY — independent from the website (indigo / Space Grotesk strategy deck) ===== */
+[data-theme="light"]{
+  --bg:#F2F3FA;--panel:#FFFFFF;--panel-2:#F8F9FE;--inset:#EBEDF7;
+  --border:rgba(18,22,46,.10);--border-2:rgba(18,22,46,.05);
+  --text:#12162B;--text-2:#494F6B;--text-3:#868CA6;
+  --accent:#5B5BF5;--accent-h:#4747E3;--accent-soft:rgba(91,91,245,.10);
+  --teal:#0EA5C4;--teal-soft:rgba(14,165,196,.12);
+  --blue:#3B82F6;--blue-soft:rgba(59,130,246,.10);
+  --amber:#E08A00;--amber-soft:rgba(224,138,0,.12);
+  --purple:#8B5CF6;
+  --shadow:0 1px 3px rgba(18,22,46,.06),0 10px 34px rgba(18,22,46,.06);
+  --shadow-lg:0 24px 64px rgba(18,22,46,.16);
+  --grad:linear-gradient(160deg,#EDEFFB 0%,#F1ECFF 45%,#E8F6FB 100%);
+  --grad-dark:linear-gradient(135deg,#0E1022 0%,#231A52 55%,#0E1022 100%);
+}
+[data-theme="dark"]{
+  --bg:#07090F;--panel:#121626;--panel-2:#161B2C;--inset:#0E121E;
+  --border:rgba(255,255,255,.08);--border-2:rgba(255,255,255,.04);
+  --text:#ECEFF8;--text-2:#A0A6BE;--text-3:#5A6076;
+  --accent:#7C7CFF;--accent-h:#9A9AFF;--accent-soft:rgba(124,124,255,.14);
+  --teal:#22D3EE;--teal-soft:rgba(34,211,238,.12);
+  --blue:#60A5FA;--blue-soft:rgba(96,165,250,.12);
+  --amber:#FBBF24;--amber-soft:rgba(251,191,36,.12);
+  --purple:#A78BFA;
+  --shadow:0 1px 3px rgba(0,0,0,.4);--shadow-lg:0 24px 64px rgba(0,0,0,.6);
+  --grad:linear-gradient(160deg,#07090F 0%,#0E1024 45%,#07090F 100%);
+  --grad-dark:linear-gradient(135deg,#0E1022 0%,#1C1545 55%,#0E1022 100%);
+}
+/* ===== SITESKIN — website previews keep the real coral/cream/Fraunces identity, even in dark report ===== */
+.siteskin{
+  --accent:#E05A3A;--accent-h:#C94D30;--accent-soft:rgba(224,90,58,.12);
+  --teal:#0D9B7A;--teal-soft:rgba(13,155,122,.12);
+  --panel:#FFFFFF;--panel-2:#FAF9F6;--inset:#F0EDE7;--bg:#FAF9F6;
+  --border:rgba(0,0,0,.08);--border-2:rgba(0,0,0,.05);
+  --text:#1A1A2E;--text-2:#54545f;--text-3:#8a8a95;
+  font-family:'Plus Jakarta Sans',sans-serif;
+}
+/* effort colours — fixed semantics so the 🟢🟡🔴 always match */
+.effort.low{background:rgba(16,185,129,.13)!important;color:#10B981!important}
+.effort.med{background:rgba(234,153,0,.14)!important;color:#E09000!important}
+.effort.high{background:rgba(244,63,94,.13)!important;color:#F43F5E!important}
+.leg.low .leg-ico{background:rgba(16,185,129,.13)}
+.leg.med .leg-ico{background:rgba(234,153,0,.14)}
+.leg.high .leg-ico{background:rgba(244,63,94,.13)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+/* TOPBAR */
+.top{position:fixed;top:0;left:0;right:0;z-index:100;padding:12px 0;background:color-mix(in srgb,var(--bg) 95%,transparent);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:all .35s}
+.top.stuck{padding:8px 0;box-shadow:0 6px 24px rgba(18,22,46,.07)}
+[data-theme="dark"] .top.stuck{box-shadow:0 6px 24px rgba(0,0,0,.4)}
+.top-in{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:700;font-size:1.2rem}
+.brand-mark{width:36px;height:36px;border-radius:10px;background:var(--accent);display:grid;place-items:center;box-shadow:0 3px 12px var(--accent-soft)}
+.brand-mark svg{width:19px;height:19px}
+.brand span{color:var(--accent)}
+.top-right{display:flex;align-items:center;gap:10px}
+.theme-btn{width:38px;height:38px;border-radius:10px;background:var(--panel);border:1px solid var(--border);display:grid;place-items:center;color:var(--text-2);transition:all .2s}
+.theme-btn:hover{border-color:var(--accent);color:var(--accent)}
+.theme-btn svg{width:17px;height:17px}
+.top-tag{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-3);display:none}
+@media(min-width:640px){.top-tag{display:block}}
+
+/* HERO */
+.hero{min-height:90vh;display:flex;align-items:center;padding:130px 0 70px;background:var(--grad);position:relative;overflow:hidden}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.4;pointer-events:none}
+[data-theme="dark"] .hero-orb{opacity:.16}
+.hero-orb.a{width:480px;height:480px;top:-160px;right:-90px;background:var(--accent)}
+.hero-orb.b{width:340px;height:340px;bottom:-100px;left:-70px;background:var(--teal)}
+.hero-in{position:relative;z-index:2;text-align:center;max-width:780px;margin:0 auto}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:100px;background:var(--panel);border:1px solid var(--border);font-size:.78rem;font-weight:600;color:var(--text-2);margin-bottom:26px;box-shadow:var(--shadow)}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:var(--teal)}
+.hero h1{font-size:clamp(2.4rem,6vw,4rem);font-weight:800;margin-bottom:20px;letter-spacing:-.03em}
+.hero h1 .ac{color:var(--accent)}
+.hero h1 .it{font-style:italic;font-weight:500}
+.hero p{font-size:clamp(1.05rem,2vw,1.25rem);color:var(--text-2);max-width:600px;margin:0 auto 36px;line-height:1.8}
+.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:15px 30px;border-radius:100px;font-weight:600;font-size:.95rem;transition:all .3s;font-family:inherit}
+.btn svg{width:17px;height:17px;transition:transform .3s}
+.btn:hover svg{transform:translateX(3px)}
+.btn-fill{background:var(--accent);color:#fff;box-shadow:0 4px 20px var(--accent-soft)}
+.btn-fill:hover{background:var(--accent-h);transform:translateY(-2px)}
+.btn-ghost{border:1.5px solid var(--border);color:var(--text);background:var(--panel)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.hero-meta{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-top:42px}
+.hero-meta .m{text-align:center}
+.hero-meta .mv{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:800;color:var(--accent)}
+.hero-meta .ml{font-size:.76rem;color:var(--text-3);font-weight:500}
+
+/* SECTION */
+.sec{padding:80px 0}
+.sec-head{text-align:center;max-width:640px;margin:0 auto 44px}
+.sec-label{display:inline-block;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent);padding:5px 14px;border-radius:100px;margin-bottom:14px}
+.sec-head h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:14px}
+.sec-head p{color:var(--text-2);font-size:1.02rem}
+
+/* HOW IT READS (legend) */
+.legend{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:36px}
+@media(min-width:760px){.legend{grid-template-columns:repeat(3,1fr)}}
+.leg{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:20px;display:flex;gap:14px;align-items:flex-start;transition:all .3s}
+.leg:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
+.leg-ico{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:1.3rem;flex-shrink:0}
+.leg.low .leg-ico{background:var(--teal-soft)}
+.leg.med .leg-ico{background:var(--amber-soft)}
+.leg.high .leg-ico{background:var(--accent-soft)}
+.leg h4{font-size:1rem;font-weight:700;margin-bottom:3px}
+.leg p{font-size:.82rem;color:var(--text-2);line-height:1.6}
+
+/* FILTER BAR */
+.filter{position:sticky;top:62px;z-index:50;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:14px;background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:100px;margin-bottom:32px;border:1px solid var(--border)}
+.fbtn{padding:9px 20px;border-radius:100px;font-weight:600;font-size:.84rem;color:var(--text-2);border:1px solid transparent;transition:all .2s;display:inline-flex;align-items:center;gap:7px}
+.fbtn .cnt{font-size:.7rem;background:var(--inset);padding:1px 8px;border-radius:100px;font-weight:700}
+.fbtn:hover{color:var(--text);background:var(--panel)}
+.fbtn.on{background:var(--accent);color:#fff}
+.fbtn.on .cnt{background:rgba(255,255,255,.25)}
+
+/* CARDS GRID */
+.cards{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:720px){.cards{grid-template-columns:repeat(2,1fr)}}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:all .35s;cursor:pointer}
+.card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
+.card.hide{display:none}
+.card-head{padding:18px 18px 0;display:flex;align-items:flex-start;gap:12px}
+.card-emoji{font-size:1.4rem;flex-shrink:0}
+.card-head-txt{flex:1}
+.card-head h3{font-size:1.02rem;font-weight:700;margin-bottom:3px}
+.card-tagline{font-size:.8rem;color:var(--text-3)}
+.effort{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.7px;padding:3px 9px;border-radius:100px;white-space:nowrap;flex-shrink:0}
+.effort.low{background:var(--teal-soft);color:var(--teal)}
+.effort.med{background:var(--amber-soft);color:var(--amber)}
+.effort.high{background:var(--accent-soft);color:var(--accent)}
+.card-body{padding:13px 18px 18px}
+.ba{display:grid;grid-template-columns:1fr;gap:9px;margin-top:4px}
+@media(min-width:480px){.ba{grid-template-columns:1fr 1fr}}
+.ba-box{border-radius:11px;padding:10px 12px;font-size:.8rem;line-height:1.5}
+.ba-now{background:var(--inset);border:1px solid var(--border-2)}
+.ba-new{background:var(--accent-soft);border:1px solid var(--border)}
+.ba-box .ba-l{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.7px;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.ba-now .ba-l{color:var(--text-3)}
+.ba-new .ba-l{color:var(--accent)}
+.ba-new .ba-l::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.card-detail{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+.card-detail-in{padding-top:16px;margin-top:16px;border-top:1px dashed var(--border)}
+.card-detail-in h5{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);margin-bottom:10px}
+.card-detail-in ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.card-detail-in li{display:flex;gap:9px;font-size:.86rem;color:var(--text-2);line-height:1.55}
+.card-detail-in li svg{width:13px;height:13px;color:var(--teal);flex-shrink:0;margin-top:4px;opacity:.85}
+.card-toggle{display:flex;align-items:center;gap:6px;margin-top:14px;font-size:.8rem;font-weight:700;color:var(--accent)}
+.card-toggle svg{width:15px;height:15px;transition:transform .3s}
+.card.open .card-toggle svg{transform:rotate(180deg)}
+
+/* JOURNEY / TIMELINE */
+.journey{background:var(--panel-2)}
+.steps{display:grid;grid-template-columns:1fr;gap:16px;counter-reset:step}
+@media(min-width:760px){.steps{grid-template-columns:repeat(2,1fr)}}
+.step{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:24px;position:relative;transition:all .3s}
+.step:hover{box-shadow:var(--shadow);transform:translateY(-3px);border-color:var(--accent)}
+.step-num{width:40px;height:40px;border-radius:11px;background:var(--accent);color:#fff;font-family:'Fraunces',serif;font-weight:800;display:grid;place-items:center;margin-bottom:14px;box-shadow:0 3px 12px var(--accent-soft)}
+.step h4{font-size:1.05rem;font-weight:700;margin-bottom:6px}
+.step p{font-size:.88rem;color:var(--text-2);line-height:1.7}
+
+/* ===== ROADMAP ===== */
+.road{background:var(--panel-2)}
+.rmap{display:grid;grid-template-columns:1fr;gap:14px;position:relative}
+@media(min-width:840px){.rmap{grid-template-columns:repeat(4,1fr);gap:16px}}
+.rstep{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:22px 20px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.rstep:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--accent)}
+.rstep::before{content:'';position:absolute;top:0;left:0;height:4px;width:100%;background:linear-gradient(90deg,var(--accent),var(--teal));transform:scaleX(0);transform-origin:left;transition:transform .45s}
+.rstep.on::before{transform:scaleX(1)}
+.rstep .ricon{font-size:1.5rem;display:block;margin-bottom:12px}
+.rweek{display:inline-flex;align-items:center;gap:6px;font-family:'Space Grotesk',sans-serif;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);background:var(--accent-soft);padding:5px 11px;border-radius:100px;margin-bottom:13px}
+.rweek::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.rstep h4{font-size:1.04rem;font-weight:700;margin-bottom:8px}
+.rstep>p{font-size:.83rem;color:var(--text-2);line-height:1.55}
+.rdetail{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+.rdetail ul{list-style:none;margin-top:14px;padding-top:14px;border-top:1px dashed var(--border);display:flex;flex-direction:column;gap:8px}
+.rdetail li{font-size:.79rem;color:var(--text-2);display:flex;gap:8px;line-height:1.45}
+.rdetail li::before{content:'›';color:var(--accent);font-weight:800}
+.rmore{margin-top:13px;font-size:.72rem;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:5px}
+.rmore svg{width:13px;height:13px;transition:transform .3s}
+.rstep.on .rmore svg{transform:rotate(180deg)}
+.road-foot{margin-top:28px;text-align:center}
+.road-pill{display:inline-flex;align-items:center;gap:9px;background:var(--panel);border:1px solid var(--border);border-radius:100px;padding:11px 22px;font-size:.86rem;font-weight:600;color:var(--text-2);box-shadow:var(--shadow)}
+.road-pill b{font-family:'Space Grotesk',sans-serif;color:var(--accent)}
+
+/* OUTCOMES */
+.out-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:640px){.out-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:980px){.out-grid{grid-template-columns:repeat(4,1fr)}}
+.out{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center;transition:all .3s}
+.out:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
+.out-ico{width:48px;height:48px;border-radius:13px;background:var(--teal-soft);color:var(--teal);display:grid;place-items:center;margin:0 auto 14px}
+.out-ico svg{width:22px;height:22px}
+.out h4{font-size:.98rem;font-weight:700;margin-bottom:6px}
+.out p{font-size:.82rem;color:var(--text-2);line-height:1.6}
+
+/* ===== WHAT WE NEED FROM YOU ===== */
+.needs{background:var(--panel-2)}
+.need-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:680px){.need-grid{grid-template-columns:repeat(2,1fr)}}
+.need{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:24px;transition:all .3s}
+.need:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px);border-color:var(--accent)}
+.need-top{display:flex;align-items:center;gap:13px;margin-bottom:15px}
+.need-ico{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:1.35rem;flex-shrink:0;background:var(--accent-soft)}
+.need:nth-child(2) .need-ico{background:var(--teal-soft)}
+.need:nth-child(3) .need-ico{background:var(--blue-soft)}
+.need:nth-child(4) .need-ico{background:var(--amber-soft)}
+.need-top h4{font-size:1.06rem;font-weight:700}
+.need-top .nh-sub{font-size:.76rem;color:var(--text-3);margin-top:2px}
+.need ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.need li{display:flex;gap:10px;font-size:.86rem;color:var(--text-2);line-height:1.45}
+.need li svg{width:16px;height:16px;color:var(--teal);flex-shrink:0;margin-top:3px}
+.need li b{color:var(--text);font-weight:600}
+.need-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:13px}
+.need-tags span{font-size:.7rem;font-weight:600;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent);padding:4px 10px;border-radius:8px}
+.need-note{margin-top:24px;text-align:center;font-size:.88rem;color:var(--text-2);background:var(--panel);border:1px dashed var(--border);border-radius:14px;padding:18px 22px}
+.need-note b{color:var(--text)}
+
+/* CTA */
+.cta{padding:90px 0;background:var(--grad-dark);position:relative;overflow:hidden}
+.cta::before{content:'';position:absolute;top:-40%;right:-15%;width:540px;height:540px;background:radial-gradient(circle,var(--accent-soft),transparent 70%);border-radius:50%}
+.cta-in{text-align:center;position:relative;z-index:2;max-width:600px;margin:0 auto}
+.cta-in h2{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:800;color:#fff;margin-bottom:16px}
+.cta-in p{color:rgba(255,255,255,.65);font-size:1.05rem;margin-bottom:32px}
+.btn-white{background:#fff;color:var(--accent);font-weight:700}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.2)}
+
+/* FOOTER */
+.foot{padding:36px 0;text-align:center;color:var(--text-3);font-size:.82rem;border-top:1px solid var(--border)}
+/* ===== SITE FOOTER ===== */
+.sfoot{background:var(--panel-2);border-top:1px solid var(--border);padding:54px 0 0}
+.sfoot-top{display:grid;grid-template-columns:1fr;gap:32px;padding-bottom:38px;border-bottom:1px solid var(--border)}
+@media(min-width:780px){.sfoot-top{grid-template-columns:1.6fr 1fr 1fr;gap:48px}}
+.sfoot-brand .brand{margin-bottom:14px}
+.sfoot-brand p{font-size:.86rem;color:var(--text-2);line-height:1.7;max-width:360px}
+.sfoot-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.sfoot-badges span{font-size:.7rem;font-weight:700;color:var(--text-2);background:var(--panel);border:1px solid var(--border);padding:5px 11px;border-radius:100px}
+.sfoot-col h5{font-family:'Space Grotesk',sans-serif;font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;color:var(--text-3);margin-bottom:16px}
+.sfoot-col a,.sfoot-col .li{display:block;font-size:.88rem;color:var(--text-2);text-decoration:none;margin-bottom:11px;transition:color .2s;cursor:pointer}
+.sfoot-col a:hover{color:var(--accent)}
+.sfoot-col .li{cursor:default}
+.sfoot-col .li b{color:var(--text);font-weight:600}
+.sfoot-bottom{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:20px 0 26px;font-size:.78rem;color:var(--text-3)}
+.sfoot-bottom .conf{display:inline-flex;align-items:center;gap:7px;font-weight:600}
+.sfoot-bottom .conf::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--teal)}
+.foot strong{color:var(--text-2)}
+
+/* ===== VISUAL BEFORE/AFTER ===== */
+.vis{background:var(--panel-2)}
+.compare{position:relative;max-width:920px;margin:0 auto;border-radius:18px;overflow:hidden;box-shadow:var(--shadow-lg);border:1px solid var(--border);aspect-ratio:16/10;user-select:none;background:#fff}
+.cmp-layer{position:absolute;inset:0;overflow:hidden}
+.cmp-after{z-index:1}
+.cmp-before{z-index:2;border-right:3px solid var(--accent)}
+.cmp-tag{position:absolute;top:14px;z-index:5;font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;padding:5px 12px;border-radius:100px;color:#fff;pointer-events:none}
+.cmp-tag.t-before{left:14px;background:#64748b}
+.cmp-tag.t-after{right:14px;background:var(--accent)}
+.cmp-handle{position:absolute;top:0;bottom:0;z-index:6;width:44px;transform:translateX(-50%);cursor:ew-resize;display:flex;align-items:center;justify-content:center}
+.cmp-handle::before{content:'';position:absolute;top:0;bottom:0;width:3px;background:var(--accent)}
+.cmp-knob{width:42px;height:42px;border-radius:50%;background:var(--accent);display:grid;place-items:center;box-shadow:0 4px 16px rgba(0,0,0,.25);color:#fff}
+.cmp-knob svg{width:20px;height:20px}
+.cmp-hint{text-align:center;font-size:.82rem;color:var(--text-3);margin-top:16px;font-weight:600}
+
+/* mini-mockup base (renders a fake website inside the slider) */
+.mk{position:absolute;inset:0;width:920px;max-width:none;font-family:'Plus Jakarta Sans',sans-serif;overflow:hidden}
+@media(max-width:960px){.mk{width:100vw}}
+/* shared */
+.mk-bar{height:34px;display:flex;align-items:center;gap:6px;padding:0 12px}
+.mk-dot{width:8px;height:8px;border-radius:50%}
+/* OLD cluttered site */
+.mk-old{background:#eee}
+.mk-old .mk-bar{background:#cdd3da}
+.mk-old .mk-nav{background:#0a4d8c;display:flex;align-items:center;gap:7px;padding:7px 12px;flex-wrap:wrap}
+.mk-old .mk-nav .lg{background:#e8332e;color:#fff;font-size:9px;font-weight:800;padding:3px 7px;border-radius:3px}
+.mk-old .mk-nav .ln{font-size:8px;color:#cfe0f0}
+.mk-old .mk-banner{background:repeating-linear-gradient(45deg,#ffd23f,#ffd23f 14px,#ffc400 14px,#ffc400 28px);color:#b00;font-weight:800;font-size:11px;text-align:center;padding:6px;border-bottom:2px solid #e8332e}
+.mk-old .mk-hero{background:linear-gradient(90deg,#e8332e,#ff7a00);padding:14px 12px;color:#fff;position:relative}
+.mk-old .mk-hero h4{font-size:15px;font-weight:800;text-shadow:1px 1px 0 rgba(0,0,0,.2)}
+.mk-old .mk-hero .sale{position:absolute;top:8px;right:10px;background:#ffd23f;color:#b00;font-size:9px;font-weight:800;padding:8px;border-radius:50%;transform:rotate(-12deg);width:42px;height:42px;display:grid;place-items:center;text-align:center;line-height:1.1}
+.mk-old .mk-row{display:flex;gap:6px;padding:10px 12px;flex-wrap:wrap}
+.mk-old .mk-box{flex:1;min-width:120px;border:2px solid #e8332e;border-radius:4px;padding:7px;background:#fff}
+.mk-old .mk-box .bt{font-size:9px;font-weight:800;color:#0a4d8c}
+.mk-old .mk-box .bp{font-size:11px;font-weight:800;color:#e8332e}
+.mk-old .mk-box .bs{font-size:7px;color:#888;text-decoration:line-through}
+.mk-old .mk-clutter{display:flex;gap:5px;padding:0 12px 10px;flex-wrap:wrap}
+.mk-old .mk-clutter span{font-size:7px;background:#ffe;border:1px solid #fc0;padding:2px 5px;border-radius:2px;color:#a60}
+.mk-old .mk-popup{position:absolute;bottom:10px;right:10px;width:130px;background:#fff;border:2px solid #e8332e;border-radius:5px;padding:8px;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.mk-old .mk-popup .x{position:absolute;top:2px;right:5px;font-size:9px;color:#999}
+.mk-old .mk-popup .pt{font-size:9px;font-weight:800;color:#b00}
+.mk-old .mk-popup .pi{height:6px;background:#eee;border-radius:2px;margin-top:5px}
+/* NEW clean site */
+.mk-new{background:#FAF9F6}
+.mk-new .mk-bar{background:#fff;border-bottom:1px solid #eee}
+.mk-new .mk-nav{display:flex;align-items:center;gap:10px;padding:10px 16px;background:#fff;border-bottom:1px solid #f0ede7}
+.mk-new .mk-nav .lg{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:800;color:#1A1A2E}
+.mk-new .mk-nav .lg i{width:14px;height:14px;border-radius:4px;background:#E05A3A;display:inline-block}
+.mk-new .mk-nav .ln{font-size:8px;color:#8a8a95;margin-left:2px}
+.mk-new .mk-nav .cta{margin-left:auto;background:#E05A3A;color:#fff;font-size:8px;font-weight:700;padding:5px 12px;border-radius:100px}
+.mk-new .mk-hero{padding:30px 24px;background:linear-gradient(165deg,#FAF9F6,#FFF5F3 60%,#FEF3E7)}
+.mk-new .mk-hero .badge{display:inline-block;font-size:7px;font-weight:700;color:#0D9B7A;background:rgba(13,155,122,.1);padding:3px 9px;border-radius:100px;margin-bottom:8px}
+.mk-new .mk-hero h4{font-family:'Fraunces',serif;font-size:22px;font-weight:800;color:#1A1A2E;line-height:1.1;letter-spacing:-.5px}
+.mk-new .mk-hero h4 em{color:#E05A3A;font-style:italic;font-weight:500}
+.mk-new .mk-hero p{font-size:8px;color:#54545f;margin-top:7px;max-width:260px;line-height:1.5}
+.mk-new .mk-hero .btns{display:flex;gap:6px;margin-top:12px}
+.mk-new .mk-hero .b1{background:#E05A3A;color:#fff;font-size:8px;font-weight:700;padding:6px 14px;border-radius:100px}
+.mk-new .mk-hero .b2{border:1px solid #ddd;color:#1A1A2E;font-size:8px;font-weight:700;padding:6px 14px;border-radius:100px}
+.mk-new .mk-row{display:flex;gap:8px;padding:16px 24px}
+.mk-new .mk-card{flex:1;background:#fff;border:1px solid #eee;border-radius:10px;padding:11px}
+.mk-new .mk-card.pop{border-color:#E05A3A;box-shadow:0 4px 16px rgba(224,90,58,.1)}
+.mk-new .mk-card .ce{font-size:14px}
+.mk-new .mk-card .ct{font-size:9px;font-weight:700;color:#1A1A2E;margin-top:4px}
+.mk-new .mk-card .cp{font-family:'Fraunces',serif;font-size:13px;font-weight:800;color:#E05A3A;margin-top:3px}
+.mk-new .mk-card .cl{height:3px;background:#f0ede7;border-radius:2px;margin-top:6px}
+.mk-new .mk-card .cl.s{width:70%}
+
+/* LIVE PREVIEW */
+.preview-wrap{max-width:920px;margin:30px auto 0}
+.dev-toggle{display:flex;gap:8px;justify-content:center;margin-bottom:18px}
+.dev-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:100px;font-weight:600;font-size:.84rem;color:var(--text-2);border:1px solid var(--border);background:var(--panel);transition:all .2s}
+.dev-btn svg{width:15px;height:15px}
+.dev-btn.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.frame{margin:0 auto;background:var(--panel);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow-lg);overflow:hidden;transition:max-width .4s cubic-bezier(.4,0,.2,1)}
+.frame-bar{height:38px;display:flex;align-items:center;gap:6px;padding:0 14px;background:var(--panel-2);border-bottom:1px solid var(--border)}
+.frame-bar .d{width:9px;height:9px;border-radius:50%}
+.frame-url{margin-left:10px;font-size:.72rem;color:var(--text-3);background:var(--inset);padding:3px 12px;border-radius:100px;flex:1;max-width:280px}
+.frame iframe{width:100%;height:560px;border:none;display:block;background:#fff}
+.frame.desktop{max-width:940px}
+.frame.mobile{max-width:380px}
+.frame.mobile iframe{height:620px}
+
+/* ===== SELF-CONTAINED SITE PREVIEW (inline mockup, no external file) ===== */
+.pv{background:#FAF9F6;font-family:'Plus Jakarta Sans',sans-serif;color:#1A1A2E;max-height:560px;overflow:hidden;position:relative}
+.frame.mobile .pv{max-height:620px}
+.pv-nav{display:flex;align-items:center;gap:16px;padding:14px 26px;background:rgba(255,255,255,.92);border-bottom:1px solid #f0ede7}
+.pv-nav .lg{display:flex;align-items:center;gap:8px;font-weight:800;font-size:16px;color:#1A1A2E}
+.pv-nav .lg i{width:18px;height:18px;border-radius:6px;background:#E05A3A;display:inline-block}
+.pv-nav .lg em{color:#E05A3A;font-style:normal}
+.pv-links{display:flex;gap:18px;margin-left:6px}
+.pv-links span{font-size:12px;color:#54545f;font-weight:600}
+.pv-nav .cta{margin-left:auto;background:#E05A3A;color:#fff;font-size:12px;font-weight:700;padding:9px 18px;border-radius:100px;white-space:nowrap}
+.pv-burger{display:none;margin-left:auto;flex-direction:column;gap:4px}
+.pv-burger i{width:20px;height:2px;background:#1A1A2E;border-radius:2px;display:block}
+.pv-hero{padding:42px 30px;background:linear-gradient(165deg,#FAF9F6,#FFF5F3 55%,#FEF3E7)}
+.pv-hero .badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;color:#0D9B7A;background:rgba(13,155,122,.1);padding:5px 12px;border-radius:100px;margin-bottom:14px}
+.pv-hero .badge::before{content:'';width:6px;height:6px;border-radius:50%;background:#0D9B7A}
+.pv-hero h3{font-family:'Fraunces',serif;font-size:34px;font-weight:800;line-height:1.08;letter-spacing:-.5px;margin:0;color:#1A1A2E}
+.pv-hero h3 em{color:#E05A3A;font-style:italic;font-weight:500}
+.pv-hero p{font-size:13px;color:#54545f;margin-top:12px;max-width:440px;line-height:1.6}
+.pv-hero .btns{display:flex;gap:10px;margin-top:20px}
+.pv-hero .b1{background:#E05A3A;color:#fff;font-size:12px;font-weight:700;padding:11px 22px;border-radius:100px}
+.pv-hero .b2{border:1px solid #ddd;background:#fff;color:#1A1A2E;font-size:12px;font-weight:700;padding:11px 22px;border-radius:100px}
+.pv-trust{display:flex;gap:18px;margin-top:22px;flex-wrap:wrap}
+.pv-trust span{font-size:11px;color:#54545f;font-weight:600;display:flex;align-items:center;gap:5px}
+.pv-trust span b{color:#E05A3A;font-weight:800}
+.pv-pkgs{display:flex;gap:12px;padding:22px 30px}
+.pv-pk{flex:1;background:#fff;border:1px solid #eee;border-radius:14px;padding:16px;position:relative}
+.pv-pk.pop{border-color:#E05A3A;box-shadow:0 8px 26px rgba(224,90,58,.12)}
+.pv-pk .rib{position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:#E05A3A;color:#fff;font-size:8px;font-weight:800;letter-spacing:.5px;padding:3px 10px;border-radius:100px;white-space:nowrap}
+.pv-pk .e{font-size:20px}
+.pv-pk h4{font-size:12px;font-weight:700;margin:8px 0 4px;color:#1A1A2E}
+.pv-pk .pr{font-family:'Fraunces',serif;font-size:18px;font-weight:800;color:#E05A3A}
+.pv-pk .pr s{font-size:11px;color:#b5b5bd;font-weight:500;margin-left:5px}
+.pv-pk ul{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.pv-pk li{font-size:10px;color:#54545f;display:flex;gap:6px;align-items:center}
+.pv-pk li::before{content:'✓';color:#0D9B7A;font-weight:800;font-size:10px}
+.frame.mobile .pv-links{display:none}
+.frame.mobile .pv-burger{display:flex}
+.frame.mobile .pv-nav .cta{display:none}
+.frame.mobile .pv-hero{padding:28px 20px;text-align:center}
+.frame.mobile .pv-hero h3{font-size:25px}
+.frame.mobile .pv-hero p{font-size:12px;margin-left:auto;margin-right:auto}
+.frame.mobile .pv-hero .btns{flex-direction:column}
+.frame.mobile .pv-trust{justify-content:center}
+.frame.mobile .pv-pkgs{flex-direction:column;padding:22px 20px}
+.pv-fade{position:absolute;left:0;right:0;bottom:0;height:60px;background:linear-gradient(transparent,#FAF9F6);pointer-events:none}
+
+/* ===== ANIMATED TILE VISUALS ===== */
+.viz{height:96px;border-radius:13px;margin:16px 18px -4px;position:relative;overflow:hidden;background:var(--panel-2);border:1px solid var(--border-2);display:grid;place-items:center}
+.viz>*{pointer-events:none}
+
+/* 1 LOOK */
+.z-look{display:flex;gap:7px;align-items:center}
+.z-look .sw{width:22px;height:46px;border-radius:7px;animation:swP 2.4s ease-in-out infinite}
+.z-look .sw:nth-child(1){background:#E05A3A}.z-look .sw:nth-child(2){background:#0D9B7A;animation-delay:.2s}
+.z-look .sw:nth-child(3){background:#2563EB;animation-delay:.4s}.z-look .sw:nth-child(4){background:#D97706;animation-delay:.6s}
+.z-look .aa{font-family:'Fraunces',serif;font-size:32px;font-weight:800;color:var(--text);margin-left:6px;animation:aaF 3s ease-in-out infinite}
+@keyframes swP{0%,100%{transform:scaleY(.65);opacity:.55}50%{transform:scaleY(1);opacity:1}}
+@keyframes aaF{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* 2 MOBILE */
+.z-phone{width:62px;height:104px;border:3px solid var(--text);border-radius:13px;overflow:hidden;position:relative;background:var(--panel)}
+.z-phone::before{content:'';position:absolute;top:5px;left:50%;transform:translateX(-50%);width:16px;height:3px;border-radius:2px;background:var(--text);z-index:2}
+.z-phone-scr{position:absolute;top:13px;left:5px;right:5px;display:flex;flex-direction:column;gap:5px;animation:scrl 4s linear infinite}
+.z-phone-scr i{height:13px;border-radius:3px;background:var(--accent-soft)}
+.z-phone-scr i:nth-child(even){background:var(--border)}
+@keyframes scrl{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
+
+/* 3 SPEED */
+.z-speed{width:76%;text-align:center}
+.z-speed .bar{height:9px;border-radius:6px;background:var(--inset);overflow:hidden;border:1px solid var(--border)}
+.z-speed .fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--teal),var(--accent));animation:fF 2.2s cubic-bezier(.2,.8,.2,1) infinite}
+.z-speed .lbl{font-size:11px;font-weight:700;color:var(--teal);margin-top:9px}
+.z-speed .lbl b{font-family:'Fraunces',serif}
+@keyframes fF{0%{width:4%}45%,100%{width:96%}}
+
+/* 4 NAV */
+.z-nav{display:flex;gap:4px;background:var(--panel);padding:7px;border-radius:100px;border:1px solid var(--border);position:relative}
+.z-nav span.it{font-size:9px;font-weight:600;color:var(--text-2);width:46px;text-align:center;padding:5px 0;border-radius:100px;position:relative;z-index:2}
+.z-nav .pill{position:absolute;top:7px;left:7px;width:46px;height:calc(100% - 14px);background:var(--accent);border-radius:100px;z-index:1;animation:nSl 4.4s ease-in-out infinite}
+@keyframes nSl{0%,12%{left:7px}22%,37%{left:57px}47%,62%{left:107px}72%,88%{left:157px}100%{left:7px}}
+
+/* 5 PACKAGES */
+.z-pkg{display:flex;gap:8px;align-items:flex-end}
+.z-pkg .c{width:38px;height:58px;border-radius:9px;background:var(--panel);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.z-pkg .c .e{font-size:14px}.z-pkg .c .p{font-size:9px;font-weight:800;color:var(--accent)}
+.z-pkg .c.mid{animation:pPop 2.6s ease-in-out infinite}
+@keyframes pPop{0%,100%{transform:translateY(0);box-shadow:none;border-color:var(--border)}50%{transform:translateY(-12px);box-shadow:0 8px 20px var(--accent-soft);border-color:var(--accent)}}
+
+/* 6 STEPS */
+.z-steps{display:flex;align-items:center}
+.z-steps .s{width:26px;height:26px;border-radius:50%;background:var(--inset);border:2px solid var(--border);display:grid;place-items:center;font-size:10px;font-weight:800;color:var(--text-3)}
+.z-steps .ln{width:16px;height:2px;background:var(--border)}
+.z-steps .s:nth-child(1){animation:stL 4s infinite}.z-steps .s:nth-child(3){animation:stL 4s infinite;animation-delay:1s}
+.z-steps .s:nth-child(5){animation:stL 4s infinite;animation-delay:2s}.z-steps .s:nth-child(7){animation:stL 4s infinite;animation-delay:3s}
+@keyframes stL{0%,8%{background:var(--accent);border-color:var(--accent);color:#fff;transform:scale(1.18)}30%,100%{background:var(--inset);border-color:var(--border);color:var(--text-3);transform:scale(1)}}
+
+/* 7 TRUST */
+.z-trust{display:flex;gap:11px}
+.z-trust .b{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--panel);border:1px solid var(--border);animation:bPop 3s ease-in-out infinite}
+.z-trust .b:nth-child(2){animation-delay:.3s}.z-trust .b:nth-child(3){animation-delay:.6s}
+.z-trust .b svg{width:20px;height:20px}
+.z-trust .b:nth-child(1){color:var(--teal)}.z-trust .b:nth-child(2){color:var(--amber)}.z-trust .b:nth-child(3){color:var(--accent)}
+@keyframes bPop{0%,100%{transform:scale(.82);opacity:.45}40%,72%{transform:scale(1);opacity:1}}
+
+/* 8 REVIEWS */
+.z-rev{text-align:center}
+.z-rev .st{display:flex;gap:3px;justify-content:center;margin-bottom:8px}
+.z-rev .st svg{width:18px;height:18px;animation:sFill 3s linear infinite}
+.z-rev .st svg:nth-child(2){animation-delay:.15s}.z-rev .st svg:nth-child(3){animation-delay:.3s}
+.z-rev .st svg:nth-child(4){animation-delay:.45s}.z-rev .st svg:nth-child(5){animation-delay:.6s}
+.z-rev .cap{font-size:10px;font-style:italic;color:var(--text-2)}
+@keyframes sFill{0%{fill:var(--border);color:var(--border)}20%,90%{fill:var(--amber);color:var(--amber)}100%{fill:var(--border);color:var(--border)}}
+
+/* 9 THEME */
+.z-theme{width:88px;height:44px;border-radius:100px;position:relative;overflow:hidden;border:1px solid var(--border);animation:thBg 4s ease-in-out infinite}
+.z-theme .knob{position:absolute;top:4px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;animation:thKn 4s ease-in-out infinite}
+.z-theme .knob svg{width:17px;height:17px}
+@keyframes thBg{0%,42%{background:#FEF3E7}58%,100%{background:#1A1A2E}}
+@keyframes thKn{0%,42%{left:5px;background:#FBBF24;color:#fff}58%,100%{left:49px;background:#0C0C14;color:#FBBF24}}
+
+/* 10 FAQ */
+.z-faq{width:78%;display:flex;flex-direction:column;gap:6px}
+.z-faq .q{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:7px 10px;display:flex;align-items:center;font-size:9px;font-weight:600;color:var(--text-2)}
+.z-faq .q .cv{margin-left:auto;color:var(--accent);animation:cvR 3.4s ease-in-out infinite}
+.z-faq .a{height:0;overflow:hidden;background:var(--inset);border-radius:6px;animation:fqO 3.4s ease-in-out infinite}
+@keyframes fqO{0%,18%{height:0}38%,72%{height:20px}90%,100%{height:0}}
+@keyframes cvR{0%,18%{transform:rotate(0)}38%,72%{transform:rotate(180deg)}90%,100%{transform:rotate(0)}}
+
+/* 11 CALL */
+.z-call{position:relative;width:52px;height:52px}
+.z-call .ph{position:absolute;inset:0;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:#fff;z-index:2;animation:rng 1.2s ease-in-out infinite}
+.z-call .ph svg{width:23px;height:23px}
+.z-call .pr{position:absolute;inset:0;border-radius:50%;border:2px solid var(--accent);animation:rPul 1.6s ease-out infinite}
+@keyframes rng{0%,100%{transform:rotate(0)}10%,50%{transform:rotate(-11deg)}30%{transform:rotate(11deg)}}
+@keyframes rPul{0%{transform:scale(1);opacity:.7}100%{transform:scale(2);opacity:0}}
+
+/* 12 WHATSAPP */
+.z-wa{position:relative;width:52px;height:52px}
+.z-wa .c{position:absolute;inset:0;border-radius:50%;background:#25D366;display:grid;place-items:center;color:#fff;z-index:2;animation:waB 2s ease-in-out infinite}
+.z-wa .c svg{width:26px;height:26px}
+.z-wa .pr{position:absolute;inset:0;border-radius:50%;border:2px solid #25D366;animation:rPul 1.8s ease-out infinite}
+@keyframes waB{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* 13 FORM */
+.z-form{width:72%;display:flex;flex-direction:column;gap:7px}
+.z-form .f{height:13px;border-radius:5px;background:var(--panel);border:1px solid var(--border);position:relative;overflow:hidden}
+.z-form .f::after{content:'';position:absolute;top:0;left:0;height:100%;width:0;background:var(--accent-soft);animation:tyI 3.6s ease-in-out infinite}
+.z-form .f:nth-child(2)::after{animation-delay:.4s}.z-form .f:nth-child(3)::after{animation-delay:.8s}
+.z-form .chk{align-self:flex-end;width:21px;height:21px;border-radius:6px;background:var(--teal);display:grid;place-items:center;color:#fff;opacity:0;animation:ckP 3.6s ease-in-out infinite;animation-delay:1.2s}
+.z-form .chk svg{width:13px;height:13px}
+@keyframes tyI{0%{width:0}30%,100%{width:88%}}
+@keyframes ckP{0%,38%{opacity:0;transform:scale(.4)}54%,88%{opacity:1;transform:scale(1)}100%{opacity:0}}
+
+/* 14 CITIES */
+.z-cities{position:relative;width:128px;height:80px;background:var(--panel);border:1px solid var(--border);border-radius:10px;overflow:hidden;background-image:linear-gradient(var(--border-2) 1px,transparent 1px),linear-gradient(90deg,var(--border-2) 1px,transparent 1px);background-size:16px 16px}
+.z-cities .pin{position:absolute;color:var(--accent);animation:pDr 3.2s ease-in-out infinite}
+.z-cities .pin svg{width:15px;height:15px}
+.z-cities .pin:nth-child(1){top:18px;left:22px}.z-cities .pin:nth-child(2){top:34px;left:62px;animation-delay:.5s}
+.z-cities .pin:nth-child(3){top:14px;left:92px;animation-delay:1s}.z-cities .pin:nth-child(4){top:50px;left:40px;animation-delay:1.5s}
+@keyframes pDr{0%,100%{transform:translateY(-16px);opacity:0}16%,84%{transform:translateY(0);opacity:1}}
+
+/* 15 SEO */
+.z-seo{width:80%}
+.z-seo .sb{display:flex;align-items:center;gap:6px;background:var(--panel);border:1px solid var(--border);border-radius:100px;padding:6px 12px}
+.z-seo .sb svg{width:12px;height:12px;color:var(--text-3);flex-shrink:0}
+.z-seo .sb .tx{font-size:9px;color:var(--text-2);overflow:hidden;white-space:nowrap;border-right:2px solid var(--accent);width:0;animation:tyT 4s steps(24) infinite}
+.z-seo .res{margin-top:8px;display:flex;align-items:center;gap:6px;opacity:0;animation:rS 4s ease-in-out infinite}
+.z-seo .res .dot{width:8px;height:8px;border-radius:2px;background:var(--accent)}
+.z-seo .res .ln{flex:1;height:6px;border-radius:3px;background:var(--border)}
+.z-seo .res .rk{font-size:9px;font-weight:800;color:var(--teal);white-space:nowrap}
+@keyframes tyT{0%{width:0}45%,100%{width:100%}}
+@keyframes rS{0%,48%{opacity:0;transform:translateY(6px)}62%,94%{opacity:1;transform:translateY(0)}100%{opacity:0}}
+
+/* 16 ANALYTICS */
+.z-chart{display:flex;align-items:flex-end;gap:7px;height:72px}
+.z-chart .bar{width:13px;height:72px;border-radius:4px 4px 0 0;background:var(--accent);transform-origin:bottom;animation:grw 2.6s ease-in-out infinite}
+.z-chart .bar:nth-child(2){background:var(--teal);animation-delay:.15s}.z-chart .bar:nth-child(3){animation-delay:.3s}
+.z-chart .bar:nth-child(4){background:var(--teal);animation-delay:.45s}.z-chart .bar:nth-child(5){animation-delay:.6s}
+.z-chart .bar:nth-child(6){background:var(--teal);animation-delay:.75s}
+@keyframes grw{0%,100%{transform:scaleY(.2)}50%{transform:scaleY(1)}}
+
+/* ===== OVERVIEW (at a glance) ===== */
+.ov-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:760px){.ov-grid{grid-template-columns:repeat(3,1fr)}}
+.ov{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:26px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.ov:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px);border-color:var(--accent)}
+.ov-ico{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;font-size:1.5rem;margin-bottom:16px}
+.ov.design .ov-ico{background:var(--blue-soft)}
+.ov.convert .ov-ico{background:var(--accent-soft)}
+.ov.find .ov-ico{background:var(--teal-soft)}
+.ov h3{font-size:1.15rem;font-weight:700;margin-bottom:6px}
+.ov p{font-size:.86rem;color:var(--text-2);line-height:1.6;margin-bottom:16px}
+.ov-foot{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid var(--border-2)}
+.ov-cnt{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:800}
+.ov.design .ov-cnt{color:var(--blue)}.ov.convert .ov-cnt{color:var(--accent)}.ov.find .ov-cnt{color:var(--teal)}
+.ov-cnt small{font-family:'Plus Jakarta Sans',sans-serif;font-size:.74rem;font-weight:500;color:var(--text-3);margin-left:4px}
+.ov-go{font-size:.78rem;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:5px}
+.ov-go svg{width:14px;height:14px}
+
+/* ===== GEO SECTION ===== */
+.geo{background:var(--grad-dark);color:#fff;position:relative;overflow:hidden}
+.geo::before{content:'';position:absolute;top:-30%;left:-10%;width:520px;height:520px;background:radial-gradient(circle,rgba(124,92,252,.18),transparent 70%);border-radius:50%}
+.geo::after{content:'';position:absolute;bottom:-30%;right:-10%;width:480px;height:480px;background:radial-gradient(circle,var(--accent-soft),transparent 70%);border-radius:50%}
+.geo .sec-head{position:relative;z-index:2}
+.geo .sec-head h2{color:#fff}
+.geo .sec-head p{color:rgba(255,255,255,.65)}
+.geo .sec-label{background:rgba(124,92,252,.2);border-color:#7c5cfc;color:#c4b5fd}
+.geo-wrap{position:relative;z-index:2;display:grid;grid-template-columns:1fr;gap:34px;align-items:center}
+@media(min-width:920px){.geo-wrap{grid-template-columns:1.1fr 1fr}}
+
+/* SEO vs GEO compare */
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:26px}
+.sg-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:20px}
+.sg-card .t{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px}
+.sg-card.seo .t{color:#60a5fa}.sg-card.geo-c .t{color:#c4b5fd}
+.sg-card h4{font-size:1.05rem;font-weight:700;margin-bottom:6px;color:#fff}
+.sg-card p{font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.6}
+.geo-points{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:560px){.geo-points{grid-template-columns:1fr 1fr}}
+.gp{display:flex;align-items:flex-start;gap:9px;font-size:.86rem;color:rgba(255,255,255,.85);line-height:1.5}
+.gp svg{width:17px;height:17px;color:#3DDBB5;flex-shrink:0;margin-top:2px}
+
+/* AI CHAT MOCK */
+.geo-chat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:22px;backdrop-filter:blur(12px);box-shadow:0 20px 60px rgba(0,0,0,.4);max-width:440px;margin:0 auto;width:100%}
+.gc-head{display:flex;align-items:center;gap:9px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:16px;font-size:.84rem;font-weight:700;color:#fff}
+.gc-spark{width:28px;height:28px;border-radius:9px;background:linear-gradient(135deg,#7c5cfc,#E05A3A);display:grid;place-items:center;font-size:14px}
+.gc-head small{font-weight:500;color:rgba(255,255,255,.45);font-size:.72rem;margin-left:auto}
+.gc-q{background:rgba(255,255,255,.1);border-radius:14px 14px 14px 4px;padding:11px 15px;font-size:.86rem;color:#fff;max-width:85%;margin-bottom:16px;opacity:0;animation:gcQ 9s ease-in-out infinite}
+.gc-dots{display:flex;gap:5px;padding:4px 2px;margin-bottom:8px;opacity:0;animation:gcDots 9s ease-in-out infinite}
+.gc-dots span{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.5);animation:dotB 1.2s ease-in-out infinite}
+.gc-dots span:nth-child(2){animation-delay:.2s}.gc-dots span:nth-child(3){animation-delay:.4s}
+@keyframes dotB{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(-5px);opacity:1}}
+.gc-ans{background:linear-gradient(135deg,rgba(124,92,252,.18),rgba(224,90,58,.12));border:1px solid rgba(255,255,255,.12);border-radius:4px 14px 14px 14px;padding:14px 16px;font-size:.86rem;line-height:1.6;color:rgba(255,255,255,.9);opacity:0;animation:gcA 9s ease-in-out infinite}
+.gc-ans b{color:#fff;background:var(--accent);padding:1px 6px;border-radius:5px;font-weight:700;white-space:nowrap}
+.gc-cite{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:.74rem;font-weight:700;color:#3DDBB5;background:rgba(61,219,181,.12);border:1px solid rgba(61,219,181,.3);padding:6px 12px;border-radius:100px;opacity:0;animation:gcCite 9s ease-in-out infinite}
+.gc-cite svg{width:13px;height:13px}
+@keyframes gcQ{0%{opacity:0;transform:translateY(10px)}7%{opacity:1;transform:translateY(0)}90%{opacity:1}97%,100%{opacity:0}}
+@keyframes gcDots{0%,13%{opacity:0}17%{opacity:1}30%{opacity:1}34%,100%{opacity:0}}
+@keyframes gcA{0%,33%{opacity:0;transform:translateY(8px)}42%{opacity:1;transform:translateY(0)}90%{opacity:1}97%,100%{opacity:0}}
+@keyframes gcCite{0%,46%{opacity:0;transform:scale(.7)}54%{opacity:1;transform:scale(1)}90%{opacity:1}97%,100%{opacity:0}}
+
+/* ===== CATEGORY FILTER ===== */
+.filter-wrap{display:flex;flex-direction:column;gap:14px;align-items:center;margin-bottom:34px}
+.filter-grp{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
+.filter-lbl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-3)}
+
+/* ===== NEW TILE VISUALS ===== */
+/* GEO — AI cites Biocity */
+.z-geo{width:82%}
+.z-geo .ai{display:flex;align-items:center;gap:6px;margin-bottom:7px;font-size:9px;font-weight:700;color:var(--text-2)}
+.z-geo .ai .sp{width:17px;height:17px;border-radius:5px;background:linear-gradient(135deg,#7c5cfc,#E05A3A);display:grid;place-items:center;color:#fff;font-size:9px}
+.z-geo .bub{background:var(--panel);border:1px solid var(--border);border-radius:9px;padding:9px 11px}
+.z-geo .ln{height:5px;border-radius:3px;background:var(--border);margin-bottom:5px}
+.z-geo .ln.w1{width:92%}.z-geo .ln.w2{width:68%;margin-bottom:0}
+.z-geo .cite{display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-size:8px;font-weight:800;color:var(--teal);background:var(--teal-soft);padding:3px 9px;border-radius:100px;opacity:0;animation:gPop 3.6s ease-in-out infinite}
+.z-geo .cite::before{content:'🔗';font-size:8px}
+@keyframes gPop{0%,42%{opacity:0;transform:scale(.5)}56%,90%{opacity:1;transform:scale(1)}100%{opacity:0}}
+/* Q&A */
+.z-qa{width:78%;display:flex;flex-direction:column;gap:8px}
+.z-qa .q,.z-qa .a{display:flex;gap:7px;align-items:flex-start}
+.z-qa .q b,.z-qa .a b{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-size:9px;font-weight:800;color:#fff;flex-shrink:0}
+.z-qa .q b{background:var(--accent)}.z-qa .a b{background:var(--teal)}
+.z-qa .q .tx{font-size:9px;font-weight:700;color:var(--text);padding-top:2px}
+.z-qa .a{opacity:0;animation:qaA 3.6s ease-in-out infinite}
+.z-qa .a .lines{flex:1;padding-top:3px}
+.z-qa .a .lines i{display:block;height:4px;border-radius:2px;background:var(--border);margin-bottom:4px}
+.z-qa .a .lines i:nth-child(2){width:75%}
+@keyframes qaA{0%,30%{opacity:0;transform:translateY(6px)}45%,90%{opacity:1;transform:translateY(0)}100%{opacity:0}}
+/* SCHEMA */
+.z-schema{font-family:ui-monospace,monospace;font-size:9px;background:var(--panel);border:1px solid var(--border);border-radius:9px;padding:11px 13px;width:80%;line-height:1.7}
+.z-schema .r{opacity:0;animation:scR 4s ease-in-out infinite;white-space:nowrap}
+.z-schema .r:nth-child(2){animation-delay:.3s}.z-schema .r:nth-child(3){animation-delay:.6s}.z-schema .r:nth-child(4){animation-delay:.9s}
+.z-schema .k{color:var(--accent)}.z-schema .v{color:var(--teal)}.z-schema .b{color:var(--text-3)}
+@keyframes scR{0%,8%{opacity:0;transform:translateX(-6px)}24%,92%{opacity:1;transform:translateX(0)}100%{opacity:1}}
+/* AUTHORITY */
+.z-auth{position:relative;width:120px;height:84px;display:grid;place-items:center}
+.z-auth .core{width:40px;height:40px;border-radius:12px;background:var(--accent);color:#fff;display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:800;font-size:16px;z-index:2;box-shadow:0 4px 14px var(--accent-soft)}
+.z-auth .pr{position:absolute;width:40px;height:40px;border-radius:12px;border:2px solid var(--accent);animation:rPul 2s ease-out infinite}
+.z-auth .chip{position:absolute;font-size:7px;font-weight:700;background:var(--panel);border:1px solid var(--border);border-radius:100px;padding:3px 7px;color:var(--text-2);animation:chF 3.2s ease-in-out infinite}
+.z-auth .chip:nth-child(3){top:2px;left:0}.z-auth .chip:nth-child(4){top:6px;right:0;animation-delay:.5s}
+.z-auth .chip:nth-child(5){bottom:4px;left:6px;animation-delay:1s}.z-auth .chip:nth-child(6){bottom:0;right:8px;animation-delay:1.5s}
+@keyframes chF{0%,100%{opacity:.25;transform:scale(.85)}40%,70%{opacity:1;transform:scale(1)}}
+
+/* ===== CARD ACTIONS ===== */
+.card-actions{display:flex;align-items:center;gap:12px;margin-top:14px;flex-wrap:wrap}
+.card-demo-btn{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;font-weight:700;color:#fff;background:var(--accent);padding:8px 14px;border-radius:100px;transition:all .2s}
+.card-demo-btn:hover{background:var(--accent-h);transform:translateY(-1px)}
+.card-toggle{display:flex;align-items:center;gap:6px;font-size:.8rem;font-weight:700;color:var(--text-3)}
+.card-toggle svg{width:15px;height:15px;transition:transform .3s}
+.card.open .card-toggle svg{transform:rotate(180deg)}
+
+/* ===== DEMO MODAL ===== */
+.demo-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:3000;display:none;align-items:flex-start;justify-content:center;padding:34px 18px;overflow-y:auto}
+.demo-bg.on{display:flex}
+.demo-modal{background:var(--panel);border:1px solid var(--border);border-radius:24px;max-width:680px;width:100%;animation:dmIn .4s cubic-bezier(.34,1.56,.64,1);overflow:hidden}
+@keyframes dmIn{from{opacity:0;transform:scale(.94) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.demo-head{display:flex;align-items:flex-start;gap:14px;padding:24px 26px;border-bottom:1px solid var(--border);position:relative}
+.demo-head .em{font-size:1.9rem;flex-shrink:0}
+.demo-head h3{font-size:1.3rem;font-weight:700;margin-bottom:3px}
+.demo-head p{font-size:.82rem;color:var(--text-3)}
+.demo-chips{display:flex;gap:6px;margin-top:9px}
+.demo-chip{font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding:4px 10px;border-radius:100px}
+.demo-x{position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:50%;background:var(--inset);display:grid;place-items:center;color:var(--text-3);transition:all .2s}
+.demo-x:hover{background:var(--accent-soft);color:var(--accent)}.demo-x svg{width:17px;height:17px}
+.demo-stage{padding:30px 26px;background:
+  radial-gradient(circle at 20% 20%,var(--accent-soft),transparent 45%),
+  radial-gradient(circle at 80% 80%,var(--teal-soft),transparent 45%),var(--panel-2);
+  display:flex;align-items:center;justify-content:center;min-height:240px}
+.demo-foot{padding:14px 26px;border-top:1px solid var(--border);font-size:.78rem;color:var(--text-3);display:flex;align-items:center;gap:8px}
+.demo-foot svg{width:15px;height:15px;color:var(--accent);flex-shrink:0}
+.demo-stage>*{width:100%}
+
+/* ===== DEMO ELEMENT STYLES ===== */
+.d-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+/* look */
+.d-style{display:flex;flex-direction:column;gap:16px}
+.d-row{display:flex;gap:10px}
+.d-sw{flex:1;height:64px;border-radius:12px;color:#fff;padding:9px 11px;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid var(--border)}
+.d-sw span{font-size:.78rem;font-weight:700}.d-sw small{font-size:.64rem;opacity:.8;font-family:ui-monospace,monospace}
+.d-type{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px}
+.d-type-h{font-family:'Fraunces',serif;font-size:1.7rem;font-weight:800;letter-spacing:-.02em}
+.d-type-b{font-size:.86rem;color:var(--text-2);margin-top:6px}
+.d-btns{display:flex;gap:10px}
+.d-b1{background:var(--accent);color:#fff;font-weight:700;font-size:.84rem;padding:11px 22px;border-radius:100px}
+.d-b2{border:1.5px solid var(--border-strong);color:var(--text);font-weight:700;font-size:.84rem;padding:11px 22px;border-radius:100px}
+/* phone */
+.d-phone{width:230px;margin:0 auto;border:9px solid var(--text);border-radius:30px;overflow:hidden;box-shadow:var(--shadow-lg);background:#FAF9F6;position:relative}
+.d-phone-top{height:18px;background:var(--text);position:relative}
+.d-phone-top::after{content:'';position:absolute;left:50%;top:5px;transform:translateX(-50%);width:50px;height:5px;border-radius:5px;background:rgba(255,255,255,.3)}
+.d-phone-scr{height:330px;overflow:hidden;background:#FAF9F6;color:#1A1A2E}
+.d-mnav{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;font-family:'Fraunces',serif;font-weight:800;font-size:13px;background:#fff;border-bottom:1px solid #eee}
+.d-mnav span{color:#1A1A2E}.d-mnav i{color:#E05A3A}.d-mnav em{font-style:normal;color:#1A1A2E}
+.d-mhero{padding:18px 14px;background:linear-gradient(165deg,#FAF9F6,#FFF5F3)}
+.d-mhero .d-badge{display:inline-block;font-size:7px;font-weight:700;color:#0D9B7A;background:rgba(13,155,122,.1);padding:3px 8px;border-radius:100px;margin-bottom:8px}
+.d-mhero h4{font-family:'Fraunces',serif;font-size:16px;font-weight:800;color:#1A1A2E;line-height:1.15}
+.d-mhero .d-mb{display:inline-block;margin-top:10px;background:#E05A3A;color:#fff;font-size:9px;font-weight:700;padding:7px 14px;border-radius:100px}
+.d-mcards{display:flex;gap:7px;padding:12px 14px}
+.d-mcards div{flex:1;background:#fff;border:1px solid #eee;border-radius:9px;padding:9px;font-size:9px;font-weight:700;text-align:center;color:#1A1A2E}
+.d-mcards div b{display:block;color:#E05A3A;font-family:'Fraunces',serif;margin-top:3px}
+/* speed */
+.d-speed{display:flex;flex-direction:column;gap:18px;align-items:center}
+.d-gauge{width:120px;height:120px;border-radius:50%;background:conic-gradient(var(--teal) 0 96%,var(--inset) 96% 100%);display:grid;place-items:center;position:relative}
+.d-gauge::after{content:'';position:absolute;inset:11px;border-radius:50%;background:var(--panel)}
+.d-gauge-in{position:relative;z-index:2;text-align:center}
+.d-gauge-in b{font-family:'Fraunces',serif;font-size:2rem;font-weight:800;color:var(--teal);display:block;line-height:1}
+.d-gauge-in small{font-size:.66rem;color:var(--text-3)}
+.d-bars{width:100%;display:flex;flex-direction:column;gap:10px}
+.d-bline{display:flex;align-items:center;gap:10px;font-size:.8rem}
+.d-bline span{width:60px;color:var(--text-2);font-weight:600}
+.d-track{flex:1;height:10px;background:var(--inset);border-radius:6px;overflow:hidden}
+.d-fill{height:100%;border-radius:6px}
+.d-fill.old{width:100%;background:var(--rose)}.d-fill.new{width:23%;background:var(--teal)}
+.d-bline b{width:42px;text-align:right;font-family:'Fraunces',serif;font-weight:800}
+.d-cwv{font-size:.82rem;color:var(--text-2)}
+/* nav */
+.d-navd{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--border);border-radius:100px;padding:10px 10px 10px 20px;box-shadow:var(--shadow)}
+.d-navd .lg{font-family:'Fraunces',serif;font-weight:800;font-size:1rem}.d-navd .lg i{color:var(--accent);font-style:normal}
+.d-navd .nl{font-size:.78rem;font-weight:500;color:var(--text-2);padding:6px 10px;border-radius:100px}
+.d-navd .nl.on{background:var(--accent-soft);color:var(--accent)}
+.d-navd .ncta{margin-left:auto;background:var(--accent);color:#fff;font-size:.78rem;font-weight:700;padding:8px 18px;border-radius:100px}
+/* generic package cards */
+.d-pkgs{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%}
+.d-pk{background:var(--panel);border:1.5px solid var(--border);border-radius:14px;padding:16px;position:relative}
+.d-pk.pop{border-color:var(--accent)}
+.d-pk .rib{position:absolute;top:12px;right:12px;font-size:.6rem;font-weight:800;color:#fff;background:var(--accent);padding:3px 9px;border-radius:100px}
+.d-pk .e{font-size:1.4rem}.d-pk h5{font-size:.92rem;font-weight:700;margin:6px 0 2px}
+.d-pk .pr{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:800;color:var(--accent)}
+.d-pk .pr s{font-size:.74rem;color:var(--text-3);font-family:'Plus Jakarta Sans';font-weight:500;margin-left:5px}
+.d-pk ul{margin-top:8px;display:flex;flex-direction:column;gap:5px}
+.d-pk li{font-size:.72rem;color:var(--text-2);display:flex;gap:5px;align-items:center}
+.d-pk li::before{content:'✓';color:var(--teal);font-weight:800}
+.d-pk .pb{display:block;text-align:center;margin-top:11px;font-size:.74rem;font-weight:700;padding:8px;border-radius:100px;border:1.5px solid var(--accent);color:var(--accent)}
+.d-pk.pop .pb{background:var(--accent);color:#fff}
+/* steps */
+.d-steps{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;width:100%}
+.d-st{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center}
+.d-st .n{width:36px;height:36px;border-radius:10px;background:var(--accent);color:#fff;font-family:'Fraunces',serif;font-weight:800;display:grid;place-items:center;margin:0 auto 10px}
+.d-st h5{font-size:.86rem;font-weight:700;margin-bottom:3px}.d-st p{font-size:.72rem;color:var(--text-2)}
+/* trust */
+.d-trust{display:flex;flex-direction:column;gap:16px;width:100%}
+.d-tbadges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.d-tb{display:flex;align-items:center;gap:7px;background:var(--panel);border:1px solid var(--border);border-radius:100px;padding:9px 16px;font-size:.8rem;font-weight:700}
+.d-tstats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.d-ts{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:14px;text-align:center}
+.d-ts b{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:800;color:var(--accent);display:block}
+.d-ts small{font-size:.66rem;color:var(--text-3)}
+/* reviews */
+.d-rev{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:20px;width:100%}
+.d-rev .stars{display:flex;gap:3px;margin-bottom:12px}.d-rev .stars svg{width:18px;height:18px;fill:var(--amber);color:var(--amber)}
+.d-rev q{font-size:.92rem;font-style:italic;color:var(--text-2);line-height:1.7;display:block;margin-bottom:14px}
+.d-rev .who{display:flex;align-items:center;gap:10px}
+.d-rev .av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#FF9478);color:#fff;display:grid;place-items:center;font-weight:700}
+.d-rev .nm{font-size:.84rem;font-weight:700}.d-rev .lc{font-size:.72rem;color:var(--text-3)}
+/* theme toggle demo */
+.d-theme{display:flex;flex-direction:column;align-items:center;gap:16px}
+.d-tcard{width:100%;border-radius:16px;padding:20px;border:1px solid var(--border);transition:all .4s;background:#FAF9F6;color:#1A1A2E}
+.d-tcard.dark{background:#16161F;color:#F0EDE8;border-color:rgba(255,255,255,.1)}
+.d-tcard h5{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:800}
+.d-tcard p{font-size:.82rem;opacity:.7;margin-top:5px}
+.d-tswitch{display:inline-flex;align-items:center;gap:9px;cursor:pointer;background:var(--accent);color:#fff;font-weight:700;font-size:.82rem;padding:10px 20px;border-radius:100px}
+/* faq */
+.d-faq{width:100%;display:flex;flex-direction:column;gap:9px}
+.d-fq{background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.d-fq .q{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;font-size:.86rem;font-weight:600;cursor:pointer}
+.d-fq .q svg{width:17px;height:17px;color:var(--accent);transition:transform .3s}
+.d-fq.open .q svg{transform:rotate(180deg)}
+.d-fq .a{max-height:0;overflow:hidden;transition:max-height .35s;font-size:.82rem;color:var(--text-2)}
+.d-fq.open .a{max-height:120px}
+.d-fq .a div{padding:0 16px 14px;line-height:1.6}
+/* call */
+.d-call{display:flex;flex-direction:column;align-items:center;gap:16px}
+.d-callbtn{display:inline-flex;align-items:center;gap:9px;background:var(--accent);color:#fff;font-weight:700;font-size:1rem;padding:15px 30px;border-radius:100px;box-shadow:0 6px 24px var(--accent-soft)}
+.d-callbtn svg{width:19px;height:19px}
+.d-callfab{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:12px 16px}
+.d-callfab .ic{width:40px;height:40px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center}
+.d-callfab .ic svg{width:18px;height:18px}
+.d-callfab .tx{font-size:.78rem}.d-callfab .tx b{display:block;font-size:.88rem}
+/* whatsapp */
+.d-wa{width:100%;max-width:300px;margin:0 auto;background:#e5ddd5;border-radius:16px;overflow:hidden;border:1px solid var(--border)}
+[data-theme="dark"] .d-wa{background:#0b141a}
+.d-wa-top{background:#075E54;color:#fff;padding:11px 14px;display:flex;align-items:center;gap:9px;font-size:.84rem;font-weight:600}
+.d-wa-top .ic{width:30px;height:30px;border-radius:50%;background:#25D366;display:grid;place-items:center}
+.d-wa-top .ic svg{width:16px;height:16px;color:#fff}
+.d-wa-body{padding:14px;display:flex;flex-direction:column;gap:8px;min-height:120px}
+.d-wb{max-width:80%;padding:8px 11px;border-radius:10px;font-size:.78rem;line-height:1.4}
+.d-wb.in{background:#fff;align-self:flex-start;color:#1A1A2E}
+.d-wb.out{background:#dcf8c6;align-self:flex-end;color:#1A1A2E}
+/* form */
+.d-form{width:100%;background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:20px}
+.d-form h5{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:800;margin-bottom:14px}
+.d-fr{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.d-fi{display:flex;flex-direction:column;gap:4px}
+.d-fi label{font-size:.68rem;font-weight:700;color:var(--text-2)}
+.d-fi .box{height:36px;border:1px solid var(--border);border-radius:9px;background:var(--bg);display:flex;align-items:center;padding:0 11px;font-size:.78rem;color:var(--text-3)}
+.d-fi .box.fill{color:var(--text);border-color:var(--accent)}
+.d-fsub{width:100%;background:var(--accent);color:#fff;font-weight:700;font-size:.86rem;padding:12px;border-radius:100px;text-align:center;margin-top:5px}
+/* cities */
+.d-cities{width:100%;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.d-cy{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:14px}
+.d-cy h6{font-size:.8rem;font-weight:700;margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.d-cy h6::before{content:'';width:3px;height:14px;background:var(--accent);border-radius:2px}
+.d-cy span{display:inline-block;font-size:.7rem;color:var(--text-2);background:var(--inset);padding:2px 8px;border-radius:100px;margin:2px}
+/* SERP */
+.d-serp{width:100%;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px}
+.d-serp .url{font-size:.74rem;color:var(--teal);display:flex;align-items:center;gap:6px}
+.d-serp .url .fav{width:16px;height:16px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:9px;font-weight:800}
+.d-serp .ti{font-size:1.05rem;color:var(--blue);font-weight:600;margin:5px 0 4px}
+.d-serp .rt{display:flex;align-items:center;gap:5px;font-size:.76rem;color:var(--text-2);margin-bottom:5px}
+.d-serp .rt .st{color:var(--amber);letter-spacing:1px}
+.d-serp .ds{font-size:.8rem;color:var(--text-2);line-height:1.5}
+.d-serp .sl{display:flex;gap:14px;margin-top:9px;flex-wrap:wrap}
+.d-serp .sl a{font-size:.74rem;color:var(--blue);font-weight:600}
+/* analytics */
+.d-dash{width:100%;display:flex;flex-direction:column;gap:12px}
+.d-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.d-kpi{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:12px}
+.d-kpi b{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:800;display:block}
+.d-kpi small{font-size:.64rem;color:var(--text-3)}
+.d-kpi .up{font-size:.66rem;font-weight:700;color:var(--teal)}
+.d-chart2{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:14px;display:flex;align-items:flex-end;gap:8px;height:110px}
+.d-chart2 span{flex:1;border-radius:4px 4px 0 0;background:var(--accent)}
+.d-chart2 span:nth-child(even){background:var(--teal)}
+/* GEO / AI answer */
+.d-ai{width:100%;background:var(--panel);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.d-ai-top{display:flex;align-items:center;gap:9px;padding:12px 16px;border-bottom:1px solid var(--border);font-size:.84rem;font-weight:700}
+.d-ai-top .sp{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,#7c5cfc,#E05A3A);display:grid;place-items:center;font-size:13px}
+.d-ai-top small{margin-left:auto;color:var(--text-3);font-weight:500;font-size:.7rem}
+.d-ai-body{padding:16px}
+.d-ai-q{font-size:.84rem;font-weight:700;margin-bottom:10px}
+.d-ai-a{font-size:.84rem;color:var(--text-2);line-height:1.65}
+.d-ai-a b{color:var(--text);background:var(--accent-soft);padding:1px 5px;border-radius:4px}
+.d-ai-cites{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.d-ai-cite{display:flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;color:var(--teal);background:var(--teal-soft);border:1px solid var(--teal);padding:5px 11px;border-radius:100px}
+.d-ai-cite .n{width:16px;height:16px;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;font-size:9px}
+/* schema code */
+.d-code{width:100%;background:#0f1117;border:1px solid var(--border);border-radius:14px;padding:16px;font-family:ui-monospace,monospace;font-size:.76rem;line-height:1.7;color:#c9d1d9;overflow-x:auto}
+.d-code .k{color:#ff7b72}.d-code .s{color:#7ee787}.d-code .p{color:#79c0ff}
+.d-richrow{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:.78rem;color:var(--text-2)}
+.d-richrow .st{color:var(--amber)}
+/* authority */
+.d-auth{width:100%;display:flex;flex-direction:column;align-items:center;gap:18px}
+.d-auth-core{display:flex;align-items:center;gap:10px;background:var(--accent);color:#fff;padding:12px 22px;border-radius:14px;font-family:'Fraunces',serif;font-weight:800;font-size:1.1rem;box-shadow:0 6px 24px var(--accent-soft)}
+.d-auth-sources{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.d-as{display:flex;align-items:center;gap:7px;background:var(--panel);border:1px solid var(--border);border-radius:100px;padding:8px 15px;font-size:.78rem;font-weight:600}
+.d-as .dot{width:8px;height:8px;border-radius:50%;background:var(--teal)}
+
+/* ===== CONTENT STRATEGY ===== */
+.cs-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:22px}
+@media(min-width:860px){.cs-grid{grid-template-columns:repeat(3,1fr)}}
+.cs-card{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:24px;transition:all .3s}
+.cs-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px);border-color:var(--accent)}
+.cs-ico{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;font-size:1.4rem;margin-bottom:14px}
+.cs-card:nth-child(1) .cs-ico{background:var(--accent-soft)}
+.cs-card:nth-child(2) .cs-ico{background:var(--teal-soft)}
+.cs-card:nth-child(3) .cs-ico{background:var(--blue-soft)}
+.cs-card h3{font-size:1.12rem;font-weight:700;margin-bottom:6px}
+.cs-card>p{font-size:.85rem;color:var(--text-2);line-height:1.6;margin-bottom:14px}
+.cs-ex{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.cs-ex span{font-size:.72rem;font-weight:600;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent);padding:4px 10px;border-radius:8px}
+.cs-stat{font-size:.78rem;color:var(--text-3);padding-top:13px;border-top:1px solid var(--border-2)}
+.cs-stat b{font-family:'Space Grotesk',sans-serif;color:var(--text);font-size:1.05rem}
+.cs-matrix{background:var(--grad-dark);border-radius:20px;padding:30px 24px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;color:#fff;position:relative;overflow:hidden}
+.cs-matrix::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 30%,rgba(124,124,255,.2),transparent 55%);pointer-events:none}
+.cs-m{text-align:center;position:relative;z-index:2}
+.cs-m b{display:block;font-family:'Space Grotesk',sans-serif;font-size:1.7rem;font-weight:700;line-height:1}
+.cs-m small{font-size:.66rem;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:1.2px}
+.cs-op{font-size:1.3rem;font-weight:700;color:#8B8BFF;position:relative;z-index:2}
+.cs-total{text-align:center;position:relative;z-index:2;padding-left:8px}
+.cs-total b{display:block;font-family:'Space Grotesk',sans-serif;font-size:2.6rem;font-weight:700;line-height:1;background:linear-gradient(135deg,#fff,#9A9AFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cs-total small{font-size:.7rem;color:#9A9AFF;text-transform:uppercase;letter-spacing:1.2px;font-weight:700}
+.cs-note{text-align:center;font-size:.8rem;color:var(--text-3);margin-top:16px}
+
+/* ===== NEW TILE VISUALS ===== */
+.z-city2{width:84%;text-align:center}
+.z-city2 .cp{font-size:11px;font-weight:700;color:var(--text);background:var(--panel);border:1px solid var(--border);border-radius:9px;padding:11px 10px}
+.z-city2 .cyc{position:relative;display:inline-block;min-width:58px;height:14px;text-align:left;vertical-align:bottom}
+.z-city2 .cyc span{position:absolute;left:0;top:0;color:var(--accent);opacity:0;animation:cyc 6s infinite}
+@keyframes cyc{0%{opacity:0;transform:translateY(6px)}4%,20%{opacity:1;transform:translateY(0)}25%,100%{opacity:0}}
+.z-cond{display:flex;flex-direction:column;gap:7px}
+.z-cond span{font-size:9px;font-weight:700;padding:7px 13px;border-radius:8px;background:var(--inset);color:var(--text-2);animation:condHi 4s infinite}
+.z-cond span:nth-child(2){animation-delay:1.3s}.z-cond span:nth-child(3){animation-delay:2.6s}
+@keyframes condHi{0%,100%{background:var(--inset);color:var(--text-2)}12%,28%{background:var(--accent);color:#fff;transform:translateX(5px)}}
+.z-age{display:flex;gap:6px}
+.z-age span{font-size:9px;font-weight:700;width:38px;text-align:center;padding:8px 0;border-radius:9px;background:var(--panel);border:1px solid var(--border);color:var(--text-2);animation:ageHi 4s infinite}
+.z-age span:nth-child(2){animation-delay:1s}.z-age span:nth-child(3){animation-delay:2s}.z-age span:nth-child(4){animation-delay:3s}
+@keyframes ageHi{0%,100%{background:var(--panel);color:var(--text-2);transform:scale(1)}10%,22%{background:var(--accent);color:#fff;transform:scale(1.14)}}
+.z-blog{display:flex;flex-direction:column;gap:7px;width:80%}
+.z-blog .ar{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 8px;animation:blogIn 4s infinite}
+.z-blog .ar:nth-child(2){animation-delay:1.3s}.z-blog .ar:nth-child(3){animation-delay:2.6s}
+.z-blog .ar i{width:18px;height:18px;border-radius:5px;background:var(--accent-soft);flex-shrink:0}
+.z-blog .ar b{flex:1;height:6px;border-radius:3px;background:var(--inset)}
+@keyframes blogIn{0%,100%{transform:translateX(0)}12%,28%{transform:translateX(5px)}12%{border-color:var(--accent)}}
+
+/* ===== DEMO: LANDING PAGE ===== */
+.d-lp{width:100%;background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.d-lp .h{padding:18px;background:linear-gradient(135deg,var(--accent-soft),transparent)}
+.d-lp .crumb{font-size:.7rem;color:var(--text-3);margin-bottom:6px}
+.d-lp h5{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:800;line-height:1.15}
+.d-lp .sub{font-size:.8rem;color:var(--text-2);margin-top:6px;line-height:1.5}
+.d-lp .body{padding:14px 18px;display:flex;gap:7px;flex-wrap:wrap}
+.d-chip{font-size:.72rem;font-weight:600;color:var(--text-2);background:var(--inset);padding:5px 11px;border-radius:100px}
+
+/* ===== DEMO: BLOG HUB ===== */
+.d-blog{width:100%;background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.d-blog-h{padding:16px 18px;background:linear-gradient(135deg,var(--accent-soft),transparent)}
+.d-blog-h h5{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:800;margin-top:8px}
+.d-blog-list{padding:12px;display:flex;flex-direction:column;gap:10px}
+.d-art{background:var(--panel-2);border:1px solid var(--border-2);border-radius:11px;padding:13px 15px;transition:all .25s;cursor:default}
+.d-art:hover{border-color:var(--accent);transform:translateX(4px)}
+.d-art .tag{display:inline-block;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--accent);background:var(--accent-soft);padding:3px 9px;border-radius:100px;margin-bottom:8px}
+.d-art h6{font-size:.92rem;font-weight:700;line-height:1.3;color:var(--text)}
+.d-art .meta{font-size:.72rem;color:var(--text-3);margin-top:7px}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .65s cubic-bezier(.4,0,.2,1),transform .65s cubic-bezier(.4,0,.2,1)}
+.rv.v{opacity:1;transform:translateY(0)}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-thumb{background:var(--text-3);border-radius:4px}
+</style>
+</head>
+<body>
+<!-- TOPBAR -->
+<header class="top" id="top"><div class="wrap top-in">
+  <div class="brand"><div class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>Bio<span>city</span></div>
+  <div class="top-right">
+    <span class="top-tag">Strategic Proposal · Phase 1A</span>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Theme">
+      <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+  </div>
+</div></header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-orb a"></div><div class="hero-orb b"></div>
+  <div class="wrap hero-in">
+    <div class="pill"><span class="dot"></span> Strategic Proposal · Website Revamp · Phase 1A</div>
+    <h1>Here's how we make<br>biocity<span class="ac">healthcare.com</span><br><span class="it">work like magic.</span></h1>
+    <p>A plain-English tour of every change we'll make to your website — beautifully designed, built to win bookings, and engineered to be found on <strong>Google</strong> and recommended by <strong>AI assistants</strong> like ChatGPT &amp; Gemini.</p>
+    <div class="hero-cta">
+      <a href="#preview" class="btn btn-fill">See The Preview <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="#changes" class="btn btn-ghost">The Full Checklist</a>
+    </div>
+    <div class="hero-meta">
+      <div class="m"><div class="mv" id="mTotal">0</div><div class="ml">Total Improvements</div></div>
+      <div class="m"><div class="mv">3</div><div class="ml">Effort Levels</div></div>
+      <div class="m"><div class="mv">1</div><div class="ml">Beautiful Website</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LEGEND -->
+<section class="sec" id="legend"><div class="wrap">
+  <div class="sec-head rv">
+    <div class="sec-label">01 · How To Read</div>
+    <h2>Every change has an effort level</h2>
+    <p>We've sorted everything into three buckets so you know at a glance what's a quick win and what's a bigger lift.</p>
+  </div>
+  <div class="legend">
+    <div class="leg low rv"><div class="leg-ico">🟢</div><div><h4>Low Effort</h4><p>Quick wins. Small tweaks that instantly make the site cleaner and easier to use.</p></div></div>
+    <div class="leg med rv"><div class="leg-ico">🟡</div><div><h4>Medium Effort</h4><p>Solid upgrades. New sections and features that need design and build time.</p></div></div>
+    <div class="leg high rv"><div class="leg-ico">🔴</div><div><h4>High Effort</h4><p>The heavy lifting. Core rebuilds that transform how the whole site looks and feels.</p></div></div>
+  </div>
+</div></section>
+
+<!-- SITE PREVIEW (self-contained) -->
+<section class="sec vis" id="preview"><div class="wrap">
+  <div class="sec-head rv">
+    <div class="sec-label">02 · See It In Action</div>
+    <h2>The new website, on every screen</h2>
+    <p>A preview of the new look — switch between desktop and mobile to see how it adapts.</p>
+  </div>
+  <div class="preview-wrap rv">
+    <div class="dev-toggle">
+      <button class="dev-btn on" id="devDesk" onclick="setDevice('desktop')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>Desktop</button>
+      <button class="dev-btn" id="devMob" onclick="setDevice('mobile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>Mobile</button>
+    </div>
+    <div class="frame desktop" id="frame">
+      <div class="frame-bar"><span class="d" style="background:#ff5f57"></span><span class="d" style="background:#febc2e"></span><span class="d" style="background:#28c840"></span><span class="frame-url">biocityhealthcare.com</span><span style="margin-left:auto;font-size:.6rem;font-weight:800;letter-spacing:1px;color:var(--accent);background:var(--accent-soft);padding:3px 9px;border-radius:100px">PREVIEW</span></div>
+      <div class="pv">
+        <div class="pv-nav">
+          <span class="lg"><i></i>Bio<em>city</em></span>
+          <span class="pv-links"><span>Packages</span><span>How it Works</span><span>Reviews</span><span>Contact</span></span>
+          <span class="cta">Book Now</span>
+          <span class="pv-burger"><i></i><i></i><i></i></span>
+        </div>
+        <div class="pv-hero">
+          <span class="badge">NABL Accredited · ISO 15189:2022 Certified</span>
+          <h3>Health checks that come to you. <em>Not the other way.</em></h3>
+          <p>Full body checkups at home with NABL-certified accuracy and reports in 24 hours. Trusted by 50 lakh+ families across 60+ cities.</p>
+          <div class="btns"><span class="b1">Explore Packages</span><span class="b2">Call Us Free</span></div>
+          <div class="pv-trust"><span><b>4.9★</b> · 3,336 reviews</span><span><b>50L+</b> families</span><span><b>24h</b> reports</span></div>
+        </div>
+        <div class="pv-pkgs">
+          <div class="pv-pk"><span class="e">💙</span><h4>Essential</h4><div class="pr">₹999<s>₹2,449</s></div><ul><li>60+ parameters</li><li>Free home collection</li></ul></div>
+          <div class="pv-pk pop"><span class="rib">MOST POPULAR</span><span class="e">💚</span><h4>Comprehensive</h4><div class="pr">₹1,799<s>₹3,499</s></div><ul><li>90+ parameters</li><li>Doctor consultation</li></ul></div>
+          <div class="pv-pk"><span class="e">🧡</span><h4>Advanced</h4><div class="pr">₹2,999<s>₹5,999</s></div><ul><li>120+ parameters</li><li>Full body screening</li></ul></div>
+        </div>
+        <div class="pv-fade"></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- OVERVIEW AT A GLANCE -->
+<section class="sec" id="overview"><div class="wrap">
+  <div class="sec-head rv">
+    <div class="sec-label">03 · At A Glance</div>
+    <h2>Three goals. One website.</h2>
+    <p>Every improvement we make pushes one of these three goals forward. Tap a goal to see exactly what's involved.</p>
+  </div>
+  <div class="ov-grid">
+    <div class="ov design rv" onclick="filterGoal('design')">
+      <div class="ov-ico">🎨</div>
+      <h3>Look &amp; Feel</h3>
+      <p>A premium, modern, mobile-first design that finally matches the trust Biocity has earned offline.</p>
+      <div class="ov-foot"><div class="ov-cnt" id="ovDesign">0<small>improvements</small></div><span class="ov-go">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+    </div>
+    <div class="ov convert rv" onclick="filterGoal('convert')">
+      <div class="ov-ico">💬</div>
+      <h3>Win the Booking</h3>
+      <p>Clear packages, trust signals, reviews, and one-tap call/WhatsApp that turn visitors into real enquiries.</p>
+      <div class="ov-foot"><div class="ov-cnt" id="ovConvert">0<small>improvements</small></div><span class="ov-go">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+    </div>
+    <div class="ov find rv" onclick="filterGoal('find')">
+      <div class="ov-ico">🔍</div>
+      <h3>Get Found — Google &amp; AI</h3>
+      <p>Found when people search on Google (SEO) <em>and</em> recommended when they ask ChatGPT, Gemini or Perplexity (GEO).</p>
+      <div class="ov-foot"><div class="ov-cnt" id="ovFind">0<small>improvements</small></div><span class="ov-go">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- GEO / AI SEARCH -->
+<section class="sec geo" id="geo"><div class="wrap">
+  <div class="sec-head rv">
+    <div class="sec-label">04 · ✨ The Next Frontier</div>
+    <h2>When people ask AI, Biocity should be the answer.</h2>
+    <p>Search is changing. Millions now ask ChatGPT, Gemini and Perplexity instead of Googling. We build your site so AI engines understand, trust, and <strong>recommend</strong> Biocity by name.</p>
+  </div>
+  <div class="geo-wrap">
+    <div class="rv">
+      <div class="sg">
+        <div class="sg-card seo"><div class="t">Today · SEO</div><h4>Rank on Google</h4><p>Optimising to appear high in search results when people type a query.</p></div>
+        <div class="sg-card geo-c"><div class="t">Next · GEO</div><h4>Be cited by AI</h4><p>Optimising to be the source AI assistants quote when they answer a question.</p></div>
+      </div>
+      <div class="geo-points">
+        <div class="gp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Clear, factual content</div>
+        <div class="gp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Direct question &amp; answer format</div>
+        <div class="gp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Structured, clean headings</div>
+        <div class="gp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Authoritative expertise</div>
+        <div class="gp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Schema markup &amp; clean HTML</div>
+        <div class="gp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Strong brand mentions across the web</div>
+      </div>
+    </div>
+    <div class="rv">
+      <div class="geo-chat">
+        <div class="gc-head"><span class="gc-spark">✨</span> AI Assistant <small>live example</small></div>
+        <div class="gc-q">Which is the best lab for a full body checkup at home in Delhi?</div>
+        <div class="gc-dots"><span></span><span></span><span></span></div>
+        <div class="gc-ans">For at-home full body checkups in Delhi, <b>Biocity Healthcare</b> is a strong choice — NABL-accredited, rated 4.9★, with free home collection across 60+ cities and reports in 24 hours.
+          <div class="gc-cite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg> biocityhealthcare.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- CONTENT STRATEGY -->
+<section class="sec content" id="content"><div class="wrap">
+  <div class="sec-head rv">
+    <div class="sec-label">05 · Content That Captures Demand</div>
+    <h2>One website. Hundreds of front doors.</h2>
+    <p>Instead of a single homepage, we build targeted landing pages around exactly how people search — by city, by health concern, and by life stage. Each page becomes its own magnet for Google and AI.</p>
+  </div>
+  <div class="cs-grid">
+    <div class="cs-card rv">
+      <div class="cs-ico">🏙️</div>
+      <h3>City-Based Pages</h3>
+      <p>A dedicated page for every city you serve, so you win local "near me" searches and AI recommends you city-by-city.</p>
+      <div class="cs-ex"><span>Checkup in Noida</span><span>Checkup in Jaipur</span><span>Checkup in Lucknow</span></div>
+      <div class="cs-stat"><b>60+</b> cities → 60+ local pages</div>
+    </div>
+    <div class="cs-card rv sr-d1">
+      <div class="cs-ico">🩺</div>
+      <h3>Ailment-Based Pages</h3>
+      <p>Pages optimised around health concerns and symptoms — capturing worried patients the moment they search.</p>
+      <div class="cs-ex"><span>Diabetes Tests</span><span>Thyroid Screening</span><span>Vitamin Deficiency</span></div>
+      <div class="cs-stat"><b>14+</b> conditions → expert content hubs</div>
+    </div>
+    <div class="cs-card rv sr-d2">
+      <div class="cs-ico">👨‍👩‍👧</div>
+      <h3>Age &amp; Illness Pages</h3>
+      <p>Tailored pages by age group and life stage, with packages and messaging that speak directly to each visitor.</p>
+      <div class="cs-ex"><span>Women 40+</span><span>Senior Citizens</span><span>Couples / Family</span></div>
+      <div class="cs-stat"><b>4+</b> life stages → personalised journeys</div>
+    </div>
+  </div>
+  <div class="cs-matrix rv">
+    <div class="cs-m"><b>60+</b><small>Cities</small></div>
+    <span class="cs-op">×</span>
+    <div class="cs-m"><b>14+</b><small>Conditions</small></div>
+    <span class="cs-op">×</span>
+    <div class="cs-m"><b>4+</b><small>Life Stages</small></div>
+    <span class="cs-op">=</span>
+    <div class="cs-total"><b>3,000+</b><small>Targeted Pages</small></div>
+  </div>
+  <p class="cs-note">A content engine that scales in waves — each page engineered to be found on Google and cited by AI. This is how you out-rank national chains in your markets.</p>
+</div></section>
+
+<!-- CHANGES -->
+<section class="sec" id="changes" style="padding-top:0"><div class="wrap">
+  <div class="sec-head rv">
+    <div class="sec-label">06 · The Full Checklist</div>
+    <h2>Every change, in plain English</h2>
+    <p>Tap any card to see how it works. Filter by what each change achieves.</p>
+  </div>
+
+  <div class="filter-wrap rv">
+    <div class="filter-grp">
+      <span class="filter-lbl">Filter by goal</span>
+      <div class="filter" data-group="goal">
+        <button class="fbtn on" data-f="all">All <span class="cnt" id="gAll">0</span></button>
+        <button class="fbtn" data-f="design">🎨 Look &amp; Feel <span class="cnt" id="gDesign">0</span></button>
+        <button class="fbtn" data-f="convert">💬 Win the Booking <span class="cnt" id="gConvert">0</span></button>
+        <button class="fbtn" data-f="find">🔍 Get Found <span class="cnt" id="gFind">0</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="cards" id="cards"></div>
+</div></section>
+
+<!-- ROADMAP -->
+<section class="sec road" id="roadmap"><div class="wrap">
+  <div class="sec-head rv">
+    <div class="sec-label">07 · The Roadmap</div>
+    <h2>Live in about 3–4 weeks</h2>
+    <p>A calm, clear path from kickoff to launch. Tap any week to see what happens.</p>
+  </div>
+  <div class="rmap">
+    <div class="rstep rv" onclick="toggleRoad(this)">
+      <span class="ricon">📐</span>
+      <span class="rweek">Week 1</span>
+      <h4>Design &amp; Sign-off</h4>
+      <p>We lock the look, gather your content, and agree every page — you approve before we build a thing.</p>
+      <div class="rdetail"><ul><li>Final design direction &amp; brand</li><li>Page plan &amp; content checklist</li><li>Your written go-ahead</li></ul></div>
+      <div class="rmore">Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+    </div>
+    <div class="rstep rv" onclick="toggleRoad(this)">
+      <span class="ricon">🛠️</span>
+      <span class="rweek">Week 2</span>
+      <h4>Build the Pages</h4>
+      <p>We turn the approved design into a real, working website — every page, fully responsive.</p>
+      <div class="rdetail"><ul><li>All core pages built</li><li>Mobile, tablet &amp; desktop</li><li>Packages, trust &amp; reviews</li></ul></div>
+      <div class="rmore">Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+    </div>
+    <div class="rstep rv" onclick="toggleRoad(this)">
+      <span class="ricon">🔍</span>
+      <span class="rweek">Week 3</span>
+      <h4>Content, SEO &amp; GEO</h4>
+      <p>We add the pages that get you found and the tech that makes Google and AI recommend you.</p>
+      <div class="rdetail"><ul><li>City, ailment &amp; age pages</li><li>Blog hub seeded</li><li>Schema, speed, forms &amp; WhatsApp</li></ul></div>
+      <div class="rmore">Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+    </div>
+    <div class="rstep rv" onclick="toggleRoad(this)">
+      <span class="ricon">🚀</span>
+      <span class="rweek">Week 4</span>
+      <h4>Review &amp; Go Live</h4>
+      <p>You preview everything, we polish to perfection, then publish with zero downtime.</p>
+      <div class="rdetail"><ul><li>Private preview link for you</li><li>Your feedback applied</li><li>Smooth go-live on your domain</li></ul></div>
+      <div class="rmore">Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+    </div>
+  </div>
+  <div class="road-foot rv"><span class="road-pill">🚀 Estimated launch: <b>~3–4 weeks</b> from kickoff &amp; content</span></div>
+</div></section>
+
+<!-- WHAT WE NEED FROM YOU -->
+<section class="sec needs" id="needs"><div class="wrap">
+  <div class="sec-head rv">
+    <div class="sec-label">08 · What We Need From You</div>
+    <h2>A small list, and we're off</h2>
+    <p>To make this fast and flawless, here's everything we'll need from the Biocity team. Most of it you already have.</p>
+  </div>
+  <div class="need-grid">
+    <div class="need rv">
+      <div class="need-top"><span class="need-ico">🎨</span><div><h4>Brand &amp; Visuals</h4><div class="nh-sub">So it looks unmistakably Biocity</div></div></div>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><b>Logo</b> — ideally a high-res or vector (SVG/PNG) file</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><b>Brand colours &amp; fonts</b>, if you have any guidelines</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><b>Real photos</b> — lab, team, phlebotomists, home visits</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span>Any <b>videos</b> or existing marketing creatives</span></li>
+      </ul>
+    </div>
+    <div class="need rv">
+      <div class="need-top"><span class="need-ico">🔗</span><div><h4>Reference &amp; Inspiration</h4><div class="nh-sub">So we build what you love</div></div></div>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><b>2–3 websites you like</b> (any industry) for look &amp; feel</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><b>Competitor sites</b> you want to beat</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span>Anything specific you <b>love or hate</b> in a website</span></li>
+      </ul>
+    </div>
+    <div class="need rv">
+      <div class="need-top"><span class="need-ico">📋</span><div><h4>Content &amp; Proof</h4><div class="nh-sub">The words and trust signals</div></div></div>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><b>Package details &amp; prices</b> (tests included in each)</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><b>Certifications &amp; awards</b> (NABL, ISO, etc.)</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><b>Real customer reviews</b> / testimonials</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><b>Contact details</b> — phone, WhatsApp, email, address</span></li>
+      </ul>
+    </div>
+    <div class="need rv">
+      <div class="need-top"><span class="need-ico">🔑</span><div><h4>Access</h4><div class="nh-sub">To go live smoothly</div></div></div>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><b>Source code repository</b> access (existing website code)</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><b>Domain &amp; DNS</b> access (or your IT contact)</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><b>Google Business Profile</b> &amp; any existing analytics</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><b>Social media</b> handles to link</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-head rv" style="margin-top:46px">
+    <div class="sec-label">The Lists We Need</div>
+    <h2 style="font-size:1.6rem">Pick the pages we build first</h2>
+    <p>Our biggest win is targeted pages. Just hand us the lists below — we'll turn each into an optimised page.</p>
+  </div>
+  <div class="need-grid">
+    <div class="need rv">
+      <div class="need-top"><span class="need-ico">🏙️</span><div><h4>Cities</h4><div class="nh-sub">Where to launch first</div></div></div>
+      <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span>Your <b>priority cities</b> to target first (we scale to all 60+ after)</span></li></ul>
+      <div class="need-tags"><span>Delhi</span><span>Noida</span><span>Gurgaon</span><span>Jaipur</span><span>Lucknow</span><span>+ your list</span></div>
+    </div>
+    <div class="need rv">
+      <div class="need-top"><span class="need-ico">🩺</span><div><h4>Ailments &amp; Conditions</h4><div class="nh-sub">What people search for</div></div></div>
+      <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span>The <b>conditions</b> you want pages for</span></li></ul>
+      <div class="need-tags"><span>Diabetes</span><span>Thyroid</span><span>Vitamin D/B12</span><span>Heart</span><span>Liver</span><span>Kidney</span><span>PCOS</span><span>+ more</span></div>
+    </div>
+    <div class="need rv">
+      <div class="need-top"><span class="need-ico">👨‍👩‍👧</span><div><h4>Age &amp; Life Stages</h4><div class="nh-sub">Who you want to reach</div></div></div>
+      <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span>The <b>age groups / life stages</b> to target</span></li></ul>
+      <div class="need-tags"><span>Women 40+</span><span>Men 40+</span><span>Seniors 60+</span><span>Kids</span><span>Pre-marital</span><span>Pre-employment</span></div>
+    </div>
+    <div class="need rv">
+      <div class="need-top"><span class="need-ico">🧩</span><div><h4>Any Other Category</h4><div class="nh-sub">Tell us what we missed</div></div></div>
+      <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span>Other angles worth a dedicated page</span></li></ul>
+      <div class="need-tags"><span>Corporate / B2B</span><span>Occasion packages</span><span>Seasonal (monsoon, winter)</span><span>By gender</span></div>
+    </div>
+  </div>
+  <div class="need-note rv">Don't have everything ready? <b>No problem.</b> We can start with what you have and fill the rest in together as we go.</div>
+</div></section>
+
+<!-- OUTCOMES -->
+<section class="sec" id="outcomes"><div class="wrap">
+  <div class="sec-head rv">
+    <div class="sec-label">09 · Why It Matters</div>
+    <h2>What you get out of it</h2>
+    <p>This isn't change for the sake of change. Every improvement points at one of these outcomes.</p>
+  </div>
+  <div class="out-grid">
+    <div class="out rv"><div class="out-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><h4>More Trust</h4><p>The site finally looks as credible as your NABL-accredited lab really is.</p></div>
+    <div class="out rv"><div class="out-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg></div><h4>Mobile-First</h4><p>Most families book from their phone. The site is built for that, not an afterthought.</p></div>
+    <div class="out rv"><div class="out-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><h4>Easier to Find</h4><p>Search-engine ready, so people Googling "full body checkup near me" find Biocity.</p></div>
+    <div class="out rv"><div class="out-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div><h4>More Enquiries</h4><p>Clear call, WhatsApp, and booking buttons turn visitors into phone calls.</p></div>
+  </div>
+</div></section>
+
+<!-- CTA -->
+<section class="cta"><div class="wrap cta-in rv">
+  <h2>That's the plan. Simple, clear, and built for Biocity.</h2>
+  <p>Every box above is a step toward a website that finally matches the brand you've built offline. When you're ready, we start with Step 1.</p>
+  <a href="#changes" class="btn btn-white">Review the Changes Again <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+</div></section>
+
+<footer class="sfoot"><div class="wrap">
+  <div class="sfoot-top">
+    <div class="sfoot-brand">
+      <div class="brand"><div class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>Bio<span>city</span></div>
+      <p>A proposal to give Biocity Healthcare a website that finally matches the trust you've built offline — beautifully designed, mobile-first, and built to be found on Google and recommended by AI.</p>
+      <div class="sfoot-badges"><span>🏅 NABL Accredited</span><span>✅ ISO 15189:2022</span><span>⭐ 4.9 / 5</span><span>📍 60+ Cities</span></div>
+    </div>
+    <div class="sfoot-col">
+      <h5>In This Plan</h5>
+      <a onclick="document.getElementById('preview').scrollIntoView({behavior:'smooth'})">See It In Action</a>
+      <a onclick="document.getElementById('overview').scrollIntoView({behavior:'smooth'})">At A Glance</a>
+      <a onclick="document.getElementById('changes').scrollIntoView({behavior:'smooth'})">The Full Checklist</a>
+      <a onclick="document.getElementById('roadmap').scrollIntoView({behavior:'smooth'})">The Roadmap</a>
+      <a onclick="document.getElementById('needs').scrollIntoView({behavior:'smooth'})">What We Need From You</a>
+    </div>
+    <div class="sfoot-col">
+      <h5>At A Glance</h5>
+      <div class="li"><b>24</b> improvements</div>
+      <div class="li"><b>~3–4 weeks</b> to launch</div>
+      <div class="li"><b>Phase 1A</b> · Website Revamp</div>
+      <div class="li">Optimised for <b>SEO + GEO</b></div>
+    </div>
+  </div>
+  <div class="sfoot-bottom">
+    <span>Prepared for <strong>Biocity Healthcare</strong> · Website Revamp · Phase 1A</span>
+    <span class="conf">Confidential proposal</span>
+  </div>
+</div></footer>
+
+<!-- DEMO MODAL -->
+<div class="demo-bg" id="demoBg">
+  <div class="demo-modal">
+    <div class="demo-head">
+      <span class="em" id="demoEm">✨</span>
+      <div><h3 id="demoTitle">Element</h3><p id="demoTag">How this will look on your site</p>
+        <div class="demo-chips" id="demoChips"></div></div>
+      <button class="demo-x" onclick="closeDemo()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="demo-stage siteskin" id="demoStage"></div>
+    <div class="demo-foot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span id="demoFoot">This is an interactive preview — the final element will use your real content and photos.</span></div>
+  </div>
+</div>
+
+<script>
+/* DATA — every website change, in layman terms */
+const CHANGES=[
+  {emoji:'🎨',title:'A Whole New Look',tag:'Fresh, premium design',effort:'high',
+   now:'Cluttered layout with lots of banners competing for attention.',
+   new:'A clean, calm, modern design that feels premium and trustworthy.',
+   details:['Warm, professional colour scheme and elegant fonts','Consistent spacing so nothing feels crowded','A look that works for both young and older visitors']},
+  {emoji:'📱',title:'Built for Phones First',tag:'Mobile-friendly everywhere',effort:'high',
+   now:'Hard to read and tap on a mobile screen.',
+   new:'Designed for the phone first — big buttons, easy scrolling, fast taps.',
+   details:['Everything resizes perfectly on any screen','Tap targets sized for thumbs','Tested on real iPhone and Android devices']},
+  {emoji:'⚡',title:'Faster Loading',tag:'No more waiting',effort:'high',
+   now:'Pages can feel slow and heavy to load.',
+   new:'Snappy, lightweight pages that open in a couple of seconds.',
+   details:['Optimised images and code','Visitors stay instead of leaving','Google rewards faster sites with better ranking']},
+  {emoji:'🧭',title:'Simple Navigation',tag:'Find anything in seconds',effort:'med',
+   now:'Menus are long and confusing to move through.',
+   new:'A clear, simple menu so visitors find what they need instantly.',
+   details:['Logical grouping of pages','Sticky menu that follows as you scroll','Clear path to packages and booking']},
+  {emoji:'💳',title:'Clear Package Pages',tag:'Easy to compare & choose',effort:'med',
+   now:'Prices and tests are buried and hard to compare.',
+   new:'Beautiful package cards with prices, tests, and a clear "Book" button.',
+   details:['All four packages laid out side by side','Each test clearly listed','Obvious savings and "most popular" tags']},
+  {emoji:'🛤️',title:'"How It Works" Section',tag:'Explain the easy process',effort:'med',
+   now:'Visitors are unsure how home collection actually works.',
+   new:'A simple 4-step visual: pick package, book slot, sample taken at home, get report.',
+   details:['Removes hesitation for first-time bookers','Builds confidence in the process','Friendly, reassuring tone']},
+  {emoji:'🏅',title:'Trust &amp; Accreditation',tag:'Show off your credibility',effort:'med',
+   now:'NABL and ISO certifications are not prominent.',
+   new:'A dedicated trust section highlighting accreditations, awards, and stats.',
+   details:['NABL + ISO badges front and centre','"50 lakh+ tests" and other proof points','Corporate client logos for credibility']},
+  {emoji:'💬',title:'Real Customer Reviews',tag:'Let happy customers sell',effort:'med',
+   now:'Reviews are scattered and easy to miss.',
+   new:'A polished, auto-scrolling wall of genuine 5-star reviews.',
+   details:['Builds instant social proof','Star ratings and customer names','Smooth, eye-catching animation']},
+  {emoji:'🌗',title:'Light &amp; Dark Mode',tag:'A modern, premium touch',effort:'med',
+   now:'Single fixed look, can feel dated.',
+   new:'A toggle so visitors can switch between light and dark — a premium, modern feel.',
+   details:['Comfortable viewing day or night','Signals a cutting-edge brand','Remembers the visitor\u2019s choice']},
+  {emoji:'❓',title:'FAQ Section',tag:'Answer doubts instantly',effort:'low',
+   now:'Common questions go unanswered, leading to drop-offs.',
+   new:'A neat, expandable FAQ covering fasting, reports, safety, payments and more.',
+   details:['Reduces repetitive phone queries','Expandable so the page stays tidy','Covers the top 7-10 real questions']},
+  {emoji:'📞',title:'Click-to-Call Buttons',tag:'One tap to reach you',effort:'low',
+   now:'Visitors have to copy the number manually.',
+   new:'Tap-to-call buttons everywhere — one touch and they\u2019re calling you.',
+   details:['Perfect for your call-driven business','Visible on every screen','No friction between interest and a call']},
+  {emoji:'🟢',title:'WhatsApp Button',tag:'Chat in one tap',effort:'low',
+   now:'No quick way to message on WhatsApp.',
+   new:'A floating WhatsApp button that opens a ready-to-send message to your team.',
+   details:['Meets customers on the app they already use','Pre-filled enquiry message','Always visible in the corner']},
+  {emoji:'📝',title:'Easy Enquiry Form',tag:'Capture every lead',effort:'low',
+   now:'No simple way to leave details online.',
+   new:'A clean "Book a Checkup" form — name, phone, city, package — sent straight to your team.',
+   details:['Every submission reaches your inbox','Captures leads even after hours','Quick to fill on mobile']},
+  {emoji:'📍',title:'Cities We Serve',tag:'Show your national reach',effort:'low',
+   now:'Site feels Delhi-only despite 60+ cities.',
+   new:'A clean section showing all 60+ cities, organised by region.',
+   details:['Reassures customers you cover their city','Highlights your scale','Easy to expand as you grow']},
+  {emoji:'🔍',title:'Show Up on Google',tag:'Get found online',effort:'low',
+   now:'Hard to find when people search online.',
+   new:'Search-engine basics so Biocity appears for relevant local searches.',
+   details:['Proper page titles and descriptions','Sitemap so Google reads every page','Foundation for future growth']},
+  {emoji:'📊',title:'Visitor Tracking',tag:'See what\u2019s working',effort:'low',
+   now:'No idea how many people visit or what they do.',
+   new:'Analytics so you can see visits, popular packages, and enquiries.',
+   details:['Know which packages get attention','Measure enquiries from the site','Make decisions based on real numbers']},
+  {emoji:'✨',title:'Get Cited by AI (GEO)',tag:'Be the answer ChatGPT gives',effort:'high',
+   now:'When people ask AI assistants for a lab, Biocity is invisible.',
+   new:'The site is structured so ChatGPT, Gemini and Perplexity understand and recommend Biocity by name.',
+   details:['Optimised for the new wave of AI-powered search','Clear, factual, quotable content about your services','Positions Biocity ahead of competitors not yet doing this']},
+  {emoji:'🗂️',title:'Question &amp; Answer Content',tag:'Written the way people ask',effort:'med',
+   now:'Information is scattered and hard for engines to extract.',
+   new:'Key pages written as clear questions and direct answers — exactly what Google and AI reward.',
+   details:['Matches how people actually search and speak','Powers Google "rich results" and AI answers','Doubles as helpful content for real visitors']},
+  {emoji:'🏷️',title:'Schema Markup &amp; Clean Code',tag:'Speak the engines\u2019 language',effort:'med',
+   now:'Search engines have to guess what the site is about.',
+   new:'Hidden structured data tells Google &amp; AI exactly who you are: a NABL lab, your rating, prices, and services.',
+   details:['Enables star ratings &amp; price snippets on Google','Machine-readable facts AI engines trust','Clean, standards-compliant HTML throughout']},
+  {emoji:'🔗',title:'Brand Authority &amp; Citations',tag:'Be referenced everywhere',effort:'med',
+   now:'Few trusted sources point to Biocity online.',
+   new:'A consistent, credible web presence and content worth linking to — so trusted sites and AI cite you.',
+   details:['Consistent name, address &amp; details across the web','Authoritative content that earns references','Builds the trust signals AI engines look for']},
+  {emoji:'🏙️',title:'City Landing Pages',tag:'Rank in every city you serve',effort:'high',
+   now:'One generic site competes weakly across 60+ local markets.',
+   new:'A dedicated, optimised page for each city — e.g. "Full Body Checkup in Noida" — so you rank locally and AI recommends you city-by-city.',
+   details:['Targets "checkup in &lt;city&gt;" searches','Local schema &amp; city-specific content','Scales across all 60+ cities']},
+  {emoji:'🩺',title:'Ailment-Based Pages',tag:'Capture health-concern searches',effort:'med',
+   now:'People searching "tests for thyroid" or "diabetes screening" never find you.',
+   new:'Pages built around ailments &amp; symptoms — diabetes, thyroid, vitamins — matching what worried patients actually search for.',
+   details:['Targets symptom &amp; condition queries','Educational &amp; trustworthy — ideal for AI citations','Guides patients to the right package']},
+  {emoji:'👨‍👩‍👧',title:'Age &amp; Life-Stage Pages',tag:'Speak to every life stage',effort:'med',
+   now:'One-size-fits-all messaging ignores who is actually buying.',
+   new:'Tailored pages — "Health Checkup for Women 40+", "Senior Citizen Screening" — that speak directly to each age group and need.',
+   details:['Targets demographic-specific searches','Personalised packages &amp; messaging','Higher relevance means higher conversion']},
+  {emoji:'📰',title:'SEO &amp; GEO Blog Hub',tag:'Content that earns traffic &amp; AI citations',effort:'high',
+   now:'No blog or fresh content — nothing for Google or AI assistants to discover, trust, or cite.',
+   new:'A health blog &amp; resource library with expert-reviewed articles written for search and AI — "Signs of Vitamin D deficiency", "How often should you get a full body checkup?" — that pull in visitors and make Biocity the source AI quotes.',
+   details:['Targets hundreds of real health questions people search','Positions Biocity as a trusted medical authority','Fresh, expert content keeps Google &amp; AI coming back','Every article gently guides readers to the right test']},
+];
+
+/* RENDER */
+const cardsEl=document.getElementById('cards');
+function chk(){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';}
+function effLabel(e){return e==='low'?'🟢 Low Effort':e==='med'?'🟡 Medium Effort':'🔴 High Effort';}
+const star='<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+const phSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>';
+const VIZ_KEYS=['look','mobile','speed','nav','packages','steps','trust','reviews','theme','faq','call','whatsapp','form','cities','seo','analytics','geo','qa','schema','authority','citypages','condition','agegroup','blog'];
+const CATS=['design','design','find','convert','convert','convert','convert','convert','design','convert','convert','convert','convert','find','find','convert','find','find','find','find','find','find','find','find'];
+const CAT_META={design:'Look & Feel',convert:'Win the Booking',find:'Get Found'};
+function viz(k){switch(k){
+  case'look':return '<div class="z-look"><span class="sw"></span><span class="sw"></span><span class="sw"></span><span class="sw"></span><span class="aa">Aa</span></div>';
+  case'mobile':return '<div class="z-phone"><div class="z-phone-scr">'+'<i></i>'.repeat(12)+'</div></div>';
+  case'speed':return '<div class="z-speed"><div class="bar"><div class="fill"></div></div><div class="lbl">⚡ Loads in <b>2.1s</b></div></div>';
+  case'nav':return '<div class="z-nav"><span class="pill"></span><span class="it">Home</span><span class="it">Tests</span><span class="it">Cities</span><span class="it">Book</span></div>';
+  case'packages':return '<div class="z-pkg"><div class="c"><span class="e">💙</span><span class="p">₹999</span></div><div class="c mid"><span class="e">💚</span><span class="p">₹1799</span></div><div class="c"><span class="e">🧡</span><span class="p">₹2999</span></div></div>';
+  case'steps':return '<div class="z-steps"><span class="s">1</span><span class="ln"></span><span class="s">2</span><span class="ln"></span><span class="s">3</span><span class="ln"></span><span class="s">4</span></div>';
+  case'trust':return '<div class="z-trust"><span class="b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="b">'+star+'</span><span class="b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span></div>';
+  case'reviews':return '<div class="z-rev"><div class="st">'+star.repeat(5)+'</div><div class="cap">&ldquo;Excellent, on-time service!&rdquo;</div></div>';
+  case'theme':return '<div class="z-theme"><div class="knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></div></div>';
+  case'faq':return '<div class="z-faq"><div class="q">Do I need to fast? <span class="cv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></div><div class="a"></div><div class="q">When are reports ready?</div></div>';
+  case'call':return '<div class="z-call"><span class="pr"></span><span class="ph">'+phSvg+'</span></div>';
+  case'whatsapp':return '<div class="z-wa"><span class="pr"></span><span class="c"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.7h-.01a9.9 9.9 0 01-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 01-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 012.89 6.99c0 5.45-4.44 9.88-9.88 9.88M20.46 3.49A11.82 11.82 0 0012.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 005.69 1.45h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.16-3.49-8.42"/></svg></span></div>';
+  case'form':return '<div class="z-form"><div class="f"></div><div class="f"></div><div class="f"></div><div class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div></div>';
+  case'cities':return '<div class="z-cities"><span class="pin"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg></span><span class="pin"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg></span><span class="pin"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg></span><span class="pin"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg></span></div>';
+  case'seo':return '<div class="z-seo"><div class="sb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="tx">full body checkup near me</span></div><div class="res"><span class="dot"></span><span class="ln"></span><span class="rk">▲ #1</span></div></div>';
+  case'analytics':return '<div class="z-chart"><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>';
+  case'geo':return '<div class="z-geo"><div class="ai"><span class="sp">✨</span> AI answer</div><div class="bub"><div class="ln w1"></div><div class="ln w2"></div><span class="cite">Biocity ✓</span></div></div>';
+  case'qa':return '<div class="z-qa"><div class="q"><b>Q</b><span class="tx">Home blood test in Delhi?</span></div><div class="a"><b>A</b><span class="lines"><i></i><i></i></span></div></div>';
+  case'schema':return '<div class="z-schema"><div class="r"><span class="b">{</span></div><div class="r">&nbsp;&nbsp;<span class="k">"@type"</span>: <span class="v">"MedicalBusiness"</span>,</div><div class="r">&nbsp;&nbsp;<span class="k">"rating"</span>: <span class="v">"4.9"</span></div><div class="r"><span class="b">}</span> ✓</div></div>';
+  case'authority':return '<div class="z-auth"><span class="pr"></span><span class="core">B</span><span class="chip">★ Google</span><span class="chip">📰 Press</span><span class="chip">✨ AI</span><span class="chip">🔗 Blogs</span></div>';
+  case'citypages':return '<div class="z-city2"><div class="cp">Full Body Checkup in <span class="cyc"><span style="animation-delay:0s">Noida</span><span style="animation-delay:1.5s">Jaipur</span><span style="animation-delay:3s">Lucknow</span><span style="animation-delay:4.5s">Delhi</span></span></div></div>';
+  case'condition':return '<div class="z-cond"><span>🫀 Diabetes Tests</span><span>🦋 Thyroid Tests</span><span>🦴 Vitamin D Test</span></div>';
+  case'agegroup':return '<div class="z-age"><span>20s</span><span>30s</span><span>40s+</span><span>60+</span></div>';
+  case'blog':return '<div class="z-blog"><span class="ar"><i></i><b></b></span><span class="ar"><i></i><b></b></span><span class="ar"><i></i><b></b></span></div>';
+  default:return '';
+}}
+cardsEl.innerHTML=CHANGES.map((c,i)=>`
+  <div class="card rv" data-eff="${c.effort}" data-cat="${CATS[i]}" data-viz="${VIZ_KEYS[i]}" data-emoji="${c.emoji}" onclick="toggleCard(this)">
+    <div class="viz">${viz(VIZ_KEYS[i])}</div>
+    <div class="card-head">
+      <span class="card-emoji">${c.emoji}</span>
+      <div class="card-head-txt"><h3>${c.title}</h3><div class="card-tagline">${c.tag}</div></div>
+      <span class="effort ${c.effort}">${effLabel(c.effort)}</span>
+    </div>
+    <div class="card-body">
+      <div class="ba">
+        <div class="ba-box ba-now"><div class="ba-l">Now</div>${c.now}</div>
+        <div class="ba-box ba-new"><div class="ba-l">After</div>${c.new}</div>
+      </div>
+      <div class="card-detail"><div class="card-detail-in">
+        <h5>What this includes</h5>
+        <ul>${c.details.map(d=>`<li>${chk()}<span>${d}</span></li>`).join('')}</ul>
+      </div></div>
+      <div class="card-actions">
+        <button class="card-demo-btn" onclick="event.stopPropagation();openDemo(this)">▶ Preview this element</button>
+        <span class="card-toggle">More details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+      </div>
+    </div>
+  </div>`).join('');
+
+function toggleCard(el){
+  const d=el.querySelector('.card-detail');
+  const open=el.classList.toggle('open');
+  d.style.maxHeight=open?d.scrollHeight+'px':null;
+}
+function toggleRoad(el){
+  const d=el.querySelector('.rdetail');
+  const open=el.classList.toggle('on');
+  d.style.maxHeight=open?d.scrollHeight+'px':null;
+}
+
+/* COUNTS */
+const total=CHANGES.length;
+const catCount={design:0,convert:0,find:0};
+CATS.forEach(c=>catCount[c]++);
+mTotal.textContent=total;
+gAll.textContent=total;gDesign.textContent=catCount.design;gConvert.textContent=catCount.convert;gFind.textContent=catCount.find;
+ovDesign.innerHTML=catCount.design+'<small>improvements</small>';
+ovConvert.innerHTML=catCount.convert+'<small>improvements</small>';
+ovFind.innerHTML=catCount.find+'<small>improvements</small>';
+
+/* DUAL FILTER */
+const F={goal:'all',effort:'all'};
+function applyFilters(){
+  document.querySelectorAll('.card').forEach(c=>{
+    const okG=F.goal==='all'||c.dataset.cat===F.goal;
+    const okE=F.effort==='all'||c.dataset.eff===F.effort;
+    c.classList.toggle('hide',!(okG&&okE));
+  });
+}
+document.querySelectorAll('.filter').forEach(fl=>{
+  fl.addEventListener('click',e=>{
+    const b=e.target.closest('.fbtn');if(!b)return;
+    fl.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+    F[fl.dataset.group]=b.dataset.f;applyFilters();
+  });
+});
+function filterGoal(cat){
+  F.goal=cat;
+  const fl=document.querySelector('.filter[data-group="goal"]');
+  fl.querySelectorAll('.fbtn').forEach(x=>x.classList.toggle('on',x.dataset.f===cat));
+  applyFilters();
+  document.getElementById('changes').scrollIntoView({behavior:'smooth'});
+}
+
+/* THEME */
+function toggleTheme(){
+  const d=document.documentElement;
+  const n=d.getAttribute('data-theme')==='light'?'dark':'light';
+  d.setAttribute('data-theme',n);
+  sun.style.display=n==='dark'?'none':'block';moon.style.display=n==='dark'?'block':'none';
+  localStorage.setItem('plan_theme',n);
+}
+(function(){const s=localStorage.getItem('plan_theme');if(s==='dark'){document.documentElement.setAttribute('data-theme','dark');sun.style.display='none';moon.style.display='block';}})();
+
+/* TOPBAR + REVEAL */
+addEventListener('scroll',()=>top.classList.toggle('stuck',scrollY>40));
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v')}),{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+/* ===== ELEMENT DEMOS ===== */
+const DEMO_FOOT={
+  geo:'Modern AI engines (ChatGPT, Gemini, Perplexity, Google AI Overviews) pull from sources like this — we make Biocity one of them.',
+  schema:'Schema.org structured data powers Google rich snippets and feeds the facts AI assistants trust.',
+  seo:'A Google rich result — star ratings and sitelinks earn far more clicks than a plain blue link.',
+  qa:'Matches Google "People Also Ask" and is exactly the format AI assistants quote.',
+  speed:'Built to pass Google Core Web Vitals — speed is now a direct ranking factor.',
+  citypages:'Local pages win "near me" searches and make AI recommend Biocity city-by-city.',
+  condition:'Condition pages match how patients search — and are exactly what AI assistants quote.',
+  agegroup:'Life-stage pages lift relevance and conversion by speaking to each visitor directly.',
+  blog:'Fresh, expert-reviewed content is what Google ranks and what AI assistants quote — turning curious readers into bookings.',
+};
+const DEMOS={
+look:`<div class="d-style"><div class="d-row"><div class="d-sw" style="background:#E05A3A"><span>Coral</span><small>#E05A3A</small></div><div class="d-sw" style="background:#0D9B7A"><span>Teal</span><small>#0D9B7A</small></div><div class="d-sw" style="background:#1A1A2E"><span>Ink</span><small>#1A1A2E</small></div><div class="d-sw" style="background:#FAF9F6;color:#1A1A2E;border-color:#ddd"><span>Cream</span><small>#FAF9F6</small></div></div><div class="d-type"><div class="d-type-h">Health, made human.</div><div class="d-type-b">Fraunces display serif paired with Plus Jakarta Sans — warm, premium, effortless to read on any device.</div></div><div class="d-btns"><span class="d-b1">Book Now</span><span class="d-b2">Call Us</span></div></div>`,
+mobile:`<div class="d-phone"><div class="d-phone-top"></div><div class="d-phone-scr"><div class="d-mnav"><span>Bio<i>city</i></span><em>☰</em></div><div class="d-mhero"><span class="d-badge">● NABL Accredited</span><h4>Health checks that come to you.</h4><span class="d-mb">Book Home Visit</span></div><div class="d-mcards"><div>💚 Comprehensive<b>₹1,799</b></div><div>💙 Essential<b>₹999</b></div></div></div></div>`,
+speed:`<div class="d-speed"><div class="d-gauge"><div class="d-gauge-in"><b>96</b><small>Performance</small></div></div><div class="d-bars"><div class="d-bline"><span>Old site</span><div class="d-track"><div class="d-fill old"></div></div><b>8.4s</b></div><div class="d-bline"><span>New site</span><div class="d-track"><div class="d-fill new"></div></div><b>1.9s</b></div></div><div class="d-cwv">Core Web Vitals: <b style="color:var(--teal)">All Passed ✓</b></div></div>`,
+nav:`<div class="d-navd"><span class="lg">Bio<i>city</i></span><span class="nl">Packages</span><span class="nl on">How it Works</span><span class="nl">Reviews</span><span class="nl">Cities</span><span class="ncta">Book Now</span></div>`,
+packages:`<div class="d-pkgs"><div class="d-pk"><span class="e">💙</span><h5>Essential</h5><div class="pr">₹999<s>₹2,449</s></div><ul><li>CBC + Lipid</li><li>Liver + Kidney</li><li>Thyroid + Sugar</li></ul><span class="pb">Book</span></div><div class="d-pk pop"><span class="rib">POPULAR</span><span class="e">💚</span><h5>Comprehensive</h5><div class="pr">₹1,799<s>₹3,499</s></div><ul><li>All of Essential</li><li>Full Thyroid Panel</li><li>Vitamin D + B12</li></ul><span class="pb">Book</span></div></div>`,
+steps:`<div class="d-steps"><div class="d-st"><div class="n">1</div><h5>Pick a Package</h5><p>Choose what fits you</p></div><div class="d-st"><div class="n">2</div><h5>Book a Slot</h5><p>Any time that works</p></div><div class="d-st"><div class="n">3</div><h5>We Come to You</h5><p>Painless home visit</p></div><div class="d-st"><div class="n">4</div><h5>Reports in 24h</h5><p>Email + WhatsApp</p></div></div>`,
+trust:`<div class="d-trust"><div class="d-tbadges"><span class="d-tb">🏅 NABL Accredited</span><span class="d-tb">✅ ISO 15189:2022</span><span class="d-tb">⭐ 4.9 / 5</span></div><div class="d-tstats"><div class="d-ts"><b>50L+</b><small>Tests Done</small></div><div class="d-ts"><b>60+</b><small>Cities</small></div><div class="d-ts"><b>20+ yrs</b><small>Experience</small></div></div></div>`,
+reviews:`<div class="d-rev"><div class="stars">${star.repeat(5)}</div><q>The executive reached at 7 AM sharp. My report was on WhatsApp by next morning. Extremely professional — my whole family now uses Biocity.</q><div class="who"><div class="av">J</div><div><div class="nm">Joginder Singh</div><div class="lc">Delhi · Google Review</div></div></div></div>`,
+theme:`<div class="d-theme"><div class="d-tcard" id="dTcard"><h5>Health, made human.</h5><p>Switch the theme to see how every visitor can choose light or dark — a premium, modern touch.</p></div><span class="d-tswitch" onclick="document.getElementById('dTcard').classList.toggle('dark')">🌗 Toggle Light / Dark</span></div>`,
+faq:`<div class="d-faq"><div class="d-fq open" onclick="this.classList.toggle('open')"><div class="q">Do I need to fast before the test? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div><div class="a"><div>Yes — 8 to 12 hours of overnight fasting is recommended for most packages. Water is fine. We'll remind you when you book.</div></div></div><div class="d-fq" onclick="this.classList.toggle('open')"><div class="q">How soon will I get reports? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div><div class="a"><div>Most reports arrive within 24 hours via email and WhatsApp.</div></div></div></div>`,
+call:`<div class="d-call"><span class="d-callbtn">${phSvg}Call Us Free — 8860 606 141</span><div class="d-callfab"><span class="ic">${phSvg}</span><span class="tx">Tap to call instantly<b>One-touch dialling on mobile</b></span></div></div>`,
+whatsapp:`<div class="d-wa"><div class="d-wa-top"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35"/></svg></span> Biocity Healthcare <small style="margin-left:auto;font-size:.66rem;opacity:.8">online</small></div><div class="d-wa-body"><div class="d-wb out">Hi, I want to book a full body checkup 🙏</div><div class="d-wb in">Hello! We'd be happy to help. Which city are you in?</div><div class="d-wb in">We offer free home collection &amp; reports in 24 hrs ✅</div></div></div>`,
+form:`<div class="d-form"><h5>Book Your Checkup</h5><div class="d-fr"><div class="d-fi"><label>Full Name</label><div class="box fill">Rajesh Kumar</div></div><div class="d-fi"><label>Phone</label><div class="box fill">+91 98100 11223</div></div></div><div class="d-fr"><div class="d-fi"><label>City</label><div class="box fill">Delhi</div></div><div class="d-fi"><label>Package</label><div class="box">Select…</div></div></div><div class="d-fsub">Book My Appointment</div></div>`,
+cities:`<div class="d-cities"><div class="d-cy"><h6>Delhi NCR</h6><span>Delhi</span><span>Noida</span><span>Gurgaon</span><span>Ghaziabad</span><span>Faridabad</span></div><div class="d-cy"><h6>Uttar Pradesh</h6><span>Lucknow</span><span>Kanpur</span><span>Agra</span><span>Meerut</span></div><div class="d-cy"><h6>Punjab</h6><span>Chandigarh</span><span>Amritsar</span><span>Ludhiana</span></div><div class="d-cy"><h6>Rajasthan</h6><span>Jaipur</span><span>Ajmer</span><span>+30 more</span></div></div>`,
+seo:`<div class="d-serp"><div class="url"><span class="fav">B</span>https://biocityhealthcare.com</div><div class="ti">Full Body Health Checkup at Home in Delhi | Biocity</div><div class="rt"><span class="st">★★★★★</span> 4.9 · 3,336 reviews · ₹999–₹5,499</div><div class="ds">NABL-accredited full body checkups with free home sample collection across 60+ cities. Reports in 24 hours…</div><div class="sl"><a>Packages</a><a>Book Now</a><a>Cities</a><a>Reviews</a></div></div>`,
+analytics:`<div class="d-dash"><div class="d-kpis"><div class="d-kpi"><b>2,418</b><small>Visitors</small><div class="up">▲ 23%</div></div><div class="d-kpi"><b>186</b><small>Enquiries</small><div class="up">▲ 31%</div></div><div class="d-kpi"><b>7.7%</b><small>Conversion</small><div class="up">▲ 4%</div></div></div><div class="d-chart2"><span style="height:40%"></span><span style="height:65%"></span><span style="height:50%"></span><span style="height:80%"></span><span style="height:70%"></span><span style="height:95%"></span><span style="height:85%"></span></div></div>`,
+geo:`<div class="d-ai"><div class="d-ai-top"><span class="sp">✨</span> AI Assistant <small>Perplexity · ChatGPT · Gemini</small></div><div class="d-ai-body"><div class="d-ai-q">"Best lab for a full body checkup at home in Delhi?"</div><div class="d-ai-a">For at-home full body checkups in Delhi, <b>Biocity Healthcare</b> is a top choice — NABL-accredited, rated 4.9★, with free home collection across 60+ cities and reports within 24 hours.</div><div class="d-ai-cites"><span class="d-ai-cite"><span class="n">1</span> biocityhealthcare.com</span><span class="d-ai-cite"><span class="n">2</span> NABL.org</span></div></div></div>`,
+qa:`<div class="d-faq"><div style="font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);margin-bottom:4px">People Also Ask</div><div class="d-fq open"><div class="q">Is home blood sample collection safe? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div><div class="a"><div>Yes. Biocity's certified phlebotomists use single-use sealed kits and follow strict cold-chain protocols for 100% safe, hygienic collection.</div></div></div><div class="d-fq" onclick="this.classList.toggle('open')"><div class="q">What is included in a full body checkup? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div><div class="a"><div>CBC, lipid profile, liver &amp; kidney function, thyroid, blood sugar and more — 45 to 90+ parameters by package.</div></div></div></div>`,
+schema:`<div style="width:100%"><div class="d-code"><span class="k">"@type"</span>: <span class="s">"MedicalBusiness"</span>,<br><span class="k">"name"</span>: <span class="s">"Biocity Healthcare"</span>,<br><span class="k">"aggregateRating"</span>: { <span class="k">"ratingValue"</span>: <span class="p">4.9</span>, <span class="k">"reviewCount"</span>: <span class="p">3336</span> },<br><span class="k">"areaServed"</span>: <span class="s">"60+ cities"</span></div><div class="d-richrow">→ Powers this on Google: <span class="st">★★★★★</span> 4.9 · NABL · ₹999+</div></div>`,
+authority:`<div class="d-auth"><div class="d-auth-core">🔗 Biocity Healthcare</div><div class="d-auth-sources"><span class="d-as"><span class="dot"></span>Google Business</span><span class="d-as"><span class="dot"></span>Practo</span><span class="d-as"><span class="dot"></span>Press / Media</span><span class="d-as"><span class="dot"></span>Health Blogs</span><span class="d-as"><span class="dot"></span>AI Engines</span></div></div>`,
+citypages:`<div style="width:100%;display:flex;flex-direction:column;gap:14px"><div class="d-lp"><div class="h"><div class="crumb">Home › Cities › Noida</div><h5>Full Body Health Checkup in Noida</h5><div class="sub">Free home sample collection across Sectors 18, 62 &amp; 137 — NABL-accredited, reports in 24 hours.</div></div><div class="body"><span class="d-chip">📍 12 areas covered</span><span class="d-chip">⭐ 4.9 in Noida</span><span class="d-chip">🏠 Same-day slots</span></div></div><div class="d-serp"><div class="url"><span class="fav">B</span>biocityhealthcare.com › noida</div><div class="ti">Full Body Checkup in Noida — Home Collection | Biocity</div><div class="rt"><span class="st">★★★★★</span> 4.9 · Free home visit · ₹999+</div><div class="ds">Book a full body health checkup in Noida with free home sample collection and 24-hour reports…</div></div></div>`,
+condition:`<div style="width:100%;display:flex;flex-direction:column;gap:14px"><div class="d-lp"><div class="h"><div class="crumb">Home › Health Concerns › Diabetes</div><h5>Diabetes Screening &amp; Monitoring</h5><div class="sub">The right tests to detect and manage blood sugar — recommended by our medical experts.</div></div><div class="body"><span class="d-chip">🩸 HbA1c</span><span class="d-chip">🩸 Fasting Glucose</span><span class="d-chip">🩸 Lipid Profile</span></div></div><div class="d-ai"><div class="d-ai-top"><span class="sp">✨</span> AI Assistant</div><div class="d-ai-body"><div class="d-ai-q">"Which tests should I get for diabetes?"</div><div class="d-ai-a">The key tests are HbA1c and fasting glucose. <b>Biocity Healthcare</b> offers a dedicated diabetes panel with free home collection.</div></div></div></div>`,
+agegroup:`<div style="width:100%;display:flex;flex-direction:column;gap:14px"><div class="d-lp"><div class="h"><div class="crumb">Home › For You › Women 40+</div><h5>Health Checkup for Women 40+</h5><div class="sub">Designed for women over 40 — thyroid, bone health, hormones &amp; cancer markers.</div></div><div class="body"><span class="d-chip">🦴 Bone Health</span><span class="d-chip">🦋 Thyroid</span><span class="d-chip">🎗️ Cancer Markers</span></div></div><div class="d-pkgs" style="grid-template-columns:1fr"><div class="d-pk pop"><span class="rib">RECOMMENDED</span><span class="e">👩</span><h5>Women's Wellness 40+</h5><div class="pr">₹2,499<s>₹4,999</s></div><ul><li>Thyroid + Hormone panel</li><li>Bone health + Vitamin D</li><li>Cancer markers (CA-125)</li></ul><span class="pb">Book</span></div></div></div>`,
+blog:`<div style="width:100%;display:flex;flex-direction:column;gap:14px"><div class="d-blog"><div class="d-blog-h"><span class="d-chip">📰 Health Library</span><h5>Expert articles, written to be found</h5></div><div class="d-blog-list"><div class="d-art"><span class="tag">Vitamins</span><h6>Signs of Vitamin D Deficiency You Shouldn't Ignore</h6><div class="meta">✔ Reviewed by Dr. Mehta · 6 min read</div></div><div class="d-art"><span class="tag">Preventive</span><h6>How Often Should You Get a Full Body Checkup?</h6><div class="meta">✔ Reviewed by Dr. Rao · 4 min read</div></div><div class="d-art"><span class="tag">Diabetes</span><h6>HbA1c vs Fasting Sugar — Which Test Do You Need?</h6><div class="meta">✔ Reviewed by Dr. Iyer · 5 min read</div></div></div></div><div class="d-ai"><div class="d-ai-top"><span class="sp">✨</span> AI Assistant</div><div class="d-ai-body"><div class="d-ai-q">"What are the signs of vitamin D deficiency?"</div><div class="d-ai-a">Common signs include fatigue, bone pain and low mood. <b>Biocity Healthcare</b>'s health library explains the symptoms and offers an at-home Vitamin&nbsp;D test with reports in 24 hours.</div></div></div></div>`,
+};
+const demoBg=document.getElementById('demoBg');
+function openDemo(btn){
+  const card=btn.closest('.card');
+  const key=card.dataset.viz;
+  document.getElementById('demoEm').textContent=card.dataset.emoji;
+  document.getElementById('demoTitle').innerHTML=card.querySelector('h3').innerHTML;
+  document.getElementById('demoTag').innerHTML=card.querySelector('.card-tagline').innerHTML;
+  const eff=card.dataset.eff,cat=card.dataset.cat;
+  const effTxt={low:'🟢 Low Effort',med:'🟡 Medium Effort',high:'🔴 High Effort'}[eff];
+  const catTxt={design:'🎨 Look & Feel',convert:'💬 Win the Booking',find:'🔍 Get Found'}[cat];
+  document.getElementById('demoChips').innerHTML=`<span class="demo-chip effort ${eff}">${effTxt}</span><span class="demo-chip" style="background:var(--inset);color:var(--text-2)">${catTxt}</span>`;
+  document.getElementById('demoStage').innerHTML=DEMOS[key]||'<p style="color:var(--text-3)">Preview coming soon.</p>';
+  document.getElementById('demoFoot').textContent=DEMO_FOOT[key]||'This is an interactive preview — the final element will use your real content and photos.';
+  demoBg.classList.add('on');document.body.style.overflow='hidden';
+}
+function closeDemo(){demoBg.classList.remove('on');document.body.style.overflow='';}
+demoBg.addEventListener('click',e=>{if(e.target===demoBg)closeDemo();});
+addEventListener('keydown',e=>{if(e.key==='Escape')closeDemo();});
+
+/* smooth scroll */
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',function(e){const t=document.querySelector(this.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}}));
+
+/* DEVICE TOGGLE (inline preview) */
+function setDevice(d){
+  const f=document.getElementById('frame');
+  f.classList.remove('desktop','mobile');f.classList.add(d);
+  devDesk.classList.toggle('on',d==='desktop');devMob.classList.toggle('on',d==='mobile');
+}
+
+</script>
+</body>
+</html>

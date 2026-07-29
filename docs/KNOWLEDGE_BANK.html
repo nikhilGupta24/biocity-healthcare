@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biocity Project — Knowledge Bank &amp; Playbook</title>
+<meta name="description" content="A complete knowledge bank of the Biocity Healthcare engagement: website redesign, CRM, the Phase 1A strategic plan, tech stack, SEO/GEO playbook, methodology and reusable patterns — so any peer can replicate the same know-how.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#F5F7F8;--panel:#FFFFFF;--panel2:#F0F4F3;--inset:#E9EEED;
+  --ink:#0E1B1A;--muted:#52635F;--faint:#8A9794;
+  --line:#E0E7E5;--line2:#EDF1F0;
+  --accent:#0E9E8C;--accent-h:#0B8576;--accent-soft:rgba(14,158,140,.10);
+  --indigo:#5B5BF5;--indigo-soft:rgba(91,91,245,.10);
+  --amber:#E08A00;--amber-soft:rgba(224,138,0,.12);
+  --rose:#E5484D;--rose-soft:rgba(229,72,77,.10);
+  --code-bg:#0E1B1A;--code-ink:#D6E5E1;
+  --shadow:0 1px 3px rgba(14,27,26,.05),0 10px 30px rgba(14,27,26,.06);
+  --shadow-lg:0 24px 60px rgba(14,27,26,.14);
+  --sbw:268px;
+}
+[data-theme="dark"]{
+  --bg:#0A1110;--panel:#111C1A;--panel2:#0E1716;--inset:#16201E;
+  --ink:#EAF2F0;--muted:#9DB0AC;--faint:#5E706C;
+  --line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.05);
+  --accent:#2DD4BF;--accent-h:#5EEAD4;--accent-soft:rgba(45,212,191,.12);
+  --indigo:#8B8BFF;--indigo-soft:rgba(139,139,255,.14);
+  --amber:#FBBF24;--amber-soft:rgba(251,191,36,.12);
+  --rose:#FF6369;--rose-soft:rgba(255,99,105,.12);
+  --code-bg:#060B0A;--code-ink:#CFE0DC;
+  --shadow:0 1px 3px rgba(0,0,0,.4);--shadow-lg:0 24px 60px rgba(0,0,0,.6);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+h1,h2,h3,h4,h5{font-family:'Space Grotesk','Inter',sans-serif;letter-spacing:-.02em;line-height:1.18}
+a{color:inherit}
+code,.mono{font-family:'JetBrains Mono',monospace}
+
+/* progress */
+#prog{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--indigo));z-index:200;transition:width .1s}
+
+/* layout */
+.layout{display:flex;min-height:100vh}
+.side{width:var(--sbw);flex-shrink:0;border-right:1px solid var(--line);background:var(--panel);position:fixed;top:0;bottom:0;left:0;overflow-y:auto;z-index:60;transition:transform .3s}
+.side-in{padding:24px 18px 40px}
+.brand{display:flex;align-items:center;gap:11px;margin-bottom:6px}
+.brand-mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--accent),var(--indigo));display:grid;place-items:center;color:#fff;flex-shrink:0;box-shadow:0 4px 14px var(--accent-soft)}
+.brand-mark svg{width:20px;height:20px}
+.brand-tx b{font-family:'Space Grotesk';font-size:1.02rem;font-weight:700;display:block;line-height:1.1}
+.brand-tx small{font-size:.7rem;color:var(--faint);font-weight:600;letter-spacing:.3px}
+.side-tag{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--faint);margin:26px 8px 10px}
+.nav-link{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:9px;font-size:.86rem;font-weight:500;color:var(--muted);text-decoration:none;transition:all .15s;cursor:pointer}
+.nav-link:hover{background:var(--inset);color:var(--ink)}
+.nav-link.on{background:var(--accent-soft);color:var(--accent-h);font-weight:600}
+.nav-link .n{font-family:'JetBrains Mono';font-size:.68rem;opacity:.6;width:18px;flex-shrink:0}
+[data-theme=dark] .nav-link.on{color:var(--accent)}
+
+/* main */
+.main{margin-left:var(--sbw);flex:1;min-width:0}
+.topbar{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:13px 32px}
+.menu-btn{display:none;background:var(--panel);border:1px solid var(--line);border-radius:9px;width:38px;height:38px;place-items:center;cursor:pointer;color:var(--ink)}
+.menu-btn svg{width:18px;height:18px}
+.crumb{font-size:.82rem;color:var(--muted);font-weight:500}
+.crumb b{color:var(--ink);font-weight:700}
+.theme-btn{margin-left:auto;width:38px;height:38px;border-radius:9px;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center;cursor:pointer;color:var(--muted)}
+.theme-btn:hover{color:var(--accent);border-color:var(--accent)}
+.theme-btn svg{width:17px;height:17px}
+.print-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:9px;background:var(--accent);color:#fff;border:none;font-weight:600;font-size:.8rem;cursor:pointer;font-family:inherit}
+.print-btn svg{width:15px;height:15px}
+.print-btn:hover{background:var(--accent-h)}
+
+.content{max-width:880px;margin:0 auto;padding:20px 32px 100px}
+section.doc{padding:46px 0 10px;border-bottom:1px solid var(--line2);scroll-margin-top:70px}
+section.doc:last-of-type{border-bottom:none}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono';font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);background:var(--accent-soft);padding:5px 12px;border-radius:100px;margin-bottom:16px}
+h2.sec{font-size:2rem;margin-bottom:10px}
+.lead{font-size:1.04rem;color:var(--muted);margin-bottom:24px;max-width:680px}
+h3.sub{font-size:1.2rem;margin:30px 0 12px}
+h4.sub{font-size:1rem;margin:22px 0 8px}
+p{margin-bottom:14px;color:var(--ink)}
+.content p{color:var(--muted)}
+.content p strong,.content li strong{color:var(--ink);font-weight:600}
+ul,ol{margin:0 0 16px 0;padding-left:4px;list-style:none}
+.content li{position:relative;padding-left:24px;margin-bottom:9px;color:var(--muted)}
+.content li::before{content:'';position:absolute;left:4px;top:11px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+ol.steps{counter-reset:st;padding-left:0}
+ol.steps>li{counter-increment:st;padding-left:46px;margin-bottom:18px;min-height:32px}
+ol.steps>li::before{content:counter(st);top:0;left:0;width:32px;height:32px;border-radius:10px;background:var(--accent-soft);color:var(--accent-h);font-family:'Space Grotesk';font-weight:700;font-size:.9rem;display:grid;place-items:center}
+[data-theme=dark] ol.steps>li::before{color:var(--accent)}
+
+/* hero cover */
+.cover{padding:60px 0 30px}
+.cover h1{font-size:clamp(2.2rem,5vw,3.3rem);font-weight:700;margin-bottom:18px;letter-spacing:-.03em}
+.cover h1 .g{background:linear-gradient(120deg,var(--accent),var(--indigo));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.cover .lead{font-size:1.15rem}
+.cover-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.cover-meta span{font-size:.8rem;font-weight:600;color:var(--muted);background:var(--panel);border:1px solid var(--line);padding:7px 14px;border-radius:100px;box-shadow:var(--shadow)}
+
+/* cards & boxes */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:var(--shadow);margin-bottom:18px}
+.grid{display:grid;gap:16px}
+@media(min-width:680px){.grid.c2{grid-template-columns:1fr 1fr}.grid.c3{grid-template-columns:repeat(3,1fr)}}
+.mini{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s}
+.mini:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.mini .ico{width:44px;height:44px;border-radius:12px;background:var(--accent-soft);display:grid;place-items:center;font-size:1.3rem;margin-bottom:14px}
+.mini h4{font-size:1.02rem;margin-bottom:6px}
+.mini p{font-size:.85rem;margin-bottom:0}
+.tag{display:inline-block;font-size:.7rem;font-weight:700;font-family:'JetBrains Mono';padding:3px 9px;border-radius:7px;margin:0 5px 5px 0}
+.tag.a{background:var(--accent-soft);color:var(--accent-h)}
+.tag.i{background:var(--indigo-soft);color:var(--indigo)}
+.tag.m{background:var(--amber-soft);color:var(--amber)}
+[data-theme=dark] .tag.a{color:var(--accent)}
+
+.callout{border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0;padding:16px 20px;margin:18px 0}
+.callout.i{border-color:var(--indigo);background:var(--indigo-soft)}
+.callout.m{border-color:var(--amber);background:var(--amber-soft)}
+.callout p{margin-bottom:0;color:var(--ink)}
+.callout .lbl{font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.6px;color:var(--accent-h);display:block;margin-bottom:4px}
+[data-theme=dark] .callout .lbl{color:var(--accent)}
+.callout.i .lbl{color:var(--indigo)}.callout.m .lbl{color:var(--amber)}
+
+/* code */
+pre{background:var(--code-bg);color:var(--code-ink);border-radius:13px;padding:18px 20px;overflow-x:auto;margin:14px 0;font-size:.82rem;line-height:1.65;border:1px solid var(--line)}
+pre code{font-family:'JetBrains Mono';white-space:pre}
+.kbd{font-family:'JetBrains Mono';font-size:.82em;background:var(--inset);border:1px solid var(--line);border-radius:6px;padding:1px 7px;color:var(--ink)}
+
+/* table */
+.tbl{width:100%;border-collapse:collapse;margin:16px 0;font-size:.86rem;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.tbl th{text-align:left;background:var(--panel2);font-family:'Space Grotesk';font-size:.74rem;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);padding:11px 15px;border-bottom:1px solid var(--line)}
+.tbl td{padding:11px 15px;border-bottom:1px solid var(--line2);color:var(--muted);vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td b{color:var(--ink)}
+
+/* timeline */
+.tl{position:relative;margin:18px 0 18px 8px;padding-left:26px}
+.tl::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl-item{position:relative;margin-bottom:20px}
+.tl-item::before{content:'';position:absolute;left:-30px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 0 2px var(--accent)}
+.tl-item h4{font-size:.96rem;margin-bottom:3px}
+.tl-item p{font-size:.85rem;margin-bottom:0}
+.tl-item .w{font-family:'JetBrains Mono';font-size:.7rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.5px}
+
+/* pill row / chips */
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 16px}
+.chip{font-size:.76rem;font-weight:600;color:var(--muted);background:var(--inset);border:1px solid var(--line);padding:5px 12px;border-radius:100px}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
+.reveal.v{opacity:1;transform:none}
+
+footer.foot{padding:40px 32px;text-align:center;color:var(--faint);font-size:.8rem;border-top:1px solid var(--line);margin-left:var(--sbw)}
+
+@media(max-width:920px){
+  .side{transform:translateX(-100%)}
+  .side.open{transform:none;box-shadow:var(--shadow-lg)}
+  .main,footer.foot{margin-left:0}
+  .menu-btn{display:grid}
+  .content{padding:20px 20px 80px}
+  .topbar{padding:11px 16px}
+}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:55;opacity:0;pointer-events:none;transition:opacity .3s}
+.scrim.on{opacity:1;pointer-events:auto}
+@media(min-width:921px){.scrim{display:none}}
+
+@media print{
+  .side,.topbar,.scrim,#prog,footer.foot{display:none!important}
+  .main,footer.foot{margin-left:0}
+  section.doc{padding:24px 0;page-break-inside:avoid}
+  body{background:#fff}
+}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<div class="scrim" id="scrim" onclick="closeSide()"></div>
+
+<aside class="side" id="side"><div class="side-in">
+  <div class="brand">
+    <div class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l3 8 4-16 3 8h6"/></svg></div>
+    <div class="brand-tx"><b>Knowledge Bank</b><small>Biocity · Web + CRM + Plan</small></div>
+  </div>
+
+  <div class="side-tag">Foundations</div>
+  <a class="nav-link" data-to="cover"><span class="n">00</span> Overview</a>
+  <a class="nav-link" data-to="glance"><span class="n">01</span> Engagement at a Glance</a>
+  <a class="nav-link" data-to="deliverables"><span class="n">02</span> The Deliverables</a>
+
+  <div class="side-tag">The How</div>
+  <a class="nav-link" data-to="playbook"><span class="n">03</span> Methodology / Playbook</a>
+  <a class="nav-link" data-to="designsys"><span class="n">04</span> Design System &amp; Techniques</a>
+  <a class="nav-link" data-to="website"><span class="n">05</span> Website Redesign</a>
+  <a class="nav-link" data-to="crm"><span class="n">06</span> CRM — Biocity Pulse</a>
+  <a class="nav-link" data-to="plan"><span class="n">07</span> The Phase 1A Plan</a>
+
+  <div class="side-tag">The What</div>
+  <a class="nav-link" data-to="stack"><span class="n">08</span> Tech Stack &amp; Hosting</a>
+  <a class="nav-link" data-to="geo"><span class="n">09</span> SEO &amp; GEO Playbook</a>
+  <a class="nav-link" data-to="costing"><span class="n">10</span> Phasing, Timeline &amp; Costing</a>
+  <a class="nav-link" data-to="asks"><span class="n">11</span> What To Collect From Client</a>
+
+  <div class="side-tag">Replicate It</div>
+  <a class="nav-link" data-to="prompts"><span class="n">12</span> Prompts &amp; Communication</a>
+  <a class="nav-link" data-to="checklist"><span class="n">13</span> Replication Checklist</a>
+  <a class="nav-link" data-to="appendix"><span class="n">14</span> File Index &amp; Appendix</a>
+</div></aside>
+
+<div class="main">
+  <div class="topbar">
+    <button class="menu-btn" onclick="openSide()" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    <span class="crumb"><b>Biocity Knowledge Bank</b> · the complete playbook</span>
+    <button class="print-btn" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Save as PDF</button>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Theme">
+      <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+  </div>
+
+  <div class="content">
+
+    <!-- 00 COVER -->
+    <section class="doc cover" id="cover">
+      <div class="eyebrow">Internal Knowledge Bank · v1.0</div>
+      <h1>The Biocity Project: <span class="g">a complete playbook</span> for web, CRM &amp; the client pitch.</h1>
+      <p class="lead">This is the full record of everything produced for the Biocity Healthcare engagement — the redesigned website, the demo CRM, and the interactive Phase&nbsp;1A plan — together with the <strong>methodology, design system, techniques, and reusable patterns</strong> behind them. Read it once and you can reproduce the same quality and know-how on any client.</p>
+      <div class="cover-meta">
+        <span>🎯 3 shippable artifacts</span>
+        <span>🧩 Repeatable methodology</span>
+        <span>🎨 Reusable design system</span>
+        <span>🔍 SEO + GEO playbook</span>
+        <span>💬 Stakeholder comms</span>
+      </div>
+      <div class="callout i" style="margin-top:26px"><span class="lbl">How to use this document</span><p>Skim the sidebar like a table of contents. <strong>Foundations</strong> tells you what exists. <strong>The How</strong> teaches the craft. <strong>The What</strong> gives you the facts to answer stakeholders. <strong>Replicate It</strong> is your step-by-step to do it yourself. Hit <span class="kbd">Save as PDF</span> (top-right) to share an offline copy.</p></div>
+    </section>
+
+    <!-- 01 GLANCE -->
+    <section class="doc" id="glance">
+      <div class="eyebrow">01 · Engagement at a Glance</div>
+      <h2 class="sec">What we set out to do — and what we built</h2>
+      <p class="lead">Biocity Healthcare is an NABL-accredited diagnostics company whose business runs largely over phone calls. The brief: make the brand look as credible online as it is offline, and give the team modern tooling — without over-engineering before there's buy-in.</p>
+
+      <div class="grid c3">
+        <div class="mini reveal"><span class="ico">🌐</span><h4>The Website</h4><p>A complete, modern, mobile-first redesign of the public site — built to win bookings.</p></div>
+        <div class="mini reveal"><span class="ico">📊</span><h4>The CRM</h4><p>"Biocity Pulse" — a working demo CRM for a call-driven business: leads, bookings, calls, analytics.</p></div>
+        <div class="mini reveal"><span class="ico">🗺️</span><h4>The Plan</h4><p>An interactive Phase 1A proposal that pitches the website revamp to a non-technical CEO.</p></div>
+      </div>
+
+      <h3 class="sub">The activity timeline</h3>
+      <div class="tl">
+        <div class="tl-item reveal"><div class="w">Step 1 · Audit</div><h4>Studied the existing site</h4><p>Identified the core problems: visual clutter, weak mobile experience, buried packages, low trust signalling, and near-zero discoverability on Google or AI.</p></div>
+        <div class="tl-item reveal"><div class="w">Step 2 · Redesign</div><h4>Built a new website from scratch</h4><p>A single self-contained HTML prototype with a real design system, dark mode, animations and conversion-focused sections.</p></div>
+        <div class="tl-item reveal"><div class="w">Step 3 · Tooling</div><h4>Designed &amp; built a demo CRM</h4><p>A fully interactive "Biocity Pulse" CRM running on browser storage so it can be demoed instantly, no backend required.</p></div>
+        <div class="tl-item reveal"><div class="w">Step 4 · Strategy</div><h4>Mapped tech stack, hosting, phases &amp; costing</h4><p>Answered the stakeholder questions: full stack, integrations, hosting options, phase-wise scope, timeline and how to quote.</p></div>
+        <div class="tl-item reveal"><div class="w">Step 5 · Pitch</div><h4>Created the interactive Phase 1A plan</h4><p>A board-ready HTML deck explaining every change in plain English, with live element demos, a roadmap, SEO/GEO strategy, and the client ask-list.</p></div>
+        <div class="tl-item reveal"><div class="w">Step 6 · Refine</div><h4>Iterated on feedback</h4><p>Subtler aesthetics, single-file portability, solid header/footer, goal-based filtering, blog hub, roadmap and "what we need from you" — tuned for a CEO audience.</p></div>
+      </div>
+    </section>
+
+    <!-- 02 DELIVERABLES -->
+    <section class="doc" id="deliverables">
+      <div class="eyebrow">02 · The Deliverables</div>
+      <h2 class="sec">Three artifacts, all self-contained</h2>
+      <p class="lead">Every deliverable is built to be opened by double-clicking — no build step, no server, no dependencies to install. That makes them trivial to share, demo and hand off.</p>
+
+      <div class="card reveal">
+        <h3 class="sub" style="margin-top:0">🌐 The Website — <code>biocity-redesign/index.html</code></h3>
+        <p>A complete public-site redesign as one HTML file (~840 lines, CSS + JS inline).</p>
+        <span class="tag a">single file</span><span class="tag a">dark mode</span><span class="tag a">mobile-first</span><span class="tag a">no dependencies</span>
+        <p style="margin-top:12px"><strong>Key sections:</strong> sticky nav with theme toggle &amp; mobile menu, hero with floating trust cards &amp; scroll-progress bar, animated number counters, "How it works", package cards, "Why us"/trust, health-awareness, an infinite auto-scrolling reviews marquee, and an interactive BMI calculator.</p>
+        <p><strong>How to open:</strong> <code>open biocity-redesign/index.html</code></p>
+      </div>
+
+      <div class="card reveal">
+        <h3 class="sub" style="margin-top:0">📊 The CRM "Biocity Pulse" — <code>biocity-crm/</code></h3>
+        <p>A working demo CRM in 3 files: <code>index.html</code> (131 lines), <code>styles.css</code> (313), <code>app.js</code> (589).</p>
+        <span class="tag i">localStorage DB</span><span class="tag i">Chart.js</span><span class="tag i">Kanban</span><span class="tag i">dark mode</span>
+        <p style="margin-top:12px"><strong>Modules:</strong> Dashboard (KPIs + revenue/funnel/package charts), Leads (drag-and-drop Kanban pipeline), Calls log, Bookings, Phlebotomists, Reports tracking, Customers (with LTV), Analytics (revenue by city, channel mix, growth), and Packages.</p>
+        <p><strong>How to open:</strong> <code>open biocity-crm/index.html</code> — data persists in the browser; "Reset" restores the seeded demo.</p>
+      </div>
+
+      <div class="card reveal">
+        <h3 class="sub" style="margin-top:0">🗺️ The Phase 1A Plan — <code>biocity-redesign/PHASE1A_PLAN.html</code></h3>
+        <p>The board-ready interactive proposal (~1,600 lines, single file).</p>
+        <span class="tag m">CEO-facing</span><span class="tag m">interactive demos</span><span class="tag m">plain English</span><span class="tag m">printable</span>
+        <p style="margin-top:12px"><strong>Story flow (9 sections):</strong> How to read → See it in action (live desktop/mobile mockup) → At a glance (3 goals) → The next frontier (GEO) → Content that captures demand → The full checklist (24 changes, each with a live demo) → The roadmap (3–4 weeks) → What we need from you → Why it matters.</p>
+        <p><strong>How to open:</strong> <code>open biocity-redesign/PHASE1A_PLAN.html</code></p>
+      </div>
+
+      <div class="callout"><span class="lbl">The golden rule we used</span><p>Every client-facing artifact is a <strong>single, dependency-free file</strong> (or a tiny folder). It can be emailed, opened offline, and printed to PDF. No "it works on my machine."</p></div>
+    </section>
+
+    <!-- 03 PLAYBOOK -->
+    <section class="doc" id="playbook">
+      <div class="eyebrow">03 · Methodology / Playbook</div>
+      <h2 class="sec">The repeatable five-act method</h2>
+      <p class="lead">This is the spine of the engagement. The same five acts work for almost any "modernise this product and sell it to stakeholders" brief.</p>
+
+      <ol class="steps">
+        <li><strong>Audit &amp; empathise.</strong> Open the current product as a real user. Write down the concrete problems (clutter, slow, hard to find, no trust). Frame everything later as a fix to one of these — never "change for change's sake."</li>
+        <li><strong>Prototype the destination, not a deck.</strong> Build a real, clickable artifact early. A working prototype convinces stakeholders far more than slides, and it forces you to make real design decisions.</li>
+        <li><strong>Design a system, then apply it.</strong> Define tokens (colour, type, spacing, radius, shadow) once as CSS variables. Everything downstream — website, CRM, demos — reads from the system, so it stays consistent and re-themeable (incl. dark mode) for free.</li>
+        <li><strong>Translate for the audience.</strong> Engineers think in features; CEOs think in outcomes, effort and time. Re-label everything: "schema markup" becomes "so Google &amp; AI understand you." Tag each item by <em>business goal</em> and <em>effort</em>.</li>
+        <li><strong>Package the pitch.</strong> Wrap it in a narrative: problem → see the fix → the plan → the timeline → what we need → why it pays off. Make it interactive so they explore, and printable so they can forward it.</li>
+      </ol>
+
+      <div class="callout i"><span class="lbl">Principle</span><p><strong>Show, don't tell.</strong> A drag-to-compare slider, a live device toggle, or a one-tap element demo lands an idea in seconds — where a paragraph would lose the reader.</p></div>
+    </section>
+
+    <!-- 04 DESIGN SYSTEM -->
+    <section class="doc" id="designsys">
+      <div class="eyebrow">04 · Design System &amp; Techniques</div>
+      <h2 class="sec">The craft toolkit behind the look</h2>
+      <p class="lead">These are the concrete, copy-paste-able techniques that make the work feel premium. Master these and you can reproduce the quality anywhere.</p>
+
+      <h3 class="sub">1 · Token-driven theming (and free dark mode)</h3>
+      <p>Define the whole palette as CSS variables on <code>:root</code> and override them under a <code>[data-theme="dark"]</code> selector. Components only ever reference variables — never raw hex. A single attribute flip re-themes the entire page, and the choice is remembered in <code>localStorage</code>.</p>
+<pre><code>:root{ --bg:#F5F7F8; --ink:#0E1B1A; --accent:#0E9E8C; }
+[data-theme="dark"]{ --bg:#0A1110; --ink:#EAF2F0; --accent:#2DD4BF; }
+/* usage */ .card{ background:var(--bg); color:var(--ink); }</code></pre>
+
+      <h3 class="sub">2 · The "siteskin" scoping trick</h3>
+      <p>When you embed a preview of <em>one</em> brand inside a document with a <em>different</em> brand (e.g. the coral website demo living inside the indigo plan), wrap the preview in a class that <strong>re-declares the tokens locally</strong>. The preview keeps its own identity while the host keeps its own.</p>
+<pre><code>.siteskin{ --accent:#E05A3A; --panel:#FFF; font-family:'Plus Jakarta Sans'; }
+&lt;div class="demo-stage siteskin"&gt; ...website preview... &lt;/div&gt;</code></pre>
+
+      <h3 class="sub">3 · Typography pairing</h3>
+      <p>A characterful display face for headings + a clean workhorse for body. We used <strong>Fraunces</strong> (warm serif) for the website, <strong>Space Grotesk</strong> for the strategy/docs headings, and <strong>Inter / Plus Jakarta Sans</strong> for body. One display + one body is plenty.</p>
+      <div class="chips"><span class="chip">Fraunces — website display</span><span class="chip">Space Grotesk — docs headings</span><span class="chip">Inter — body</span><span class="chip">JetBrains Mono — code</span></div>
+
+      <h3 class="sub">4 · Micro-interactions &amp; motion</h3>
+      <ul>
+        <li><strong>Reveal on scroll:</strong> an <code>IntersectionObserver</code> adds a <code>.v</code> class that fades/slides elements in.</li>
+        <li><strong>Scroll-progress bar:</strong> a thin gradient bar driven by <code>scrollTop / scrollHeight</code>.</li>
+        <li><strong>Animated counters:</strong> numbers count up when they enter view.</li>
+        <li><strong>Infinite marquee:</strong> duplicate the row and translate it linearly for a seamless loop (reviews, trust logos).</li>
+        <li><strong>Hover lift:</strong> <code>transform: translateY(-4px)</code> + a larger shadow on cards.</li>
+      </ul>
+
+      <h3 class="sub">5 · "Show, don't tell" widgets</h3>
+      <ul>
+        <li><strong>Before/After slider:</strong> two stacked layers with a draggable handle clipping width.</li>
+        <li><strong>Device toggle:</strong> one mockup, two CSS widths (desktop ↔ phone) that reflow via a <code>.mobile</code> class — no second file needed.</li>
+        <li><strong>Element demo modal:</strong> each "change" card opens a realistic, animated mini-preview of that element.</li>
+        <li><strong>Animated concept tiles:</strong> tiny CSS animations that visualise an abstract idea (e.g. an AI answer citing the brand).</li>
+      </ul>
+
+      <h3 class="sub">6 · The single-file constraint</h3>
+      <p>Inline all CSS and JS. Avoid <code>&lt;iframe src="other.html"&gt;</code> in anything you want to share as one file — instead, build a self-contained mockup. This came directly from a real lesson: the live-preview iframe needed a second file, so we replaced it with an inline mockup.</p>
+      <div class="callout m"><span class="lbl">Hard-won lesson</span><p>If a stakeholder says "I only want to share one file," audit for <strong>external references</strong> (iframes, image <code>src</code>, font files). Inline or mock everything, then grep to confirm zero external paths remain.</p></div>
+    </section>
+
+    <!-- 05 WEBSITE -->
+    <section class="doc" id="website">
+      <div class="eyebrow">05 · Website Redesign</div>
+      <h2 class="sec">From cluttered to calm &amp; converting</h2>
+      <p class="lead">The redesign philosophy: replace noise with clarity, and make every screen quietly push toward a booking. Each section earns its place.</p>
+
+      <table class="tbl">
+        <tr><th>Problem (before)</th><th>Fix (after)</th></tr>
+        <tr><td>Banners &amp; popups fighting for attention</td><td><b>Calm, spacious layout</b> with one clear action per screen</td></tr>
+        <tr><td>Hard to use on a phone</td><td><b>Mobile-first</b> with thumb-sized targets</td></tr>
+        <tr><td>Prices &amp; tests buried</td><td><b>Comparable package cards</b> with a clear "most popular"</td></tr>
+        <tr><td>NABL/ISO trust hidden</td><td><b>Trust section</b> front and centre + proof stats</td></tr>
+        <tr><td>Invisible on Google/AI</td><td><b>SEO + GEO foundations</b> (see §09)</td></tr>
+      </table>
+
+      <h3 class="sub">Conversion building blocks</h3>
+      <div class="grid c3">
+        <div class="mini reveal"><span class="ico">⭐</span><h4>Social proof</h4><p>Auto-scrolling 5-star reviews and "50 lakh+ tests" stats build instant trust.</p></div>
+        <div class="mini reveal"><span class="ico">📞</span><h4>Frictionless contact</h4><p>Click-to-call + floating WhatsApp suit a call-driven business.</p></div>
+        <div class="mini reveal"><span class="ico">🧮</span><h4>Interactive hooks</h4><p>A BMI calculator and "how it works" steps keep visitors engaged.</p></div>
+      </div>
+      <div class="callout"><span class="lbl">Takeaway</span><p>For a healthcare/services site, <strong>trust + ease-of-contact</strong> beat clever visuals. Every fancy element still funnels to "call, WhatsApp, or book."</p></div>
+    </section>
+
+    <!-- 06 CRM -->
+    <section class="doc" id="crm">
+      <div class="eyebrow">06 · CRM — Biocity Pulse</div>
+      <h2 class="sec">A demo-able CRM for a call-driven business</h2>
+      <p class="lead">The business runs on phone calls, so the CRM is organised around <strong>capturing a lead, logging the call, booking the visit, and tracking the report</strong> — not generic sales-team features.</p>
+
+      <h3 class="sub">Modules</h3>
+      <div class="grid c2">
+        <div class="mini reveal"><span class="ico">📈</span><h4>Dashboard</h4><p>KPIs plus revenue, funnel and package charts (Chart.js).</p></div>
+        <div class="mini reveal"><span class="ico">🗂️</span><h4>Leads (Kanban)</h4><p>Drag-and-drop pipeline from New → Contacted → Booked → Done.</p></div>
+        <div class="mini reveal"><span class="ico">☎️</span><h4>Calls</h4><p>Every inbound/outbound call logged against a lead.</p></div>
+        <div class="mini reveal"><span class="ico">📅</span><h4>Bookings</h4><p>Scheduled home collections with status.</p></div>
+        <div class="mini reveal"><span class="ico">🧑‍⚕️</span><h4>Phlebotomists</h4><p>Field staff, assignments and load.</p></div>
+        <div class="mini reveal"><span class="ico">📄</span><h4>Reports</h4><p>Track report turnaround and delivery.</p></div>
+        <div class="mini reveal"><span class="ico">👥</span><h4>Customers</h4><p>Profiles with lifetime value (LTV).</p></div>
+        <div class="mini reveal"><span class="ico">📊</span><h4>Analytics</h4><p>Revenue by city, channel mix, growth trend.</p></div>
+      </div>
+
+      <h3 class="sub">The demo pattern that makes it shine</h3>
+      <ul>
+        <li><strong>Seed + localStorage:</strong> a <code>seed()</code> function generates realistic data; <code>load()</code>/<code>save()</code> persist it in the browser so the demo feels alive and survives refreshes.</li>
+        <li><strong>Reset button:</strong> one click restores the seeded demo — perfect before a live pitch.</li>
+        <li><strong>Charts:</strong> Chart.js renders revenue/funnel/growth visuals that read from the same data.</li>
+        <li><strong>Same design system:</strong> reuses the token + dark-mode approach for visual consistency with the website.</li>
+      </ul>
+      <div class="callout i"><span class="lbl">Why no backend (yet)</span><p>A browser-storage demo proves the workflow and wins buy-in <strong>before</strong> anyone spends on servers, auth or databases. Build the real backend only once the concept is approved (see §08 &amp; §10).</p></div>
+    </section>
+
+    <!-- 07 PLAN -->
+    <section class="doc" id="plan">
+      <div class="eyebrow">07 · The Phase 1A Plan</div>
+      <h2 class="sec">Turning the work into a story the CEO buys</h2>
+      <p class="lead">The plan is the most refined artifact because it's the one that gets presented. Its job: make a non-technical leader feel the value in minutes and say "yes."</p>
+
+      <h3 class="sub">The narrative arc</h3>
+      <div class="tl">
+        <div class="tl-item reveal"><div class="w">Hook</div><h4>See it in action</h4><p>A live desktop↔mobile mockup proves the new look immediately.</p></div>
+        <div class="tl-item reveal"><div class="w">Frame</div><h4>Three goals, one website</h4><p>Every change maps to Look &amp; Feel, Win the Booking, or Get Found.</p></div>
+        <div class="tl-item reveal"><div class="w">Educate</div><h4>The next frontier (GEO)</h4><p>Introduce being recommended by AI — a fresh, ownable advantage.</p></div>
+        <div class="tl-item reveal"><div class="w">Detail</div><h4>The full checklist</h4><p>24 changes in plain English, each with a one-tap live demo.</p></div>
+        <div class="tl-item reveal"><div class="w">Reassure</div><h4>The roadmap</h4><p>An interactive ~3–4 week timeline — calm and concrete.</p></div>
+        <div class="tl-item reveal"><div class="w">Enable</div><h4>What we need from you</h4><p>A short, friendly ask-list so the client knows their part.</p></div>
+        <div class="tl-item reveal"><div class="w">Close</div><h4>Why it matters</h4><p>Ties everything back to trust, mobile, discoverability, enquiries.</p></div>
+      </div>
+
+      <h3 class="sub">Translation techniques used</h3>
+      <ul>
+        <li><strong>Effort, not cost:</strong> tag items 🟢 Low / 🟡 Medium / 🔴 High so leadership grasps scope without a price tag in the room.</li>
+        <li><strong>Goal filters:</strong> let them slice 24 changes by business outcome.</li>
+        <li><strong>Plain-English pairs:</strong> every card shows "Now" vs "After" in one line each.</li>
+        <li><strong>Independent aesthetic:</strong> the deck uses its own indigo/Space-Grotesk identity so it reads as a strategy document, not the website itself.</li>
+      </ul>
+    </section>
+
+    <!-- 08 STACK -->
+    <section class="doc" id="stack">
+      <div class="eyebrow">08 · Tech Stack &amp; Hosting</div>
+      <h2 class="sec">What it takes to build this for real</h2>
+      <p class="lead">The prototypes are dependency-free, but here's the production stack to quote and plan against — and the answers to the usual stakeholder questions.</p>
+
+      <table class="tbl">
+        <tr><th>Layer</th><th>Recommended</th><th>Alternatives</th></tr>
+        <tr><td><b>Website (front)</b></td><td>Next.js or Astro (React)</td><td>Plain HTML/CSS for a brochure site</td></tr>
+        <tr><td><b>CRM (front)</b></td><td>React + a component library</td><td>Vue / Svelte</td></tr>
+        <tr><td><b>Backend / API</b></td><td>Node.js (NestJS) or Python (FastAPI)</td><td>Django</td></tr>
+        <tr><td><b>Database</b></td><td>PostgreSQL</td><td>MySQL</td></tr>
+        <tr><td><b>Cache / queues</b></td><td>Redis</td><td>—</td></tr>
+        <tr><td><b>File storage</b></td><td>AWS S3 / GCP Storage / Cloudflare R2</td><td>—</td></tr>
+        <tr><td><b>Payments</b></td><td>Razorpay</td><td>Stripe / PayU</td></tr>
+        <tr><td><b>Messaging</b></td><td>WhatsApp Business API, MSG91/Twilio (SMS), SendGrid/SES (email)</td><td>—</td></tr>
+        <tr><td><b>Call tracking</b></td><td>Exotel / Knowlarity</td><td>—</td></tr>
+      </table>
+
+      <h3 class="sub">Hosting options (how to answer "cloud or in-house?")</h3>
+      <div class="grid c3">
+        <div class="mini reveal"><span class="ico">☁️</span><h4>Static / Jamstack</h4><p>Vercel, Netlify or Cloudflare Pages — cheapest, fastest for the website.</p></div>
+        <div class="mini reveal"><span class="ico">🖥️</span><h4>Full cloud</h4><p>AWS / GCP / DigitalOcean for the CRM + API + DB + storage.</p></div>
+        <div class="mini reveal"><span class="ico">🏢</span><h4>In-house / hybrid</h4><p>Possible for data-sensitivity, but you own ops, uptime &amp; security.</p></div>
+      </div>
+      <div class="callout"><span class="lbl">Recommended answer</span><p>Host the <strong>website on a static host</strong> (cheap, fast, secure) and the <strong>CRM/API on managed cloud</strong>. Keep in-house only if a compliance requirement truly demands it.</p></div>
+    </section>
+
+    <!-- 09 GEO -->
+    <section class="doc" id="geo">
+      <div class="eyebrow">09 · SEO &amp; GEO Playbook</div>
+      <h2 class="sec">Get found on Google — and cited by AI</h2>
+      <p class="lead">SEO gets you ranked. <strong>GEO (Generative Engine Optimization)</strong> gets you <em>quoted</em> by ChatGPT, Gemini, Perplexity and Google AI Overviews. This is the emerging edge, and most competitors aren't doing it yet.</p>
+
+      <h3 class="sub">What helps you get cited by AI</h3>
+      <ul>
+        <li><strong>Clear, factual content</strong> — quotable statements, not marketing fluff.</li>
+        <li><strong>Direct question→answer format</strong> — matches how people (and AI) ask.</li>
+        <li><strong>Structured headings &amp; clean HTML</strong> — easy for engines to parse.</li>
+        <li><strong>Schema markup (JSON-LD)</strong> — explicit facts: business type, rating, prices, area served.</li>
+        <li><strong>Authoritative expertise</strong> — expert-reviewed, original content.</li>
+        <li><strong>Brand mentions &amp; citations</strong> across trusted sites.</li>
+      </ul>
+
+      <div class="callout i"><span class="lbl">Practise what you preach</span><p>The plan itself ships with <code>MedicalBusiness</code> and <code>FAQPage</code> JSON-LD in its <code>&lt;head&gt;</code> — a live demonstration of exactly the technique we're selling.</p></div>
+
+      <h3 class="sub">The content strategy that scales</h3>
+      <p>The biggest discoverability win is <strong>targeted landing pages</strong>, multiplied across three axes:</p>
+      <table class="tbl">
+        <tr><th>Axis</th><th>Example pages</th><th>Captures</th></tr>
+        <tr><td><b>🏙️ City</b></td><td>"Full Body Checkup in Noida"</td><td>local "near me" + city searches</td></tr>
+        <tr><td><b>🩺 Ailment</b></td><td>"Diabetes Screening", "Thyroid Tests"</td><td>symptom/condition searches</td></tr>
+        <tr><td><b>👨‍👩‍👧 Age / life-stage</b></td><td>"Health Checkup for Women 40+"</td><td>demographic searches</td></tr>
+        <tr><td><b>📰 Blog hub</b></td><td>"Signs of Vitamin D deficiency"</td><td>informational + AI-citation traffic</td></tr>
+      </table>
+      <p>Combined: <strong>60+ cities × 14+ conditions × 4+ life-stages ≈ 3,000+ targeted pages</strong> — each a doorway from search and AI into a booking.</p>
+    </section>
+
+    <!-- 10 COSTING -->
+    <section class="doc" id="costing">
+      <div class="eyebrow">10 · Phasing, Timeline &amp; Costing</div>
+      <h2 class="sec">How to scope, schedule and quote</h2>
+      <p class="lead">Phase the work so the client gets value early and commits incrementally. Lead with outcomes; let budget follow trust.</p>
+
+      <h3 class="sub">Phasing</h3>
+      <table class="tbl">
+        <tr><th>Phase</th><th>Scope</th><th>Outcome</th></tr>
+        <tr><td><b>1A</b></td><td>Website revamp (design, mobile, content, SEO/GEO foundations)</td><td>A site that looks credible &amp; gets found</td></tr>
+        <tr><td><b>1B</b></td><td>Targeted pages at scale (city/ailment/age) + blog hub</td><td>Compounding organic + AI traffic</td></tr>
+        <tr><td><b>2</b></td><td>CRM productionised (auth, DB, real data)</td><td>Operations move off spreadsheets/calls</td></tr>
+        <tr><td><b>3</b></td><td>Integrations (payments, WhatsApp, SMS, call tracking, storage)</td><td>End-to-end automation</td></tr>
+      </table>
+
+      <h3 class="sub">Phase 1A timeline (~3–4 weeks)</h3>
+      <div class="tl">
+        <div class="tl-item reveal"><div class="w">Week 1</div><h4>Design &amp; sign-off</h4><p>Lock the look, gather content, agree pages — client approves before build.</p></div>
+        <div class="tl-item reveal"><div class="w">Week 2</div><h4>Build the pages</h4><p>Every page, fully responsive.</p></div>
+        <div class="tl-item reveal"><div class="w">Week 3</div><h4>Content, SEO &amp; GEO</h4><p>Targeted pages, blog seed, schema, speed, forms, WhatsApp.</p></div>
+        <div class="tl-item reveal"><div class="w">Week 4</div><h4>Review &amp; go live</h4><p>Private preview, polish, then publish with zero downtime.</p></div>
+      </div>
+
+      <h3 class="sub">Talking budget — the humble way</h3>
+      <ul>
+        <li><strong>Lead with value, not price.</strong> "Here's what this unlocks for bookings and trust" before any number.</li>
+        <li><strong>Anchor to outcomes &amp; phases.</strong> Quote per milestone so the ask feels proportionate and low-risk.</li>
+        <li><strong>Ask, don't assume.</strong> "What budget range are we working within for Phase 1A, so I can shape the scope to fit?"</li>
+        <li><strong>Offer a clear first step.</strong> A small, well-defined Phase 1A is an easy yes and builds the trust that funds the rest.</li>
+      </ul>
+      <div class="callout m"><span class="lbl">Note</span><p>This doc intentionally keeps <strong>specific figures out</strong> — quote based on your team's rates and the agreed scope. The structure above is what makes any number feel reasonable.</p></div>
+    </section>
+
+    <!-- 11 ASKS -->
+    <section class="doc" id="asks">
+      <div class="eyebrow">11 · What To Collect From Client</div>
+      <h2 class="sec">The hand-off checklist</h2>
+      <p class="lead">Fast projects stall on missing inputs. Collect these up front. (This is mirrored in the Phase 1A plan's "What we need from you" section.)</p>
+
+      <div class="grid c2">
+        <div class="mini reveal"><span class="ico">🎨</span><h4>Brand &amp; visuals</h4><p>Logo (vector ideally), brand colours/fonts, real photos (lab, team, home visits), any videos.</p></div>
+        <div class="mini reveal"><span class="ico">🔗</span><h4>Reference &amp; inspiration</h4><p>2–3 sites they like, competitor sites to beat, specific likes/dislikes.</p></div>
+        <div class="mini reveal"><span class="ico">📋</span><h4>Content &amp; proof</h4><p>Package details &amp; prices, certifications/awards, real reviews, contact details.</p></div>
+        <div class="mini reveal"><span class="ico">🔑</span><h4>Access</h4><p><b>Source code repository</b>, domain &amp; DNS, Google Business Profile &amp; analytics, social handles.</p></div>
+      </div>
+
+      <h3 class="sub">The lists that drive the targeted pages</h3>
+      <div class="chips">
+        <span class="chip">🏙️ Priority cities</span>
+        <span class="chip">🩺 Ailments / conditions</span>
+        <span class="chip">👨‍👩‍👧 Age &amp; life stages</span>
+        <span class="chip">🧩 Any other category (corporate, seasonal, by gender)</span>
+      </div>
+      <div class="callout"><span class="lbl">Tip</span><p>If the client can't supply everything, <strong>start with what they have</strong> and fill gaps as you go — momentum beats a perfect kickoff.</p></div>
+    </section>
+
+    <!-- 12 PROMPTS -->
+    <section class="doc" id="prompts">
+      <div class="eyebrow">12 · Prompts &amp; Communication</div>
+      <h2 class="sec">How to get this quality out of an AI partner</h2>
+      <p class="lead">The output is only as good as the direction. These patterns consistently produced strong results.</p>
+
+      <h3 class="sub">Prompt patterns that worked</h3>
+      <ul>
+        <li><strong>Set a persona + a bar.</strong> "Act as the best UI/UX designer; make it a banger / out of the park." Raises the ceiling on effort and polish.</li>
+        <li><strong>Give constraints, not just goals.</strong> "Single HTML file," "dark mode," "works on mobile," "don't mention cost" — constraints shape better output than vague praise.</li>
+        <li><strong>Name the audience.</strong> "For a non-technical CEO," "appeal to Gen-Z and older users." The tone and vocabulary follow.</li>
+        <li><strong>Iterate in small, concrete asks.</strong> "Remove this line," "make the boxes smaller," "the checkmark looks odd." Specific edits converge faster than full rewrites.</li>
+        <li><strong>Ask for options when unsure.</strong> e.g. "single file with a full embed, a light mockup, or two files?" — decide trade-offs explicitly.</li>
+      </ul>
+
+      <h3 class="sub">Communicating with non-technical stakeholders</h3>
+      <ul>
+        <li><strong>Translate every feature into an outcome.</strong> "Schema markup" → "so Google &amp; AI understand and recommend you."</li>
+        <li><strong>Use effort tiers, not jargon.</strong> 🟢🟡🔴 communicates scope without a spec.</li>
+        <li><strong>Show a working thing.</strong> A live mockup or demo beats any description.</li>
+        <li><strong>Keep it less verbose.</strong> One-line "Now vs After" pairs; subtle, aesthetic, direct.</li>
+        <li><strong>End with the ask.</strong> Make the client's next step small and obvious.</li>
+      </ul>
+    </section>
+
+    <!-- 13 CHECKLIST -->
+    <section class="doc" id="checklist">
+      <div class="eyebrow">13 · Replication Checklist</div>
+      <h2 class="sec">Do it yourself, start to finish</h2>
+      <p class="lead">A peer can follow this to reproduce the same engagement on a new client.</p>
+
+      <ol class="steps">
+        <li><strong>Audit the current product.</strong> List concrete problems as a user. Capture screenshots/notes.</li>
+        <li><strong>Define the design system.</strong> Pick palette + 1 display + 1 body font. Write tokens as CSS variables with a dark-mode override.</li>
+        <li><strong>Prototype the new front-end</strong> as one self-contained HTML file. Add reveal-on-scroll, counters, and conversion sections.</li>
+        <li><strong>Build a demo of any tooling</strong> (CRM/dashboard) on <code>localStorage</code> + Chart.js. Add a "reset demo" button.</li>
+        <li><strong>Research the production stack</strong> — front, back, DB, integrations, hosting — and write the phase plan + timeline.</li>
+        <li><strong>Write the SEO/GEO strategy</strong> — schema, Q&amp;A content, and the city × ailment × age page matrix.</li>
+        <li><strong>Build the pitch deck as an interactive HTML file.</strong> Narrative arc, plain-English change cards tagged by goal + effort, live element demos, a roadmap, and a client ask-list.</li>
+        <li><strong>Scope the aesthetic of the deck</strong> independently from the product (own colours/fonts) so it reads as strategy.</li>
+        <li><strong>Enforce the single-file rule.</strong> Inline CSS/JS, mock anything that would need a second file, then grep for external <code>src</code>/iframe references.</li>
+        <li><strong>Iterate with the stakeholder</strong> in small, specific edits until it's subtle, clear and convincing.</li>
+        <li><strong>Ship a knowledge bank</strong> (this document's pattern) so the team inherits the know-how.</li>
+      </ol>
+
+      <div class="callout i"><span class="lbl">Quality bar to hit</span><p>Opens by double-click · works offline · looks great in light <em>and</em> dark · responsive on a phone · printable to PDF · zero external dependencies.</p></div>
+    </section>
+
+    <!-- 14 APPENDIX -->
+    <section class="doc" id="appendix">
+      <div class="eyebrow">14 · File Index &amp; Appendix</div>
+      <h2 class="sec">Where everything lives</h2>
+      <table class="tbl">
+        <tr><th>File</th><th>What it is</th><th>Open with</th></tr>
+        <tr><td><code>biocity-redesign/index.html</code></td><td>Redesigned website prototype</td><td>double-click / <code>open</code></td></tr>
+        <tr><td><code>biocity-redesign/PHASE1A_PLAN.html</code></td><td>Interactive Phase 1A pitch</td><td>double-click / <code>open</code></td></tr>
+        <tr><td><code>biocity-redesign/KNOWLEDGE_BANK.html</code></td><td>This knowledge bank</td><td>double-click / <code>open</code></td></tr>
+        <tr><td><code>biocity-crm/index.html</code></td><td>CRM "Biocity Pulse" shell</td><td>double-click / <code>open</code></td></tr>
+        <tr><td><code>biocity-crm/styles.css</code></td><td>CRM styles</td><td>—</td></tr>
+        <tr><td><code>biocity-crm/app.js</code></td><td>CRM logic, seed data &amp; charts</td><td>—</td></tr>
+      </table>
+
+      <h3 class="sub">Glossary</h3>
+      <ul>
+        <li><strong>SEO</strong> — Search Engine Optimization: ranking in Google results.</li>
+        <li><strong>GEO</strong> — Generative Engine Optimization: being cited/recommended by AI assistants.</li>
+        <li><strong>Schema / JSON-LD</strong> — structured data that tells engines explicit facts about a business.</li>
+        <li><strong>Design token</strong> — a named variable (colour, spacing) the whole UI references.</li>
+        <li><strong>Siteskin</strong> — our scoping class that re-themes an embedded preview to its own brand.</li>
+        <li><strong>LTV</strong> — Lifetime Value: total revenue from a customer over time.</li>
+      </ul>
+
+      <div class="callout"><span class="lbl">Maintaining this bank</span><p>When you add a new artifact or technique, drop it into the matching section and bump the version in the cover. Keep it single-file so it stays as shareable as everything else.</p></div>
+    </section>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<footer class="foot">Biocity Knowledge Bank · prepared as an internal playbook · share freely with the team</footer>
+
+<script>
+/* theme */
+function toggleTheme(){const d=document.documentElement;const n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);document.getElementById('sun').style.display=n==='dark'?'none':'block';document.getElementById('moon').style.display=n==='dark'?'block':'none';localStorage.setItem('kb_theme',n);}
+(function(){const s=localStorage.getItem('kb_theme');if(s==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('sun').style.display='none';document.getElementById('moon').style.display='block';}})();
+/* sidebar mobile */
+function openSide(){document.getElementById('side').classList.add('open');document.getElementById('scrim').classList.add('on');}
+function closeSide(){document.getElementById('side').classList.remove('open');document.getElementById('scrim').classList.remove('on');}
+/* nav scroll + active */
+const links=[...document.querySelectorAll('.nav-link')];
+links.forEach(l=>l.addEventListener('click',()=>{const t=document.getElementById(l.dataset.to);if(t){t.scrollIntoView({behavior:'smooth'});closeSide();}}));
+const secs=()=>links.map(l=>document.getElementById(l.dataset.to)).filter(Boolean);
+/* progress + active highlight */
+addEventListener('scroll',()=>{
+  const h=document.documentElement;const sc=h.scrollTop/(h.scrollHeight-h.clientHeight);
+  document.getElementById('prog').style.width=(sc*100)+'%';
+  let cur=null;for(const s of secs()){if(s.getBoundingClientRect().top<160)cur=s.id;}
+  links.forEach(l=>l.classList.toggle('on',l.dataset.to===cur));
+});
+/* reveal */
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v')}),{threshold:.12});
+function observeReveals(){document.querySelectorAll('.reveal:not(.v)').forEach(el=>obs.observe(el));}
+observeReveals();
+</script>
+</body>
+</html>
