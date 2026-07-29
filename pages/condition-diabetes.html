@@ -322,6 +322,20 @@ html{scrollbar-width:thin;scrollbar-color:var(--text3) transparent}
 
 /* Print */
 @media print{.nav,.wa,.mbar,.mod-bg,.burger,.mmenu,.th-btn,#prog,.orb,.cg,.hero-ecg{display:none!important}body{background:#fff!important;color:#052e16!important;font-size:11pt}body::after{display:none!important}.sec{padding:30px 0!important;min-height:auto!important}}
+/* ═══ MOBILE — performance + legibility (added) ═══ */
+@media(max-width:900px){
+  html{overflow-x:hidden}
+  .mod-bg{padding:14px}.mod{padding:26px 22px;max-height:calc(100vh - 28px);max-height:calc(100dvh - 28px)}
+  .orb{display:none}
+  body::after{display:none}
+  .bg-cross{-webkit-mask:none;mask:none}
+  *{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+  .sr{will-change:auto}
+  .sr-blur{filter:none}
+  .ecg-run{filter:none}
+  .nav.stuck{background:color-mix(in srgb,var(--bg) 93%,transparent)}
+  .mbar{background:color-mix(in srgb,var(--bg) 96%,transparent)}
+}
 </style>
 </head>
 <body>

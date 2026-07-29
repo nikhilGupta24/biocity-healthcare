@@ -369,6 +369,10 @@ h2{font-size:clamp(2rem,4.6vw,3.5rem);font-weight:700}
 .cmp .c-book a:hover{border-color:var(--accent);color:var(--accent);background:var(--accentS)}
 .cmp .c-book td.pop a{background:var(--accent);color:#fff;border-color:var(--accent)}
 .cmp-note{text-align:center;margin-top:20px;font-size:.8rem;color:var(--text3);font-weight:300}.cmp-note strong{color:var(--accent);font-weight:700}
+.cmp-swipe{display:none;align-items:center;justify-content:center;gap:9px;margin:0 auto 16px;font-size:.72rem;font-weight:700;letter-spacing:.4px;color:var(--accent);text-transform:uppercase}
+.cmp-swipe svg{width:15px;height:15px;stroke-width:2.6}.cmp-swipe .sw-l{animation:swipeL 1.6s ease-in-out infinite}.cmp-swipe .sw-r{animation:swipeR 1.6s ease-in-out infinite}
+@keyframes swipeL{0%,100%{transform:translateX(0);opacity:.5}50%{transform:translateX(-3px);opacity:1}}
+@keyframes swipeR{0%,100%{transform:translateX(0);opacity:.5}50%{transform:translateX(3px);opacity:1}}
 
 /* ═══ TRUST ═══ */
 .trust-g{display:grid;grid-template-columns:1fr;gap:14px}
@@ -396,7 +400,7 @@ h2{font-size:clamp(2rem,4.6vw,3.5rem);font-weight:700}
 .warn{background:linear-gradient(120deg,#ef4444,#f87171);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
 @keyframes acGrad{0%,100%{background-position:0% 0%}50%{background-position:100% 100%}}
 /* Silent killers — organic flashlight reveal, dissolved into the background (no panel, no boundary) */
-.killers{position:relative;--mx:-999px;--my:-999px}
+.killers{position:relative;--mx:-999px;--my:-999px;--tr:215px}
 .killers-g{display:grid;grid-template-columns:1fr;position:relative;z-index:1;gap:clamp(6px,2vw,20px)}
 @media(min-width:600px){.killers-g{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1040px){.killers-g{grid-template-columns:repeat(4,1fr)}}
@@ -413,12 +417,13 @@ h2{font-size:clamp(2rem,4.6vw,3.5rem);font-weight:700}
 [data-theme="light"] .k4{color:#0891b2}
 /* the veil is the exact section background, so the cards are invisible until the cursor uncovers them */
 .killers-veil{position:absolute;inset:-4% -2%;z-index:2;pointer-events:none;background:var(--bg2);transition:opacity .6s;
-  -webkit-mask-image:radial-gradient(circle 215px at var(--mx) var(--my),transparent 0,transparent 28%,#000 72%);
-  mask-image:radial-gradient(circle 215px at var(--mx) var(--my),transparent 0,transparent 28%,#000 72%)}
-.killers-torch{position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(circle 215px at var(--mx) var(--my),rgba(16,185,129,.16),transparent 66%);mix-blend-mode:screen;opacity:0;transition:opacity .6s}
-.killers.lit .killers-torch{opacity:1}
-[data-theme="light"] .killers-torch{mix-blend-mode:multiply;background:radial-gradient(circle 215px at var(--mx) var(--my),rgba(5,150,105,.09),transparent 66%)}
-@media(hover:none){.killers-veil,.killers-torch{display:none}}
+  -webkit-mask-image:radial-gradient(circle var(--tr) at var(--mx) var(--my),transparent 0,transparent 28%,#000 72%);
+  mask-image:radial-gradient(circle var(--tr) at var(--mx) var(--my),transparent 0,transparent 28%,#000 72%)}
+.killers-torch{position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(circle var(--tr) at var(--mx) var(--my),rgba(16,185,129,.18),transparent 66%);mix-blend-mode:screen;opacity:0;transition:opacity .6s}
+.killers.lit .killers-torch{opacity:1;animation:candleFlicker 2.6s ease-in-out infinite}
+[data-theme="light"] .killers-torch{mix-blend-mode:multiply;background:radial-gradient(circle var(--tr) at var(--mx) var(--my),rgba(5,150,105,.1),transparent 66%)}
+@keyframes candleFlicker{0%,100%{opacity:1}22%{opacity:.84}44%{opacity:.96}68%{opacity:.8}84%{opacity:.93}}
+@media(prefers-reduced-motion:reduce){.killers.lit .killers-torch{animation:none}}
 @media(prefers-reduced-motion:reduce){.killers-veil{opacity:0}}
 
 /* ═══ CONNECT (festival / newsletter / social) ═══ */
@@ -640,9 +645,79 @@ h2{font-size:clamp(2rem,4.6vw,3.5rem);font-weight:700}
 ::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--text3);border-radius:3px}
 html{scrollbar-width:thin;scrollbar-color:var(--text3) transparent}
 
-/* Mobile */
-@media(max-width:900px){html{scroll-snap-type:none}.snap{min-height:auto;padding:80px 0}.hero{min-height:auto}}
-@media(max-width:600px){.snap{padding:64px 0}.hero{padding:110px 0 72px}.cta-sec{padding:80px 0}.nums{padding:40px 0}.deck{max-width:330px}}
+/* ═══ MOBILE — performance + alignment ═══ */
+@media(max-width:900px){
+  html{scroll-snap-type:none;overflow-x:hidden}   /* kill any sideways page leak on mobile Safari */
+  .snap{min-height:auto;padding:80px 0}
+  .hero{min-height:auto}
+  /* 1 · remove the heaviest GPU work so scrolling is smooth */
+  .orb{display:none}                                             /* fixed blur(100px) layers */
+  body::after{display:none}                                      /* noise grain overlay */
+  .bg-cross{-webkit-mask:none;mask:none}                         /* mask on a full-screen fixed layer */
+  *{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+  .sr{will-change:auto}                                          /* stop promoting dozens of layers */
+  .sr-blur{filter:none;transform:translateY(28px)}               /* skip per-reveal blur */
+  .ecg-run{filter:none}
+  .aware::before{animation:none}
+  /* 2 · keep translucent UI legible now that blur is gone */
+  .nav.stuck{background:color-mix(in srgb,var(--bg) 93%,transparent)}
+  .mbar{background:color-mix(in srgb,var(--bg) 96%,transparent)}
+  .dcard{box-shadow:0 12px 30px rgba(0,0,0,.34)}
+  /* 3 · no sticky hover-lift on touch */
+  .pkg:hover,.ni:hover,.tc:hover,.radar-c:hover,.res-c:hover,.soc:hover,.flow-step:hover{transform:none}
+}
+@media(max-width:600px){
+  .snap{padding:60px 0}
+  .hero{padding:104px 0 60px}
+  .cta-sec{padding:74px 0}
+  .nums{padding:44px 0}
+  .display{font-size:clamp(2.3rem,12.5vw,3.1rem)}
+  h2{font-size:clamp(1.85rem,8vw,2.4rem)}
+  .head{margin-bottom:clamp(30px,6vh,44px)}
+  .hero-g{gap:38px}
+  .hc-w{display:flex;justify-content:center}
+  .deck{max-width:300px;margin:0 auto}
+  .hero-btns{gap:10px}.hero-proof{gap:12px;margin-top:28px}
+  .flow{gap:12px}
+  .pkg,.rec-box,.res-c,.mod{border-radius:18px}
+
+  /* ── PACKAGES · stack instead of a horizontal carousel that spills off-screen ── */
+  .pkg-scroll{flex-direction:column;overflow:visible;scroll-snap-type:none;padding:0}
+  .pkg{min-width:0;width:100%}
+
+  /* ── COMPARE · keep the table inside its own scroller, make it more compact ── */
+  .cmp-wrap{max-width:100%}
+  .cmp{min-width:540px}
+  .cmp th,.cmp td{padding:11px 9px;font-size:.7rem}
+  .cmp thead th{font-size:.8rem;padding-top:16px}
+  .cmp thead .c-pr{font-size:.95rem}
+  .cmp td:first-child,.cmp th:first-child{font-size:.68rem}
+
+  /* ── FESTIVE / INDEPENDENCE-DAY CARD · nothing spills past the rounded edges ── */
+  .festive{padding:24px 22px;min-height:0}
+  .fest-name{font-size:clamp(1.55rem,7vw,2rem)}
+  .fest-count{gap:6px}
+  .fest-count b{font-size:1.15rem}
+  .fest-count span{padding:8px 0}
+  .fest-offer{white-space:normal}
+  .festive .btn-w,.news-form button{max-width:100%}
+
+  /* ── POPUPS · center + scroll within the viewport, never overflow the screen ── */
+  .promo{padding:16px}
+  .promo-card{padding:30px 22px 24px;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);overflow-y:auto}
+  .promo-card h3{font-size:1.5rem}
+  .mod-bg{padding:14px}
+  .mod{padding:26px 22px;max-height:calc(100vh - 28px);max-height:calc(100dvh - 28px)}
+
+  /* ── COMPARE · make the horizontal scroll obvious so it never feels "cut off" ── */
+  .cmp{min-width:500px;scroll-snap-type:none}
+  .cmp thead th,.cmp tbody td{scroll-snap-align:start}
+  .cmp td:first-child,.cmp th:first-child{box-shadow:7px 0 12px -7px rgba(0,0,0,.45)}
+  .cmp-swipe{display:flex}
+}
+/* Silent killers — the candle-torch is smaller on phones so it reads like a single flame */
+@media(max-width:600px){.killers{--tr:165px}}
+@media(hover:none){.killers-torch{opacity:0}.killers.lit .killers-torch{opacity:1}}
 
 /* Reduced motion */
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.15s!important}.sr,.hero-c>*,.hc-w{opacity:1!important;transform:none!important;filter:none!important}}
@@ -869,6 +944,7 @@ html{scrollbar-width:thin;scrollbar-color:var(--text3) transparent}
 <!-- COMPARE -->
 <section class="sec snap" id="compare" style="background:var(--bg2)"><div class="w">
   <div class="head sr sr-u"><div class="tag"><span class="td"></span>Compare</div><h2>Every package,<br><span class="grad">side by side.</span></h2><p class="sub" style="margin-top:14px">Find exactly what fits your needs and budget.</p></div>
+  <div class="cmp-swipe"><svg class="sw-l" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>Swipe to compare all<svg class="sw-r" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></div>
   <div class="cmp-wrap sr sr-s"><table class="cmp">
     <thead><tr>
       <th></th>
@@ -1150,16 +1226,42 @@ function initDeck(deck,dotsWrap,interval,dotClass,tilt){
 }
 initDeck(document.getElementById('deck'),document.getElementById('deckDots'),3600,'deck-dot',0);
 /* Silent killers — flashlight follows the cursor, with a one-time organic reveal on entry */
-(()=>{const k=document.getElementById('killers');if(!k||matchMedia('(hover:none)').matches)return;let raf,swept=false;
+(()=>{const k=document.getElementById('killers');if(!k)return;
   const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  k.addEventListener('mousemove',e=>{if(raf)return;raf=requestAnimationFrame(()=>{const r=k.getBoundingClientRect();k.style.setProperty('--mx',(e.clientX-r.left)+'px');k.style.setProperty('--my',(e.clientY-r.top)+'px');k.classList.add('lit');raf=0})},{passive:true});
-  k.addEventListener('mouseleave',()=>{k.classList.remove('lit');k.style.setProperty('--mx','-999px');k.style.setProperty('--my','-999px')});
-  /* a light drifts across once as the section arrives — a surprise, no instructions needed */
+  const touch=matchMedia('(hover:none)').matches;
+  let raf=0;
+  const place=(x,y)=>{k.style.setProperty('--mx',x+'px');k.style.setProperty('--my',y+'px');k.classList.add('lit')};
+  const dark=()=>{k.classList.remove('lit');k.style.setProperty('--mx','-999px');k.style.setProperty('--my','-999px')};
+
+  /* desktop — the flame follows the cursor */
+  k.addEventListener('mousemove',e=>{if(raf)return;raf=requestAnimationFrame(()=>{const r=k.getBoundingClientRect();place(e.clientX-r.left,e.clientY-r.top);raf=0})},{passive:true});
+  k.addEventListener('mouseleave',dark);
+
+  /* mobile — the flame wanders on its own, and you can guide it with a finger */
+  let wanderOn=false,wRAF=0,base=0,hold=0,lastT=0;
+  k.addEventListener('touchstart',e=>{const t=e.touches[0];if(!t)return;const r=k.getBoundingClientRect();place(t.clientX-r.left,t.clientY-r.top);hold=performance.now()+2800},{passive:true});
+  k.addEventListener('touchmove',e=>{const t=e.touches[0];if(!t)return;const r=k.getBoundingClientRect();place(t.clientX-r.left,t.clientY-r.top);hold=performance.now()+2800},{passive:true});
+  function wander(now){
+    if(!wanderOn){wRAF=0;return}
+    wRAF=requestAnimationFrame(wander);
+    if(now<hold)return;                       /* finger has control */
+    if(now-lastT<32)return; lastT=now;        /* ~30fps keeps the mask repaint cheap */
+    if(!base)base=now;const el=(now-base)/1000,r=k.getBoundingClientRect();
+    place(r.width*(0.5+0.42*Math.sin(el*0.5)), r.height*(0.5+0.4*Math.sin(el*0.83+1.2)));
+  }
+
+  /* desktop — a light drifts across once as the section arrives */
+  let swept=false;
   function sweep(){const r=k.getBoundingClientRect(),mid=r.height*.52,dur=1700,t0=performance.now();k.classList.add('lit');
-    (function step(t){const p=Math.min((t-t0)/dur,1),e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
-      k.style.setProperty('--mx',(-40+e*(r.width+80))+'px');k.style.setProperty('--my',mid+'px');
-      if(p<1)requestAnimationFrame(step);else{k.classList.remove('lit');k.style.setProperty('--mx','-999px');k.style.setProperty('--my','-999px')}})(t0)}
-  if(!reduce){const io=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting&&!swept){swept=true;io.disconnect();setTimeout(sweep,320)}})},{threshold:.55});io.observe(k)}
+    (function step(t){const p=Math.min((t-t0)/dur,1),e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;place(-40+e*(r.width+80),mid);
+      if(p<1)requestAnimationFrame(step);else dark()})(t0)}
+
+  if(reduce)return;   /* reduced-motion CSS reveals the cards outright */
+  const io=new IntersectionObserver(es=>{es.forEach(en=>{
+    if(touch){wanderOn=en.isIntersecting;if(en.isIntersecting){if(!wRAF)wRAF=requestAnimationFrame(wander)}else{base=0;dark()}}
+    else if(en.isIntersecting&&!swept){swept=true;setTimeout(sweep,320)}
+  })},{threshold:touch?0.28:.55});
+  io.observe(k);
 })();
 /* Hide the floating WhatsApp button while the Offers/Connect panel is visible (it has its own WhatsApp tile) */
 (()=>{const wa=document.querySelector('.wa'),con=document.getElementById('connect');if(!wa||!con||!('IntersectionObserver'in window))return;
@@ -1193,7 +1295,7 @@ function subscribeNews(e){e.preventDefault();const n=document.getElementById('ne
     document.getElementById('promoTitle').textContent=best.name+' Special';
     document.getElementById('promoText').textContent=best.off;
     document.getElementById('promoCode').textContent=best.code;
-    if(!sessionStorage.getItem('promoSeen'))setTimeout(()=>document.getElementById('promo').classList.add('on'),1600);}
+    setTimeout(()=>document.getElementById('promo').classList.add('on'),1600);}
   const when=document.getElementById('festWhen'),D=document.getElementById('fcD'),H=document.getElementById('fcH'),M=document.getElementById('fcM'),S=document.getElementById('fcS');
   const pad=n=>String(n).padStart(2,'0');
   function tick(){const diff=best.dt-new Date();if(diff<=0){when.textContent='Live now — today only!';return}
