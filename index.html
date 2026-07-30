@@ -438,28 +438,35 @@ h2{font-size:clamp(2rem,4.6vw,3.5rem);font-weight:700}
 .warn{background:linear-gradient(120deg,#ef4444,#f87171);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
 @keyframes acGrad{0%,100%{background-position:0% 0%}50%{background-position:100% 100%}}
 /* Silent killers — organic flashlight reveal, dissolved into the background (no panel, no boundary) */
-.killers{position:relative;--mx:-999px;--my:-999px;--tr:215px}
-.killers-g{display:grid;grid-template-columns:1fr;position:relative;z-index:1;gap:clamp(6px,2vw,20px)}
-@media(min-width:600px){.killers-g{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1040px){.killers-g{grid-template-columns:repeat(4,1fr)}}
-.killer{position:relative;padding:clamp(20px,2.2vw,30px);min-height:clamp(240px,27vw,290px);display:flex;flex-direction:column;justify-content:space-between}
+.killers{position:relative;--mx:-999px;--my:-999px;--tr:250px}
+/* the diseases fill the whole field — no boxes, they breathe into the space */
+.killers-g{display:grid;grid-template-columns:1fr;position:relative;z-index:1;gap:clamp(20px,3vw,54px);min-height:clamp(360px,50vh,600px);align-items:stretch}
+@media(min-width:600px){.killers-g{grid-template-columns:repeat(2,1fr);gap:clamp(24px,4vw,60px)}}
+@media(min-width:1040px){.killers-g{grid-template-columns:repeat(4,1fr)}
+  /* stagger the columns so it reads as an organic field, not a row of boxes */
+  .killer:nth-child(odd){justify-content:flex-start}
+  .killer:nth-child(even){justify-content:flex-end}}
+.killer{position:relative;padding:clamp(4px,.8vw,12px);display:flex;flex-direction:column;justify-content:space-between;gap:14px}
 .k-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.k-ico{width:50px;height:50px;border-radius:15px;display:grid;place-items:center;background:transparent;border:1.5px solid currentColor;color:inherit}
-.k-ico .ic{width:26px;height:26px;stroke-width:1.8;color:inherit}
-.k-tag{font-size:.54rem;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;padding:5px 11px;border-radius:100px;border:1px solid currentColor;color:inherit}
-.k-stat{font-family:'Fraunces',serif;font-size:clamp(2.3rem,5vw,3rem);font-weight:800;letter-spacing:-.03em;line-height:1;color:inherit}
-.k-stat small{display:block;font-family:'DM Sans',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.4px;color:var(--text2);opacity:.9;margin-top:6px}
-.killer h3{font-size:1.16rem;font-weight:700;color:var(--text);margin:14px 0 6px}
-.killer p{font-size:.78rem;line-height:1.6;color:var(--text2)}
+.k-ico{width:auto;height:auto;display:block;color:inherit}
+.k-ico .ic{width:clamp(34px,3vw,44px);height:clamp(34px,3vw,44px);stroke-width:1.4;color:inherit}
+.k-tag{display:inline-flex;align-items:center;gap:8px;font-size:.58rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:inherit;opacity:.85}
+.k-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 10px currentColor}
+.k-stat{font-family:'Fraunces',serif;font-size:clamp(2.8rem,6vw,4.6rem);font-weight:800;letter-spacing:-.03em;line-height:.95;color:inherit}
+.k-stat small{display:block;font-family:'DM Sans',sans-serif;font-size:.64rem;font-weight:600;letter-spacing:.4px;color:var(--text2);opacity:.9;margin-top:8px}
+.killer h3{font-size:clamp(1.25rem,1.8vw,1.8rem);font-weight:800;letter-spacing:-.02em;color:var(--text);margin:10px 0 6px}
+.killer p{font-size:clamp(.82rem,1vw,.96rem);line-height:1.65;color:var(--text2)}
 .k1{color:#f59e0b}.k2{color:#ef4444}.k3{color:#a78bfa}.k4{color:#06b6d4}
 [data-theme="light"] .k4{color:#0891b2}
-/* the veil is the exact section background, so the cards are invisible until the cursor uncovers them */
-.killers-veil{position:absolute;inset:-4% -2%;z-index:2;pointer-events:none;background:var(--bg2);transition:opacity .6s;
-  -webkit-mask-image:radial-gradient(circle var(--tr) at var(--mx) var(--my),transparent 0,transparent 28%,#000 72%);
-  mask-image:radial-gradient(circle var(--tr) at var(--mx) var(--my),transparent 0,transparent 28%,#000 72%)}
-.killers-torch{position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(circle var(--tr) at var(--mx) var(--my),rgba(16,185,129,.18),transparent 66%);mix-blend-mode:screen;opacity:0;transition:opacity .6s}
+/* the veil DESATURATES everything behind it — the diseases sit there as a colourless grey shadow, and only the torch restores their colour */
+.killers-veil{position:absolute;inset:-4% -2%;z-index:2;pointer-events:none;background:rgba(5,12,8,.45);transition:opacity .6s;
+  -webkit-backdrop-filter:grayscale(1) brightness(.6);backdrop-filter:grayscale(1) brightness(.6);
+  -webkit-mask-image:radial-gradient(circle var(--tr) at var(--mx) var(--my),transparent 0,transparent 30%,#000 74%);
+  mask-image:radial-gradient(circle var(--tr) at var(--mx) var(--my),transparent 0,transparent 30%,#000 74%)}
+[data-theme="light"] .killers-veil{background:rgba(228,240,232,.4);-webkit-backdrop-filter:grayscale(1) brightness(1.28);backdrop-filter:grayscale(1) brightness(1.28)}
+.killers-torch{position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(circle var(--tr) at var(--mx) var(--my),rgba(16,185,129,.24),transparent 68%);mix-blend-mode:screen;opacity:0;transition:opacity .6s}
 .killers.lit .killers-torch{opacity:1;animation:candleFlicker 2.6s ease-in-out infinite}
-[data-theme="light"] .killers-torch{mix-blend-mode:multiply;background:radial-gradient(circle var(--tr) at var(--mx) var(--my),rgba(5,150,105,.1),transparent 66%)}
+[data-theme="light"] .killers-torch{mix-blend-mode:multiply;background:radial-gradient(circle var(--tr) at var(--mx) var(--my),rgba(5,150,105,.14),transparent 68%)}
 @keyframes candleFlicker{0%,100%{opacity:1}22%{opacity:.84}44%{opacity:.96}68%{opacity:.8}84%{opacity:.93}}
 @media(prefers-reduced-motion:reduce){.killers.lit .killers-torch{animation:none}}
 @media(prefers-reduced-motion:reduce){.killers-veil{opacity:0}}
