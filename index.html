@@ -151,8 +151,31 @@ h2{font-size:clamp(2rem,4.6vw,3.5rem);font-weight:700}
 .burger.on i:nth-child(1){transform:rotate(45deg) translate(5px,5px)}.burger.on i:nth-child(2){opacity:0}.burger.on i:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
 .mmenu{position:fixed;inset:0;z-index:999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;pointer-events:none;transition:opacity .5s}
 .mmenu.on{opacity:1;pointer-events:auto}
-.mmenu a{font-family:'Fraunces',serif;font-size:clamp(1.4rem,5vw,2rem);font-weight:600;color:var(--text2);transition:color .3s}
+.mmenu a{font-family:'Fraunces',serif;font-size:clamp(1.15rem,4vw,1.7rem);font-weight:600;color:var(--text2);transition:color .3s}
 .mmenu a:hover{color:var(--accent)}
+.mmenu{overflow-y:auto;padding:90px 20px 40px;justify-content:flex-start}
+.mmenu .mm-h{font-family:'DM Sans',sans-serif;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--text3);margin-top:14px}
+
+/* ─── mega menu (links to interior pages) ─── */
+.nav-links{display:none;align-items:center;gap:2px;margin-left:6px}
+@media(min-width:980px){.nav-links{display:flex}}
+.nl-item{position:relative}
+.nl-btn{display:flex;align-items:center;gap:5px;padding:9px 13px;border-radius:100px;font-size:.78rem;font-weight:600;color:var(--text3);transition:all .3s;background:none}
+.nl-btn svg{width:11px;height:11px;transition:transform .35s cubic-bezier(.16,1,.3,1);opacity:.7}
+.nl-item:hover .nl-btn,.nl-btn:hover{color:var(--text);background:var(--gl)}
+.nl-item:hover .nl-btn svg{transform:rotate(180deg)}
+.mega{position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%) translateY(10px);width:max-content;max-width:620px;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);border:1px solid var(--glB);border-radius:22px;padding:16px;box-shadow:var(--shL,0 30px 90px rgba(0,0,0,.5));opacity:0;visibility:hidden;transition:all .4s cubic-bezier(.16,1,.3,1);z-index:1200}
+.nl-item:hover .mega{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.mega::before{content:'';position:absolute;top:-14px;left:0;right:0;height:14px}
+.mega-g{display:grid;gap:6px}.mega-g.c2{grid-template-columns:repeat(2,minmax(220px,1fr))}
+.mega-a{display:flex;align-items:flex-start;gap:12px;padding:11px 13px;border-radius:14px;transition:all .3s}
+.mega-a:hover{background:var(--accentS)}
+.mega-ic{width:34px;height:34px;border-radius:10px;flex-shrink:0;display:grid;place-items:center;color:var(--accent);background:var(--accentS);border:1px solid var(--glB);transition:all .3s}
+.mega-a:hover .mega-ic{background:var(--accent);color:#fff;box-shadow:0 0 18px var(--accentG)}
+.mega-ic .ic{width:18px;height:18px}
+.mega-tx b{display:block;font-size:.8rem;font-weight:700;color:var(--text);letter-spacing:-.01em}
+.mega-tx span{display:block;font-size:.68rem;color:var(--text3);font-weight:300;margin-top:1px}
+.mega-tx .pr{color:var(--accent);font-weight:700}
 
 /* ═══ BUTTONS ═══ */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 32px;border-radius:100px;font-weight:600;font-size:.86rem;transition:all .5s cubic-bezier(.16,1,.3,1);letter-spacing:.2px;position:relative;overflow:hidden}
@@ -851,14 +874,53 @@ html{scrollbar-width:thin;scrollbar-color:var(--text3) transparent}
 <!-- NAV -->
 <nav class="nav" id="nav"><div class="w nav-in">
   <a href="#" class="logo"><div class="logo-m pulse"><svg class="logo-atom" viewBox="0 0 200 200" fill="none" aria-hidden="true"><g><ellipse class="la-orbit" cx="100" cy="100" rx="82" ry="30"/><circle class="la-e e1" cx="0" cy="0" r="15"/></g><g transform="rotate(60 100 100)"><ellipse class="la-orbit" cx="100" cy="100" rx="82" ry="30"/><circle class="la-e e2" cx="0" cy="0" r="15"/></g><g transform="rotate(120 100 100)"><ellipse class="la-orbit" cx="100" cy="100" rx="82" ry="30"/><circle class="la-e e3" cx="0" cy="0" r="15"/></g><circle class="la-nuc" cx="100" cy="100" r="20"/></svg></div><div class="logo-t"><span>Bio<em>city</em></span><small>Healthcare</small></div></a>
-  <div class="nm"><a href="#how">Process</a><a href="#recommender">Find My Test</a><a href="#packages">Packages</a><a href="#compare">Compare</a><a href="#reviews">Reviews</a><a href="pages/blog.html">Blog</a><a href="#connect" class="nm-offer">Offers</a><a href="#faq">FAQ</a></div>
+  <div class="nav-links">
+    <div class="nl-item"><button class="nl-btn">Checkups <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+      <div class="mega"><div class="mega-g c2">
+        <a class="mega-a" href="pages/preventive-health-checkup.html"><span class="mega-ic"><svg class="ic"><use href="#i-shield"/></svg></span><span class="mega-tx"><b>Preventive Health Checkup</b><span>Age-wise plans for the family</span></span></a>
+        <a class="mega-a" href="pages/full-body-checkup.html"><span class="mega-ic"><svg class="ic"><use href="#i-activity"/></svg></span><span class="mega-tx"><b>Full Body Checkup</b><span>80+ params · from <span class="pr">₹999</span></span></span></a>
+        <a class="mega-a" href="pages/test-cbc.html"><span class="mega-ic"><svg class="ic"><use href="#i-droplet"/></svg></span><span class="mega-tx"><b>Complete Blood Count</b><span>CBC · <span class="pr">₹299</span></span></span></a>
+        <a class="mega-a" href="pages/offers.html"><span class="mega-ic"><svg class="ic"><use href="#i-award"/></svg></span><span class="mega-tx"><b>Offers &amp; Packages</b><span>Up to 60% off</span></span></a>
+      </div></div>
+    </div>
+    <div class="nl-item"><button class="nl-btn">Lab Tests <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+      <div class="mega"><div class="mega-g c2">
+        <a class="mega-a" href="pages/test-lipid-profile.html"><span class="mega-ic"><svg class="ic"><use href="#i-heart"/></svg></span><span class="mega-tx"><b>Lipid Profile</b><span>Cholesterol · <span class="pr">₹499</span></span></span></a>
+        <a class="mega-a" href="pages/test-thyroid.html"><span class="mega-ic"><svg class="ic"><use href="#i-gauge"/></svg></span><span class="mega-tx"><b>Thyroid Package</b><span>T3·T4·TSH · <span class="pr">₹899</span></span></span></a>
+        <a class="mega-a" href="pages/test-blood-sugar.html"><span class="mega-ic"><svg class="ic"><use href="#i-droplet"/></svg></span><span class="mega-tx"><b>Blood Sugar</b><span>Fasting/PP · <span class="pr">₹99</span></span></span></a>
+        <a class="mega-a" href="pages/test-vitamin-d.html"><span class="mega-ic"><svg class="ic"><use href="#i-moon"/></svg></span><span class="mega-tx"><b>Vitamin D</b><span>25-OH · <span class="pr">₹699</span></span></span></a>
+        <a class="mega-a" href="pages/test-haemoglobin.html"><span class="mega-ic"><svg class="ic"><use href="#i-activity"/></svg></span><span class="mega-tx"><b>Haemoglobin (Hb)</b><span>Anaemia · <span class="pr">₹199</span></span></span></a>
+        <a class="mega-a" href="pages/test-kidney-kft.html"><span class="mega-ic"><svg class="ic"><use href="#i-scan"/></svg></span><span class="mega-tx"><b>Kidney (KFT)</b><span>Renal panel · <span class="pr">₹499</span></span></span></a>
+      </div></div>
+    </div>
+    <div class="nl-item"><button class="nl-btn">Company <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+      <div class="mega"><div class="mega-g c2">
+        <a class="mega-a" href="pages/about-us.html"><span class="mega-ic"><svg class="ic"><use href="#i-usercheck"/></svg></span><span class="mega-tx"><b>About Us</b><span>Story, doctors &amp; dieticians</span></span></a>
+        <a class="mega-a" href="pages/awards.html"><span class="mega-ic"><svg class="ic"><use href="#i-award"/></svg></span><span class="mega-tx"><b>Awards</b><span>20+ recognitions</span></span></a>
+        <a class="mega-a" href="pages/media-coverage.html"><span class="mega-ic"><svg class="ic"><use href="#i-scan"/></svg></span><span class="mega-tx"><b>Media Coverage</b><span>Biocity in the press</span></span></a>
+        <a class="mega-a" href="pages/social-activities.html"><span class="mega-ic"><svg class="ic"><use href="#i-leaf"/></svg></span><span class="mega-tx"><b>Social Activities</b><span>40+ camps &amp; CSR</span></span></a>
+        <a class="mega-a" href="pages/bmi-calculator.html"><span class="mega-ic"><svg class="ic"><use href="#i-scale"/></svg></span><span class="mega-tx"><b>BMI Calculator</b><span>Free health tool</span></span></a>
+        <a class="mega-a" href="pages/contact.html"><span class="mega-ic"><svg class="ic"><use href="#i-phone"/></svg></span><span class="mega-tx"><b>Contact Us</b><span>Talk to our team</span></span></a>
+      </div></div>
+    </div>
+    <a class="nl-btn" href="#packages">Packages</a>
+    <a class="nl-btn" href="pages/blog.html">Blog</a>
+  </div>
   <div class="nr">
     <button class="th-btn" onclick="toggleTheme()" aria-label="Toggle theme"><svg class="ic" id="sunI" style="display:none"><use href="#i-target"/></svg><svg class="ic" id="moonI"><use href="#i-moon"/></svg></button>
     <a href="#" class="nb" onclick="openModal();return false">Book Now</a>
     <button class="burger" id="burger" onclick="toggleMenu()" aria-label="Menu"><i></i><i></i><i></i></button>
   </div>
 </div></nav>
-<div class="mmenu" id="mmenu"><a href="#how" onclick="closeMenu()">Process</a><a href="#recommender" onclick="closeMenu()">Find My Test</a><a href="#packages" onclick="closeMenu()">Packages</a><a href="#compare" onclick="closeMenu()">Compare</a><a href="#reviews" onclick="closeMenu()">Reviews</a><a href="pages/blog.html">Blog</a><a href="#connect" onclick="closeMenu()">Offers &amp; Updates</a><a href="#faq" onclick="closeMenu()">FAQ</a><a href="#" onclick="closeMenu();openModal();return false" style="color:var(--accent)">Book Now</a></div>
+<div class="mmenu" id="mmenu">
+  <span class="mm-h">Explore</span>
+  <a href="#how" onclick="closeMenu()">Process</a><a href="#recommender" onclick="closeMenu()">Find My Test</a><a href="#packages" onclick="closeMenu()">Packages</a><a href="#reviews" onclick="closeMenu()">Reviews</a>
+  <span class="mm-h">Checkups &amp; Tests</span>
+  <a href="pages/full-body-checkup.html">Full Body Checkup</a><a href="pages/preventive-health-checkup.html">Preventive Checkup</a><a href="pages/test-thyroid.html">Thyroid · Sugar · Vitamin D</a><a href="pages/offers.html">Offers &amp; Packages</a>
+  <span class="mm-h">Company</span>
+  <a href="pages/about-us.html">About Us</a><a href="pages/awards.html">Awards</a><a href="pages/social-activities.html">Social Activities</a><a href="pages/bmi-calculator.html">BMI Calculator</a><a href="pages/blog.html">Blog</a><a href="pages/contact.html">Contact Us</a>
+  <a href="#" onclick="closeMenu();openModal();return false" style="color:var(--accent);margin-top:10px">Book Now →</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -1229,12 +1291,12 @@ html{scrollbar-width:thin;scrollbar-color:var(--text3) transparent}
 <footer class="foot"><div class="w">
   <div class="fg">
     <div class="f-brand"><div class="fl">Bio<em>city</em> Healthcare</div><p>India's most trusted NABL-accredited diagnostics company. Full body health checkups with free home collection across 60+ cities.</p><div class="f-soc"><a href="#" aria-label="Facebook"><svg class="ic"><use href="#i-fb"/></svg></a><a href="#" aria-label="Instagram"><svg class="ic"><use href="#i-ig"/></svg></a><a href="#" aria-label="LinkedIn"><svg class="ic"><use href="#i-in"/></svg></a></div></div>
-    <div class="fc"><h4>Services</h4><ul><li><a href="#packages">Health Packages</a></li><li><a href="#recommender">Find My Test</a></li><li><a href="#compare">Compare Packages</a></li><li><a href="#qa">Health Q&amp;A</a></li></ul></div>
-    <div class="fc"><h4>Health</h4><ul><li><a href="pages/condition-diabetes.html">Diabetes Screening</a></li><li><a href="#">Thyroid Tests</a></li><li><a href="#">Vitamin D &amp; B12</a></li><li><a href="pages/blog.html">Health Library</a></li></ul></div>
-    <div class="fc"><h4>Cities</h4><ul><li><a href="pages/city-noida.html">Noida</a></li><li><a href="#">Delhi NCR</a></li><li><a href="#">Jaipur</a></li><li><a href="#">All 60+ Cities</a></li></ul></div>
-    <div class="fc"><h4>Contact</h4><ul><li><a href="tel:+918860606141">+91 8860-606-141</a></li><li><a href="mailto:care@biocityhealthcare.com">care@biocityhealthcare.com</a></li><li><a href="#">Jagriti Enclave, Delhi</a></li></ul></div>
+    <div class="fc"><h4>Checkups</h4><ul><li><a href="pages/full-body-checkup.html">Full Body Checkup</a></li><li><a href="pages/preventive-health-checkup.html">Preventive Checkup</a></li><li><a href="pages/test-cbc.html">Complete Blood Count</a></li><li><a href="pages/offers.html">Offers &amp; Packages</a></li></ul></div>
+    <div class="fc"><h4>Lab Tests</h4><ul><li><a href="pages/test-lipid-profile.html">Lipid Profile</a></li><li><a href="pages/test-thyroid.html">Thyroid Package</a></li><li><a href="pages/test-vitamin-d.html">Vitamin D &amp; B12</a></li><li><a href="pages/test-kidney-kft.html">Kidney (KFT)</a></li></ul></div>
+    <div class="fc"><h4>Company</h4><ul><li><a href="pages/about-us.html">About Us</a></li><li><a href="pages/awards.html">Awards</a></li><li><a href="pages/social-activities.html">Social Activities</a></li><li><a href="pages/blog.html">Health Library</a></li><li><a href="pages/contact.html">Contact</a></li></ul></div>
+    <div class="fc"><h4>Contact</h4><ul><li><a href="tel:+918860606141">+91 8860-606-141</a></li><li><a href="mailto:care@biocityhealthcare.com">care@biocityhealthcare.com</a></li><li><a href="pages/bmi-calculator.html">BMI Calculator</a></li><li><a href="pages/city-noida.html">Noida</a></li></ul></div>
   </div>
-  <div class="f-bot"><span>&copy; 2026 Biocity Health Care LLP</span><div><a href="#">Privacy</a> &bull; <a href="#">Terms</a> &bull; <a href="#">Refunds</a></div></div>
+  <div class="f-bot"><span>&copy; 2026 Biocity Health Care LLP</span><div><a href="pages/privacy.html">Privacy</a> &bull; <a href="pages/terms.html">Terms</a> &bull; <a href="pages/refund.html">Refunds</a></div></div>
 </div></footer>
 
 <div class="promo" id="promo"><div class="promo-card" id="promoCard">

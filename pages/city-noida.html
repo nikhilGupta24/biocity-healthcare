@@ -12,6 +12,7 @@
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Health Checkups in Noida — Home Collection | Biocity Healthcare"><meta name="twitter:description" content="NABL-accredited full body health checkups with free home collection in Noida. All sectors covered. Starting ₹999.">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"Biocity Healthcare — Noida","description":"NABL-accredited diagnostics with free home sample collection across all Noida sectors, Greater Noida, and Noida Extension.","url":"https://biocityhealthcare.com/cities/noida","telephone":"+91-8860606141","email":"care@biocityhealthcare.com","address":{"@type":"PostalAddress","streetAddress":"Sector 62","addressLocality":"Noida","addressRegion":"UP","postalCode":"201301","addressCountry":"IN"},"geo":{"@type":"GeoCoordinates","latitude":"28.6270","longitude":"77.3654"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"840","bestRating":"5"},"areaServed":["Noida","Greater Noida","Noida Extension","Sector 18","Sector 62","Sector 137"],"hasCredential":["NABL Accredited","ISO 15189:2022 Certified"],"priceRange":"₹999 - ₹5,499","openingHours":"Mo-Su 06:00-22:00","parentOrganization":{"@type":"Organization","name":"Biocity Healthcare","url":"https://biocityhealthcare.com"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does Biocity offer home sample collection in all Noida sectors?","acceptedAnswer":{"@type":"Answer","text":"Yes. We cover all Noida sectors (1–168), Greater Noida, Noida Extension, and Knowledge Park areas. Free home collection with no extra charges."}},{"@type":"Question","name":"What time slots are available for home collection in Noida?","acceptedAnswer":{"@type":"Answer","text":"We offer slots from 6 AM to 10 PM, 7 days a week including weekends and holidays. Early morning fasting slots are most popular."}},{"@type":"Question","name":"How quickly will I get reports after sample collection in Noida?","acceptedAnswer":{"@type":"Answer","text":"Most reports are delivered within 24 hours via email and WhatsApp. Some specialized tests may take up to 48 hours."}},{"@type":"Question","name":"Is Biocity NABL accredited in Noida?","acceptedAnswer":{"@type":"Answer","text":"Yes. Our partner labs processing Noida samples are NABL accredited and ISO 15189:2022 certified — the highest diagnostic standards."}},{"@type":"Question","name":"What is the cheapest full body checkup in Noida?","acceptedAnswer":{"@type":"Answer","text":"Our Essential Full Body Checkup starts at ₹999 (MRP ₹2,449) with 80+ parameters and free home collection anywhere in Noida."}},{"@type":"Question","name":"Do you cover Greater Noida and Noida Extension?","acceptedAnswer":{"@type":"Answer","text":"Yes. We cover Greater Noida (all sectors), Noida Extension (Gaur City, Supertech, ATS), Knowledge Park, Pari Chowk, and surrounding areas."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://biocityhealthcare.com/"},{"@type":"ListItem","position":2,"name":"Cities","item":"https://biocityhealthcare.com/cities/"},{"@type":"ListItem","position":3,"name":"Noida"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
 <style>
@@ -332,6 +333,177 @@ html{scrollbar-width:thin;scrollbar-color:var(--text3) transparent}
   .nav.stuck{background:color-mix(in srgb,var(--bg) 93%,transparent)}
   .mbar{background:color-mix(in srgb,var(--bg) 96%,transparent)}
 }
+
+/* ═══════════════════════════════════════════════════
+   SHARED ADDITIONS — mega-menu, atom logo, decks, galleries
+   ═══════════════════════════════════════════════════ */
+
+/* ── animated atom logo (nav) ── */
+.logo-m{overflow:visible}
+.logo-atom{width:26px;height:26px;position:relative;z-index:1}
+.la-orbit{fill:none;stroke:#fff;stroke-width:11}
+.la-e{fill:#fff;transform-box:fill-box;transform-origin:center;offset-anchor:center;offset-rotate:0deg;offset-path:path('M18 100 a82 30 0 1 0 164 0 a82 30 0 1 0 -164 0');animation:orbitRun 11s linear infinite}
+.la-e.e2{animation-duration:13.5s;animation-delay:-4.5s}
+.la-e.e3{animation-duration:16s;animation-delay:-9s}
+.la-nuc{fill:#fff}
+@keyframes orbitRun{to{offset-distance:100%}}
+@media(prefers-reduced-motion:reduce){.la-e{animation:none}}
+
+/* ── MEGA MENU ── */
+.nav-links{display:none;align-items:center;gap:2px;margin:0 auto}
+@media(min-width:1080px){.nav-links{display:flex}}
+.nl-item{position:relative}
+.nl-btn{display:flex;align-items:center;gap:5px;padding:9px 14px;border-radius:100px;font-size:.8rem;font-weight:600;color:var(--text2);transition:all .3s;letter-spacing:.1px}
+.nl-btn svg{width:12px;height:12px;transition:transform .35s cubic-bezier(.16,1,.3,1);opacity:.7}
+.nl-item:hover .nl-btn{color:var(--text);background:var(--gl)}
+.nl-item:hover .nl-btn svg{transform:rotate(180deg)}
+.mega{position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%) translateY(10px);width:max-content;max-width:640px;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);border:1px solid var(--glB);border-radius:22px;padding:16px;box-shadow:var(--shL);opacity:0;visibility:hidden;transition:all .4s cubic-bezier(.16,1,.3,1);z-index:1200}
+.nl-item:hover .mega{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.mega::before{content:'';position:absolute;top:-14px;left:0;right:0;height:14px}
+.mega-g{display:grid;gap:6px}
+.mega-g.c2{grid-template-columns:repeat(2,minmax(230px,1fr))}
+.mega-a{display:flex;align-items:flex-start;gap:12px;padding:11px 13px;border-radius:14px;transition:all .3s;position:relative}
+.mega-a:hover{background:var(--accentS)}
+.mega-ic{width:34px;height:34px;border-radius:10px;flex-shrink:0;display:grid;place-items:center;color:var(--accent);background:var(--accentS);border:1px solid var(--glB);transition:all .3s}
+.mega-a:hover .mega-ic{background:var(--accent);color:#fff;box-shadow:0 0 18px var(--accentG)}
+.mega-ic .ic{width:18px;height:18px}
+.mega-tx b{display:block;font-size:.8rem;font-weight:700;color:var(--text);letter-spacing:-.01em}
+.mega-tx span{display:block;font-size:.68rem;color:var(--text3);font-weight:300;margin-top:1px}
+.mega-tx .pr{color:var(--accent);font-weight:700}
+/* burger + mobile drawer */
+.burger{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:var(--gl);border:1px solid var(--glB)}
+.burger svg{width:18px;height:18px;color:var(--text)}
+@media(min-width:1080px){.burger{display:none}}
+.drawer{position:fixed;inset:0;z-index:1500;background:color-mix(in srgb,var(--bg) 96%,transparent);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);transform:translateX(100%);transition:transform .5s cubic-bezier(.16,1,.3,1);overflow-y:auto;padding:84px 22px 40px}
+.drawer.on{transform:translateX(0)}
+.drawer-x{position:absolute;top:20px;right:20px;width:40px;height:40px;border-radius:50%;background:var(--gl);border:1px solid var(--glB);display:grid;place-items:center}
+.drawer-x svg{width:16px;height:16px;color:var(--text)}
+.dg{margin-bottom:14px;border-bottom:1px solid var(--glB);padding-bottom:12px}
+.dg>h5{font-family:'DM Sans',sans-serif;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--text3);margin-bottom:8px}
+.dg a{display:flex;justify-content:space-between;align-items:center;padding:10px 4px;font-size:.9rem;font-weight:600;color:var(--text)}
+.dg a .pr{color:var(--accent);font-size:.78rem;font-weight:700}
+.dg a:active{color:var(--accent)}
+
+/* ── PAGE HERO (interior pages) ── */
+.phero{padding:150px 0 60px;position:relative;z-index:2;overflow:hidden}
+.phero-in{max-width:820px}
+.phero.ctr .phero-in{margin:0 auto;text-align:center}
+.phero h1{font-size:clamp(2.4rem,6vw,4.6rem);font-weight:800;line-height:1;letter-spacing:-.05em;margin-bottom:22px}
+.phero .lead{font-size:clamp(.95rem,1.5vw,1.15rem);color:var(--text2);line-height:1.85;font-weight:300;max-width:640px}
+.phero.ctr .lead{margin:0 auto}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:4px;color:var(--accent);margin-bottom:20px}
+.eyebrow .td{position:relative;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accentG);animation:blink 2.5s ease-in-out infinite}
+.eyebrow .td::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--accent);opacity:.5;animation:tdPing 2.5s ease-out infinite;z-index:-1}
+
+/* ── PHOTO HERO DECK (coverflow) ── */
+.deck-wrap{position:relative;height:clamp(420px,58vh,560px);perspective:1600px;margin-top:20px}
+.deck{position:relative;width:100%;height:100%;transform-style:preserve-3d}
+.dcard{position:absolute;top:50%;left:50%;width:min(340px,80vw);height:clamp(400px,54vh,520px);margin:calc(clamp(400px,54vh,520px)/-2) 0 0 min(-170px,-40vw);border-radius:24px;overflow:hidden;border:1px solid var(--glB);background:var(--surface);box-shadow:var(--shL);transition:transform .7s cubic-bezier(.16,1,.3,1),opacity .7s,filter .7s;cursor:pointer;will-change:transform}
+.dcard img{width:100%;height:62%;object-fit:cover}
+.dcard-b{padding:18px 20px}
+.dcard-b .k{font-family:'DM Sans',sans-serif;font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--accent);margin-bottom:6px}
+.dcard-b h3{font-size:1.12rem;font-weight:800;letter-spacing:-.02em;margin-bottom:5px}
+.dcard-b p{font-size:.76rem;color:var(--text2);line-height:1.7;font-weight:300}
+.deck-nav{display:flex;gap:10px;justify-content:center;margin-top:26px}
+.deck-nav button{width:46px;height:46px;border-radius:50%;background:var(--gl);border:1px solid var(--glB);display:grid;place-items:center;transition:all .3s;color:var(--text)}
+.deck-nav button:hover{border-color:var(--accent);color:var(--accent);background:var(--accentS)}
+.deck-nav svg{width:18px;height:18px}
+.deck-dots{display:flex;gap:7px;justify-content:center;margin-top:16px}
+.deck-dots i{width:7px;height:7px;border-radius:50%;background:var(--text3);transition:all .35s;cursor:pointer}
+.deck-dots i.on{width:26px;border-radius:4px;background:var(--accent)}
+
+/* ── TEAM GRID ── */
+.team-g{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(min-width:640px){.team-g{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:960px){.team-g{grid-template-columns:repeat(4,1fr)}}
+.tm{border-radius:20px;overflow:hidden;border:1px solid var(--glB);background:var(--gl);transition:all .5s cubic-bezier(.16,1,.3,1);position:relative}
+.tm:hover{transform:translateY(-6px);border-color:var(--accent);box-shadow:var(--sh)}
+.tm-img{aspect-ratio:1;overflow:hidden;position:relative;background:var(--surface2)}
+.tm-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.tm:hover .tm-img img{transform:scale(1.06)}
+.tm-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(2,6,4,.55),transparent 45%);opacity:.6}
+[data-theme="light"] .tm-img::after{background:linear-gradient(to top,rgba(6,46,28,.35),transparent 45%)}
+.tm-b{padding:14px 16px}
+.tm-b h4{font-size:.86rem;font-weight:700;letter-spacing:-.01em}
+.tm-b span{font-size:.66rem;color:var(--accent);font-weight:600;display:block;margin-top:2px}
+.tm-b em{font-style:normal;font-size:.66rem;color:var(--text3);font-weight:300;display:block;margin-top:3px}
+
+/* ── IMAGE GALLERY + lightbox ── */
+.gal{columns:2;column-gap:14px}
+@media(min-width:640px){.gal{columns:3}}
+@media(min-width:1000px){.gal{columns:4}}
+.gal figure{break-inside:avoid;margin:0 0 14px;border-radius:16px;overflow:hidden;border:1px solid var(--glB);background:var(--surface2);cursor:pointer;position:relative;transition:all .5s cubic-bezier(.16,1,.3,1)}
+.gal figure:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:var(--sh)}
+.gal img{width:100%;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.gal figure:hover img{transform:scale(1.05)}
+.gal figcaption{position:absolute;left:0;right:0;bottom:0;padding:22px 14px 12px;font-size:.7rem;font-weight:600;color:#fff;background:linear-gradient(to top,rgba(0,0,0,.75),transparent);opacity:0;transform:translateY(8px);transition:all .4s}
+.gal figure:hover figcaption{opacity:1;transform:none}
+.lb{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.9);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:30px}
+.lb.on{display:flex}
+.lb img{max-width:92vw;max-height:82vh;border-radius:14px;box-shadow:0 30px 90px rgba(0,0,0,.6)}
+.lb-x,.lb-p,.lb-n{position:absolute;width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);display:grid;place-items:center;color:#fff;transition:all .3s}
+.lb-x:hover,.lb-p:hover,.lb-n:hover{background:var(--accent)}
+.lb-x{top:24px;right:24px}.lb-p{left:24px;top:50%;transform:translateY(-50%)}.lb-n{right:24px;top:50%;transform:translateY(-50%)}
+.lb svg{width:20px;height:20px}
+.lb-cap{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:rgba(255,255,255,.8);font-size:.8rem;font-weight:500}
+
+/* ── PRODUCT / TEST PAGE ── */
+.prod-top{display:grid;grid-template-columns:1fr;gap:40px;align-items:start}
+@media(min-width:960px){.prod-top{grid-template-columns:1.15fr .85fr;gap:56px}}
+.prod-buy{background:var(--gl);border:1px solid var(--glB);border-radius:24px;padding:28px;position:sticky;top:96px;backdrop-filter:blur(12px)}
+.prod-buy .pb-k{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--accent);margin-bottom:10px}
+.prod-buy .pb-pr{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+.prod-buy .pb-now{font-family:'Fraunces',serif;font-size:2.8rem;font-weight:800;color:var(--accent);letter-spacing:-.03em;line-height:1}
+.prod-buy .pb-was{font-size:.9rem;color:var(--text3);text-decoration:line-through}
+.prod-buy .pb-off{display:inline-block;margin:8px 0 18px;padding:4px 12px;border-radius:100px;background:var(--accentS);color:var(--accent);font-size:.66rem;font-weight:700}
+.pb-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+.pb-meta div{padding:12px;border-radius:12px;background:var(--surface2);border:1px solid var(--glB)}
+.pb-meta b{display:block;font-size:.82rem;font-weight:700}
+.pb-meta span{font-size:.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px}
+/* param chips */
+.params{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.params span{padding:7px 14px;border-radius:100px;background:var(--gl);border:1px solid var(--glB);font-size:.72rem;font-weight:500;color:var(--text2);transition:all .3s}
+.params span:hover{border-color:var(--accent);color:var(--accent);background:var(--accentS)}
+/* info blocks */
+.info-b{margin-bottom:34px}
+.info-b h3{font-size:1.3rem;font-weight:700;margin-bottom:12px;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
+.info-b h3 .ic{width:20px;height:20px;color:var(--accent)}
+.info-b p{font-size:.88rem;color:var(--text2);line-height:1.9;font-weight:300;margin-bottom:10px}
+.info-b ul.ck li{display:flex;gap:9px;align-items:flex-start;padding:5px 0;font-size:.84rem;color:var(--text2);font-weight:300}
+.info-b ul.ck svg{width:15px;height:15px;color:var(--accent);flex-shrink:0;margin-top:3px}
+/* reference range table */
+.rng{width:100%;border-collapse:collapse;border:1px solid var(--glB);border-radius:14px;overflow:hidden;font-size:.8rem}
+.rng th,.rng td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--glB)}
+.rng th{background:var(--surface2);font-size:.64rem;text-transform:uppercase;letter-spacing:1px;color:var(--text3);font-weight:700}
+.rng td{color:var(--text2);font-weight:300}
+.rng tr:last-child td{border-bottom:none}
+.rng td:first-child{font-weight:600;color:var(--text)}
+
+/* ── CERT BADGES ── */
+.certs{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(min-width:768px){.certs{grid-template-columns:repeat(4,1fr)}}
+.cert{padding:26px 18px;border-radius:18px;background:var(--gl);border:1px solid var(--glB);text-align:center;transition:all .5s cubic-bezier(.16,1,.3,1)}
+.cert:hover{transform:translateY(-5px);border-color:var(--accent);box-shadow:var(--sh)}
+.cert-ic{width:52px;height:52px;border-radius:14px;margin:0 auto 14px;display:grid;place-items:center;color:var(--accent);background:var(--accentS);border:1px solid var(--glB)}
+.cert-ic .ic{width:28px;height:28px}
+.cert b{display:block;font-size:.92rem;font-weight:800;letter-spacing:-.01em}
+.cert span{font-size:.68rem;color:var(--text3);font-weight:300;display:block;margin-top:4px;line-height:1.6}
+
+/* ── SPLIT feature (image + text) ── */
+.split{display:grid;grid-template-columns:1fr;gap:36px;align-items:center}
+@media(min-width:900px){.split{grid-template-columns:1fr 1fr;gap:60px}.split.rev>div:first-child{order:2}}
+.split-img{border-radius:24px;overflow:hidden;border:1px solid var(--glB);box-shadow:var(--sh);aspect-ratio:4/3;background:var(--surface2)}
+.split-img img{width:100%;height:100%;object-fit:cover}
+.split h2{margin-bottom:16px}
+.split p{color:var(--text2);font-weight:300;line-height:1.9;font-size:.9rem;margin-bottom:14px}
+
+/* prose (legal / articles) */
+.prose{max-width:760px;margin:0 auto}
+.prose h2{font-size:1.5rem;margin:36px 0 12px}
+.prose h3{font-size:1.1rem;margin:24px 0 8px;font-family:'DM Sans';font-weight:700}
+.prose p,.prose li{font-size:.9rem;color:var(--text2);line-height:1.9;font-weight:300;margin-bottom:12px}
+.prose ul{padding-left:20px;list-style:disc}
+.prose a{color:var(--accent);font-weight:500}
 </style>
 </head>
 <body>
@@ -372,12 +544,53 @@ html{scrollbar-width:thin;scrollbar-color:var(--text3) transparent}
 
 <!-- NAV -->
 <nav class="nav" id="nav"><div class="w nav-in">
-  <a href="../index.html" class="logo"><div class="logo-m pulse"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div class="logo-t"><span>Bio<em>city</em></span><small>Healthcare</small></div></a>
+  <a href="../index.html" class="logo"><div class="logo-m pulse"><svg class="logo-atom" viewBox="0 0 200 200" fill="none" aria-hidden="true"><g><ellipse class="la-orbit" cx="100" cy="100" rx="82" ry="30"/><circle class="la-e e1" cx="0" cy="0" r="15"/></g><g transform="rotate(60 100 100)"><ellipse class="la-orbit" cx="100" cy="100" rx="82" ry="30"/><circle class="la-e e2" cx="0" cy="0" r="15"/></g><g transform="rotate(120 100 100)"><ellipse class="la-orbit" cx="100" cy="100" rx="82" ry="30"/><circle class="la-e e3" cx="0" cy="0" r="15"/></g><circle class="la-nuc" cx="100" cy="100" r="20"/></svg></div><div class="logo-t"><span>Bio<em>city</em></span><small>Healthcare</small></div></a>
+  <div class="nav-links">
+    <div class="nl-item"><button class="nl-btn">Checkups <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+      <div class="mega"><div class="mega-g c2">
+        <a class="mega-a" href="preventive-health-checkup.html"><span class="mega-ic"><svg class="ic"><use href="#i-shield"/></svg></span><span class="mega-tx"><b>Preventive Health Checkup</b><span>Age-wise plans for the whole family</span></span></a>
+        <a class="mega-a" href="full-body-checkup.html"><span class="mega-ic"><svg class="ic"><use href="#i-activity"/></svg></span><span class="mega-tx"><b>Full Body Checkup</b><span>80+ parameters · from <span class="pr">₹999</span></span></span></a>
+        <a class="mega-a" href="test-cbc.html"><span class="mega-ic"><svg class="ic"><use href="#i-droplet"/></svg></span><span class="mega-tx"><b>Complete Blood Count</b><span>CBC · 24 params · <span class="pr">₹299</span></span></span></a>
+        <a class="mega-a" href="offers.html"><span class="mega-ic"><svg class="ic"><use href="#i-award"/></svg></span><span class="mega-tx"><b>Offers &amp; Packages</b><span>Festive savings up to 60% off</span></span></a>
+      </div></div>
+    </div>
+    <div class="nl-item"><button class="nl-btn">Lab Tests <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+      <div class="mega"><div class="mega-g c2">
+        <a class="mega-a" href="test-lipid-profile.html"><span class="mega-ic"><svg class="ic"><use href="#i-heart"/></svg></span><span class="mega-tx"><b>Lipid Profile</b><span>Cholesterol panel · <span class="pr">₹499</span></span></span></a>
+        <a class="mega-a" href="test-thyroid.html"><span class="mega-ic"><svg class="ic"><use href="#i-gauge"/></svg></span><span class="mega-tx"><b>Thyroid Package</b><span>T3 · T4 · TSH · <span class="pr">₹899</span></span></span></a>
+        <a class="mega-a" href="test-blood-sugar.html"><span class="mega-ic"><svg class="ic"><use href="#i-droplet"/></svg></span><span class="mega-tx"><b>Blood Sugar</b><span>Fasting / PP · <span class="pr">₹99</span></span></span></a>
+        <a class="mega-a" href="test-vitamin-d.html"><span class="mega-ic"><svg class="ic"><use href="#i-moon"/></svg></span><span class="mega-tx"><b>Vitamin D</b><span>25-OH · <span class="pr">₹699</span></span></span></a>
+        <a class="mega-a" href="test-haemoglobin.html"><span class="mega-ic"><svg class="ic"><use href="#i-activity"/></svg></span><span class="mega-tx"><b>Haemoglobin (Hb)</b><span>Anaemia check · <span class="pr">₹199</span></span></span></a>
+        <a class="mega-a" href="test-kidney-kft.html"><span class="mega-ic"><svg class="ic"><use href="#i-scan"/></svg></span><span class="mega-tx"><b>Kidney (KFT)</b><span>Renal panel · <span class="pr">₹499</span></span></span></a>
+      </div></div>
+    </div>
+    <div class="nl-item"><button class="nl-btn">Company <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+      <div class="mega"><div class="mega-g c2">
+        <a class="mega-a" href="about-us.html"><span class="mega-ic"><svg class="ic"><use href="#i-usercheck"/></svg></span><span class="mega-tx"><b>About Us</b><span>Our story, doctors &amp; dieticians</span></span></a>
+        <a class="mega-a" href="awards.html"><span class="mega-ic"><svg class="ic"><use href="#i-award"/></svg></span><span class="mega-tx"><b>Awards</b><span>20+ recognitions</span></span></a>
+        <a class="mega-a" href="media-coverage.html"><span class="mega-ic"><svg class="ic"><use href="#i-scan"/></svg></span><span class="mega-tx"><b>Media Coverage</b><span>Biocity in the press</span></span></a>
+        <a class="mega-a" href="social-activities.html"><span class="mega-ic"><svg class="ic"><use href="#i-leaf"/></svg></span><span class="mega-tx"><b>Social Activities</b><span>40+ health camps &amp; CSR</span></span></a>
+        <a class="mega-a" href="bmi-calculator.html"><span class="mega-ic"><svg class="ic"><use href="#i-scale"/></svg></span><span class="mega-tx"><b>BMI Calculator</b><span>Free instant health tool</span></span></a>
+        <a class="mega-a" href="contact.html"><span class="mega-ic"><svg class="ic"><use href="#i-phone"/></svg></span><span class="mega-tx"><b>Contact Us</b><span>Talk to our care team</span></span></a>
+      </div></div>
+    </div>
+    <div class="nl-item"><a class="nl-btn" href="blog.html">Blog</a></div>
+  </div>
   <div class="nr">
     <button class="th-btn" onclick="toggleTheme()" aria-label="Toggle theme"><svg id="sunI" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg><svg id="moonI" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></button>
     <a href="#" class="nb" onclick="openModal();return false">Book in Noida</a>
+    <button class="burger" onclick="openDrawer()" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
   </div>
 </div></nav>
+
+<!-- MOBILE DRAWER -->
+<div class="drawer" id="drawer">
+  <button class="drawer-x" onclick="closeDrawer()" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  <div class="dg"><h5>Health Checkups</h5><a href="preventive-health-checkup.html">Preventive Health Checkup</a><a href="full-body-checkup.html">Full Body Checkup <span class="pr">₹999</span></a><a href="test-cbc.html">Complete Blood Count <span class="pr">₹299</span></a><a href="offers.html">Offers &amp; Packages</a></div>
+  <div class="dg"><h5>Lab Tests</h5><a href="test-lipid-profile.html">Lipid Profile <span class="pr">₹499</span></a><a href="test-thyroid.html">Thyroid Package <span class="pr">₹899</span></a><a href="test-blood-sugar.html">Blood Sugar <span class="pr">₹99</span></a><a href="test-vitamin-d.html">Vitamin D <span class="pr">₹699</span></a><a href="test-haemoglobin.html">Haemoglobin <span class="pr">₹199</span></a><a href="test-kidney-kft.html">Kidney (KFT) <span class="pr">₹499</span></a></div>
+  <div class="dg"><h5>Company</h5><a href="about-us.html">About Us</a><a href="awards.html">Awards</a><a href="media-coverage.html">Media Coverage</a><a href="social-activities.html">Social Activities</a><a href="bmi-calculator.html">BMI Calculator</a><a href="contact.html">Contact Us</a><a href="blog.html">Blog</a></div>
+  <div class="dg" style="border:none"><a href="#" onclick="closeDrawer();openModal();return false" style="color:var(--accent)">Book a Test →</a></div>
+</div>
 
 <!-- BREADCRUMB -->
 <section class="bread"><div class="w">
@@ -537,7 +750,7 @@ html{scrollbar-width:thin;scrollbar-color:var(--text3) transparent}
     <div class="fc"><h4>Quick Links</h4><ul><li><a href="../index.html">Home</a></li><li><a href="../index.html#how">How It Works</a></li><li><a href="../index.html#reviews">All Reviews</a></li><li><a href="../index.html#faq">Main FAQ</a></li></ul></div>
     <div class="fc"><h4>Contact</h4><ul><li><a href="tel:+918860606141">+91 8860-606-141</a></li><li><a href="mailto:care@biocityhealthcare.com">care@biocityhealthcare.com</a></li><li><a href="https://wa.me/918860606141" target="_blank">WhatsApp Us</a></li><li><a href="#">Jagriti Enclave, Delhi 110092</a></li></ul></div>
   </div>
-  <div class="f-bot"><span>&copy; 2026 Biocity Health Care LLP</span><div><a href="#">Privacy</a> &bull; <a href="#">Terms</a> &bull; <a href="#">Refunds</a></div></div>
+  <div class="f-bot"><span>&copy; 2026 Biocity Health Care LLP</span><div><a href="privacy.html">Privacy</a> &bull; <a href="terms.html">Terms</a> &bull; <a href="refund.html">Refunds</a></div></div>
 </div></footer>
 
 <!-- WhatsApp FAB -->
@@ -581,5 +794,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click'
 (()=>{if(matchMedia('(pointer:coarse)').matches)return;const g=document.getElementById('cg');let raf;document.addEventListener('mousemove',e=>{if(raf)cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{g.style.left=e.clientX+'px';g.style.top=e.clientY+'px';g.classList.add('on')})},{passive:true});document.addEventListener('mouseleave',()=>g.classList.remove('on'))})();
 (()=>{if(matchMedia('(pointer:coarse)').matches)return;document.querySelectorAll('.tilt').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform='perspective(800px) rotateY('+x*5+'deg) rotateX('+-y*5+'deg) translateY(-6px) scale3d(1.015,1.015,1.015)'},{passive:true});c.addEventListener('mouseleave',()=>{c.style.transform=''})})})();
 </script>
+<script>function openDrawer(){var d=document.getElementById('drawer');if(d){d.classList.add('on');document.body.style.overflow='hidden'}}function closeDrawer(){var d=document.getElementById('drawer');if(d){d.classList.remove('on');document.body.style.overflow=''}}</script>
 </body>
 </html>
