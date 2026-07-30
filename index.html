@@ -124,6 +124,14 @@ h2{font-size:clamp(2rem,4.6vw,3.5rem);font-weight:700}
 .logo-t span{font-family:'Fraunces',serif;font-weight:800;font-size:1.42rem;letter-spacing:-.03em}
 .logo-t em{font-style:normal;color:var(--accent)}
 .logo-t small{font-family:'DM Sans',sans-serif;font-size:.5rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--text3);margin-top:2px}
+/* the animated BioCity atom, sized for the top-left brand mark */
+.logo-atom{width:32px;height:32px;position:relative;z-index:1}
+.la-orbit{fill:none;stroke:#fff;stroke-width:11}
+.la-e{fill:#fff;transform-box:fill-box;transform-origin:center;offset-anchor:center;offset-rotate:0deg;offset-path:path('M18 100 a82 30 0 1 0 164 0 a82 30 0 1 0 -164 0');animation:orbitRun 11s linear infinite}
+.la-e.e2{animation-duration:13.5s;animation-delay:-4.5s}
+.la-e.e3{animation-duration:16s;animation-delay:-9s}
+.la-nuc{fill:#fff}
+@media(prefers-reduced-motion:reduce){.la-e{animation:none}}
 .nm{display:none;align-items:center;gap:30px}
 @media(min-width:980px){.nm{display:flex}}
 .nm a{font-size:.78rem;font-weight:500;color:var(--text3);transition:color .3s;letter-spacing:.3px;position:relative}
@@ -173,7 +181,28 @@ h2{font-size:clamp(2rem,4.6vw,3.5rem);font-weight:700}
 .ecg-run{stroke:var(--accent);stroke-width:1.8;stroke-linecap:round;stroke-dasharray:.1 .9;filter:drop-shadow(0 0 3px var(--accent));animation:ecgRun 4s linear infinite}
 @keyframes ecgRun{from{stroke-dashoffset:.1}to{stroke-dashoffset:-.9}}
 @media(prefers-reduced-motion:reduce){.ecg-run{animation:none}}
-.hero-g{display:grid;grid-template-columns:1fr;gap:52px;text-align:center;align-items:center}
+/* ─── animated BioCity atom — brand watermark behind the hero ─── */
+.hero-atom{position:absolute;inset:0;z-index:0;pointer-events:none;display:grid;place-items:center;overflow:hidden;
+  /* soft disc of page background clears the graph paper right behind the mark so it reads cleanly */
+  background:radial-gradient(circle 330px at 50% 47%,var(--bg) 0,var(--bg) 44%,transparent 78%)}
+.atom-svg{width:min(500px,74vw);height:auto;transform:translateY(-2%);opacity:.13;filter:drop-shadow(0 16px 44px rgba(16,185,129,.12))}
+[data-theme="light"] .atom-svg{opacity:.1}
+/* orbit rings stay perfectly still — only the electrons travel */
+.orbit{stroke:var(--accent);stroke-width:2.2;fill:none;vector-effect:non-scaling-stroke}
+.electron{fill:var(--accent);filter:drop-shadow(0 0 5px var(--accent));transform-box:fill-box;transform-origin:center;offset-anchor:center;offset-rotate:0deg;offset-path:path('M18 100 a82 30 0 1 0 164 0 a82 30 0 1 0 -164 0');animation:orbitRun 11s linear infinite}
+.electron.e2{fill:#0f5132;animation-duration:13.5s;animation-delay:-4.5s}
+.electron.e3{fill:#0f766e;animation-duration:16s;animation-delay:-9s}
+@keyframes orbitRun{to{offset-distance:100%}}
+.flask-body{stroke:var(--accent);stroke-width:3;fill:none;stroke-linejoin:round;stroke-linecap:round}
+.flask-neck{stroke:var(--accent);stroke-width:3;fill:none;stroke-linecap:round}
+.flask-liquid{fill:url(#flaskFill)}
+.bub{fill:#fff;opacity:0;transform-box:fill-box;transform-origin:center;animation:bubRise 3.4s ease-in infinite}
+.bub.b2{animation-duration:4.2s;animation-delay:.9s}
+.bub.b3{animation-duration:2.8s;animation-delay:1.7s}
+@keyframes bubRise{0%{opacity:0;transform:translateY(0) scale(.6)}18%{opacity:.85}80%{opacity:.4}100%{opacity:0;transform:translateY(-16px) scale(1)}}
+@media(prefers-reduced-motion:reduce){.electron,.bub{animation:none}}
+@media(max-width:600px){.atom-svg{width:82vw;opacity:.075}}
+.hero-g{position:relative;z-index:2;display:grid;grid-template-columns:1fr;gap:52px;text-align:center;align-items:center}
 @media(min-width:1024px){.hero-g{grid-template-columns:1.04fr .96fr;text-align:left;gap:60px}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
 .hero-c>*{opacity:0;animation:fadeUp .85s cubic-bezier(.16,1,.3,1) forwards}
@@ -777,7 +806,7 @@ html{scrollbar-width:thin;scrollbar-color:var(--text3) transparent}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.15s!important}.sr,.hero-c>*,.hc-w{opacity:1!important;transform:none!important;filter:none!important}}
 
 /* Print */
-@media print{.nav,.wa,.mbar,.mod-bg,.burger,.mmenu,.th-btn,.deck-dots,.adeck-dots,#prog,.marq,.orb,.cg,.scroll-h,.hero-ecg,.bg-mesh,.bg-cross,.flow-line{display:none!important}body{background:#fff!important;color:#052e16!important;font-size:11pt}body::after{display:none!important}.sec,.snap{padding:30px 0!important;min-height:auto!important}.hero{min-height:auto!important;padding:40px 0!important}.rev-track{animation:none!important;flex-wrap:wrap}.rev{flex:0 0 45%!important}.deck,.adeck{height:auto!important}.dcard,.acard{position:relative!important;filter:none!important;transform:none!important;margin-bottom:12px;page-break-inside:avoid;animation:none!important}.dcard>*,.acard>*{opacity:1!important}.sr,.hero-c>*,.hc-w,.dcard,.acard,.adeck-w{opacity:1!important;transform:none!important}}
+@media print{.nav,.wa,.mbar,.mod-bg,.burger,.mmenu,.th-btn,.deck-dots,.adeck-dots,#prog,.marq,.orb,.cg,.scroll-h,.hero-ecg,.hero-atom,.bg-mesh,.bg-cross,.flow-line{display:none!important}body{background:#fff!important;color:#052e16!important;font-size:11pt}body::after{display:none!important}.sec,.snap{padding:30px 0!important;min-height:auto!important}.hero{min-height:auto!important;padding:40px 0!important}.rev-track{animation:none!important;flex-wrap:wrap}.rev{flex:0 0 45%!important}.deck,.adeck{height:auto!important}.dcard,.acard{position:relative!important;filter:none!important;transform:none!important;margin-bottom:12px;page-break-inside:avoid;animation:none!important}.dcard>*,.acard>*{opacity:1!important}.sr,.hero-c>*,.hc-w,.dcard,.acard,.adeck-w{opacity:1!important;transform:none!important}}
 </style>
 </head>
 <body>
@@ -821,7 +850,7 @@ html{scrollbar-width:thin;scrollbar-color:var(--text3) transparent}
 
 <!-- NAV -->
 <nav class="nav" id="nav"><div class="w nav-in">
-  <a href="#" class="logo"><div class="logo-m pulse"><svg class="ic"><use href="#i-activity"/></svg></div><div class="logo-t"><span>Bio<em>city</em></span><small>Healthcare</small></div></a>
+  <a href="#" class="logo"><div class="logo-m pulse"><svg class="logo-atom" viewBox="0 0 200 200" fill="none" aria-hidden="true"><g><ellipse class="la-orbit" cx="100" cy="100" rx="82" ry="30"/><circle class="la-e e1" cx="0" cy="0" r="15"/></g><g transform="rotate(60 100 100)"><ellipse class="la-orbit" cx="100" cy="100" rx="82" ry="30"/><circle class="la-e e2" cx="0" cy="0" r="15"/></g><g transform="rotate(120 100 100)"><ellipse class="la-orbit" cx="100" cy="100" rx="82" ry="30"/><circle class="la-e e3" cx="0" cy="0" r="15"/></g><circle class="la-nuc" cx="100" cy="100" r="20"/></svg></div><div class="logo-t"><span>Bio<em>city</em></span><small>Healthcare</small></div></a>
   <div class="nm"><a href="#how">Process</a><a href="#recommender">Find My Test</a><a href="#packages">Packages</a><a href="#compare">Compare</a><a href="#reviews">Reviews</a><a href="pages/blog.html">Blog</a><a href="#connect" class="nm-offer">Offers</a><a href="#faq">FAQ</a></div>
   <div class="nr">
     <button class="th-btn" onclick="toggleTheme()" aria-label="Toggle theme"><svg class="ic" id="sunI" style="display:none"><use href="#i-target"/></svg><svg class="ic" id="moonI"><use href="#i-moon"/></svg></button>
@@ -833,6 +862,7 @@ html{scrollbar-width:thin;scrollbar-color:var(--text3) transparent}
 
 <!-- HERO -->
 <section class="hero">
+<div class="hero-atom" aria-hidden="true"><svg class="atom-svg" viewBox="0 0 200 200" fill="none"><defs><linearGradient id="flaskFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbbf24"/><stop offset="1" stop-color="#f97316"/></linearGradient></defs><g><ellipse class="orbit" cx="100" cy="100" rx="82" ry="30"/><circle class="electron e1" cx="0" cy="0" r="7"/></g><g transform="rotate(60 100 100)"><ellipse class="orbit" cx="100" cy="100" rx="82" ry="30"/><circle class="electron e2" cx="0" cy="0" r="7"/></g><g transform="rotate(120 100 100)"><ellipse class="orbit" cx="100" cy="100" rx="82" ry="30"/><circle class="electron e3" cx="0" cy="0" r="7"/></g><g class="flask"><path class="flask-liquid" d="M84.8,116 L115.2,116 L120,130 Q120,134 116,134 L84,134 Q80,134 80,130 Z"/><path class="flask-body" d="M92,79 L92,100 L80,130 Q80,134 84,134 L116,134 Q120,134 120,130 L108,100 L108,79"/><path class="flask-neck" d="M89,79 L111,79"/><circle class="bub b1" cx="96" cy="128" r="2.4"/><circle class="bub b2" cx="105" cy="130" r="1.8"/><circle class="bub b3" cx="100" cy="126" r="1.5"/></g></svg></div>
 <div class="hero-ecg"><svg viewBox="0 0 1200 100" preserveAspectRatio="none"><path class="ecg-base" fill="none" d="M0,55 L150,55 L168,55 L178,30 L188,80 L200,18 L212,62 L228,55 L400,55 L418,55 L428,30 L438,80 L450,18 L462,62 L478,55 L650,55 L668,55 L678,30 L688,80 L700,18 L712,62 L728,55 L900,55 L918,55 L928,30 L938,80 L950,18 L962,62 L978,55 L1200,55"/><path class="ecg-run" pathLength="1" fill="none" d="M0,55 L150,55 L168,55 L178,30 L188,80 L200,18 L212,62 L228,55 L400,55 L418,55 L428,30 L438,80 L450,18 L462,62 L478,55 L650,55 L668,55 L678,30 L688,80 L700,18 L712,62 L728,55 L900,55 L918,55 L928,30 L938,80 L950,18 L962,62 L978,55 L1200,55"/></svg></div>
 <div class="w hero-g">
   <div class="hero-c">
