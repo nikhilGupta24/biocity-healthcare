@@ -233,9 +233,9 @@ h2{font-size:clamp(2rem,4.6vw,3.5rem);font-weight:700}
 .hc-w{opacity:0;animation:fadeUp 1s .32s cubic-bezier(.16,1,.3,1) forwards}
 .hero-badge{display:inline-flex;align-items:center;gap:9px;padding:8px 18px 8px 13px;border-radius:100px;border:1px solid var(--glB);background:var(--gl);font-size:.68rem;font-weight:600;color:var(--text2);margin-bottom:30px;backdrop-filter:blur(12px)}
 .hero-badge .dot{position:relative;width:8px;height:8px;border-radius:50%;background:var(--accent);animation:blink 2s ease-in-out infinite}
-.hero h1{margin-bottom:28px}
-.hero h1 .grad{display:inline-block;line-height:1.14;padding-bottom:.14em}
-.hero h1 .dm{display:block;font-size:.42em;font-weight:300;font-style:italic;color:var(--text2);margin-top:.35em;letter-spacing:-.02em;line-height:1.15}
+.hero h2.display{margin-bottom:28px}
+.hero h2.display .grad{display:inline-block;line-height:1.14;padding-bottom:.14em}
+.hero h2.display .dm{display:block;font-size:.42em;font-weight:300;font-style:italic;color:var(--text2);margin-top:.35em;letter-spacing:-.02em;line-height:1.15}
 .hero-p{font-size:clamp(.94rem,1.3vw,1.04rem);color:var(--text2);line-height:1.9;margin-bottom:36px;max-width:490px;font-weight:300}
 @media(max-width:1023px){.hero-p{margin-left:auto;margin-right:auto}}
 .hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
@@ -828,8 +828,89 @@ html{scrollbar-width:thin;scrollbar-color:var(--text3) transparent}
 /* Reduced motion */
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.15s!important}.sr,.hero-c>*,.hc-w{opacity:1!important;transform:none!important;filter:none!important}}
 
+/* ═══ LAB FINDER (top console) ═══ */
+.finder{position:relative;z-index:2;min-height:clamp(600px,94vh,920px);display:flex;align-items:center;padding:calc(90px + 3vh) 0 6vh;overflow:hidden}
+.finder-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;transform:translate3d(var(--px,0),var(--py,0),0);transition:transform .3s ease-out}
+.ff{position:absolute;border-radius:18px;background-size:cover;background-position:center;opacity:.14;filter:saturate(.9);box-shadow:0 24px 60px rgba(0,0,0,.45);width:min(200px,15vw);height:min(256px,19vw);animation:ffFloat 8s ease-in-out infinite}
+[data-theme="light"] .ff{opacity:.2}
+.ff::after{content:'';position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px var(--glB)}
+.ff1{top:15%;left:3%}
+.ff2{top:52%;left:3%}
+.ff3{top:15%;right:3%}
+.ff4{top:52%;right:3%}
+@keyframes ffFloat{0%,100%{translate:0 0}50%{translate:0 -9px}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+/* highlight photo rail (foreground) */
+.hi-rail{display:flex;gap:14px;width:min(940px,94vw);justify-content:center}
+.hi{position:relative;flex:1;min-width:0;aspect-ratio:4/3;border-radius:18px;overflow:hidden;border:1px solid var(--glB);box-shadow:var(--sh)}
+.hi img{width:100%;height:100%;object-fit:cover;transition:transform 1.3s cubic-bezier(.16,1,.3,1)}
+.hi:hover img{transform:scale(1.07)}
+.hi::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(2,6,4,.85),rgba(2,6,4,.12) 55%,transparent)}
+.hi figcaption{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:14px 14px 13px;color:#fff;font-size:.8rem;font-weight:700;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
+.hi-dot{width:7px;height:7px;border-radius:50%;background:var(--accentH);box-shadow:0 0 8px var(--accentG);animation:blink 2.2s ease-in-out infinite;flex-shrink:0}
+@media(max-width:760px){.hi-rail{overflow-x:auto;scrollbar-width:none;justify-content:flex-start;-webkit-overflow-scrolling:touch;padding-bottom:2px}.hi-rail::-webkit-scrollbar{display:none}.hi{flex:0 0 48%}}
+/* sticky callback bar (1mg-style) */
+.cbar{position:fixed;left:0;right:0;bottom:0;z-index:1200;transform:translateY(130%);transition:transform .55s cubic-bezier(.16,1,.3,1);background:var(--surface);border-top:1px solid var(--glB);box-shadow:0 -18px 50px rgba(0,0,0,.4)}
+.cbar.on{transform:none}
+.cbar-in{max-width:1180px;margin:0 auto;padding:12px 22px;display:flex;align-items:center;gap:20px}
+.cbar-ic{width:44px;height:44px;flex-shrink:0;border-radius:12px;display:grid;place-items:center;color:var(--accent);background:var(--accentS);border:1px solid var(--glB)}
+.cbar-ic .ic{width:22px;height:22px}
+.cbar-tx{flex-shrink:0}
+.cbar-tx b{display:block;font-size:.98rem;font-weight:800;letter-spacing:-.01em}
+.cbar-tx span{font-size:.76rem;color:var(--text2)}
+.cbar-form{flex:1;display:flex;justify-content:flex-end;align-items:center;gap:10px}
+.cbar-fld{display:flex;align-items:center;gap:8px;background:var(--gl);border:1px solid var(--glB);border-radius:100px;padding:0 6px 0 16px;transition:border-color .3s}
+.cbar-fld svg{width:16px;height:16px;color:var(--text3);flex-shrink:0}
+.cbar-fld input{border:none;background:none;outline:none;color:var(--text);font-size:.9rem;font-weight:600;width:200px;padding:12px 0}
+.cbar-fld input::placeholder{color:var(--text3);font-weight:400}
+.cbar-go{background:var(--accent);color:#fff;font-weight:700;font-size:.85rem;padding:12px 24px;border-radius:100px;white-space:nowrap;transition:background .3s,transform .3s}
+.cbar-go:hover{background:var(--accentH);transform:translateY(-1px)}
+.cbar-x{flex-shrink:0;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:var(--text3);background:var(--gl);border:1px solid var(--glB);transition:color .3s}
+.cbar-x:hover{color:var(--text)}.cbar-x svg{width:15px;height:15px}
+@media(max-width:820px){.cbar{display:none}}
+.finder-in{position:relative;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px}
+.finder-title{font-family:'Fraunces',serif;font-weight:800;font-size:clamp(2.2rem,6vw,4.3rem);line-height:1.02;letter-spacing:-.04em}
+.finder-title .grad{display:inline-block;padding-bottom:.1em}
+.finder-sub{color:var(--text2);font-weight:300;font-size:clamp(.92rem,1.4vw,1.1rem);max-width:560px;margin-top:-8px}
+.finder-search{position:relative;display:flex;align-items:center;gap:10px;width:min(620px,92vw);background:var(--surface);border:1px solid var(--glB);border-radius:100px;padding:8px 8px 8px 20px;box-shadow:var(--shL)}
+.finder-search:focus-within{border-color:var(--accent);box-shadow:0 0 0 4px var(--accentS),var(--shL)}
+.finder-search>.fic{width:20px;height:20px;color:var(--text3);flex-shrink:0}
+.finder-search input{flex:1;border:none;background:none;color:var(--text);font-size:.95rem;font-weight:500;outline:none;min-width:0}
+.finder-search input::placeholder{color:var(--text3);font-weight:400}
+.finder-sbtn{flex-shrink:0;background:var(--accent);color:#fff;font-weight:700;font-size:.85rem;padding:11px 22px;border-radius:100px;transition:background .3s,transform .3s}
+.finder-sbtn:hover{background:var(--accentH);transform:translateY(-1px)}
+.finder-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;font-size:.72rem;font-weight:600;color:var(--text2)}
+.finder-chips span{display:inline-flex;align-items:center;gap:6px}
+.finder-chips span::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accentG)}
+.console{width:min(940px,94vw);margin-top:6px;background:var(--gl);border:1px solid var(--glB);border-radius:24px;padding:12px;box-shadow:var(--sh);backdrop-filter:blur(12px)}
+.console-tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:4px}
+.console-tabs::-webkit-scrollbar{display:none}
+.ctab{flex:0 0 auto;padding:10px 18px;border-radius:100px;font-size:.82rem;font-weight:700;color:var(--text2);white-space:nowrap;transition:all .3s}
+.ctab:hover{color:var(--text);background:var(--glH)}
+.ctab.on{color:#fff;background:var(--accent);box-shadow:0 6px 18px var(--accentG)}
+.cpanel{display:none;grid-template-columns:repeat(3,1fr);gap:10px;padding:8px 4px 4px}
+.cpanel.on{display:grid}
+.tile{display:flex;align-items:center;gap:12px;padding:14px;border-radius:16px;background:var(--surface);border:1px solid var(--glB);text-align:left;transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .4s,box-shadow .4s}
+.tile:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:var(--sh)}
+.tile-ic{width:42px;height:42px;flex-shrink:0;border-radius:12px;display:grid;place-items:center;color:var(--accent);background:var(--accentS);border:1px solid var(--glB)}
+.tile-ic .ic{width:22px;height:22px}
+.tile-tx{min-width:0}
+.tile-tx b{display:block;font-size:.9rem;font-weight:700;letter-spacing:-.01em;line-height:1.2}
+.tile-tx small{font-size:.72rem;color:var(--text3);font-weight:500}
+.tile-tx small .pr{color:var(--accent);font-weight:700}
+.console-empty{display:none;padding:26px 12px;text-align:center;color:var(--text3);font-size:.85rem}
+.console-empty.on{display:block}
+@media(max-width:760px){
+  .finder{min-height:auto;padding:calc(78px + 2vh) 0 4vh}
+  .finder-in{gap:16px}
+  .cpanel{grid-template-columns:1fr 1fr}
+  .ff{opacity:.1!important;animation:none}.ff5{display:none}
+  .console{backdrop-filter:none}
+}
+@media(max-width:430px){.cpanel{grid-template-columns:1fr}}
+
 /* Print */
-@media print{.nav,.wa,.mbar,.mod-bg,.burger,.mmenu,.th-btn,.deck-dots,.adeck-dots,#prog,.marq,.orb,.cg,.scroll-h,.hero-ecg,.hero-atom,.bg-mesh,.bg-cross,.flow-line{display:none!important}body{background:#fff!important;color:#052e16!important;font-size:11pt}body::after{display:none!important}.sec,.snap{padding:30px 0!important;min-height:auto!important}.hero{min-height:auto!important;padding:40px 0!important}.rev-track{animation:none!important;flex-wrap:wrap}.rev{flex:0 0 45%!important}.deck,.adeck{height:auto!important}.dcard,.acard{position:relative!important;filter:none!important;transform:none!important;margin-bottom:12px;page-break-inside:avoid;animation:none!important}.dcard>*,.acard>*{opacity:1!important}.sr,.hero-c>*,.hc-w,.dcard,.acard,.adeck-w{opacity:1!important;transform:none!important}}
+@media print{.nav,.wa,.mbar,.mod-bg,.burger,.mmenu,.th-btn,.deck-dots,.adeck-dots,#prog,.marq,.orb,.cg,.scroll-h,.hero-ecg,.hero-atom,.bg-mesh,.bg-cross,.flow-line,.finder-bg{display:none!important}body{background:#fff!important;color:#052e16!important;font-size:11pt}body::after{display:none!important}.sec,.snap{padding:30px 0!important;min-height:auto!important}.hero{min-height:auto!important;padding:40px 0!important}.rev-track{animation:none!important;flex-wrap:wrap}.rev{flex:0 0 45%!important}.deck,.adeck{height:auto!important}.dcard,.acard{position:relative!important;filter:none!important;transform:none!important;margin-bottom:12px;page-break-inside:avoid;animation:none!important}.dcard>*,.acard>*{opacity:1!important}.sr,.hero-c>*,.hc-w,.dcard,.acard,.adeck-w{opacity:1!important;transform:none!important}}
 </style>
 </head>
 <body>
@@ -923,14 +1004,92 @@ html{scrollbar-width:thin;scrollbar-color:var(--text3) transparent}
   <a href="#" onclick="closeMenu();openModal();return false" style="color:var(--accent);margin-top:10px">Book Now →</a>
 </div>
 
+<!-- LAB FINDER (top console) -->
+<section class="finder" id="finder">
+  <div class="finder-bg" aria-hidden="true">
+    <span class="ff ff1" style="background-image:url(assets/welfare/s07.jpg)"></span>
+    <span class="ff ff2" style="background-image:url(assets/welfare/welfare2.jpg)"></span>
+    <span class="ff ff3" style="background-image:url(assets/lab/tracking.png)"></span>
+    <span class="ff ff4" style="background-image:url(assets/welfare/s08.jpg)"></span>
+  </div>
+  <div class="w finder-in">
+    <div class="hero-badge sr"><span class="dot"></span>Book a lab test in under 60 seconds</div>
+    <h1 class="finder-title sr">What would you like to<br><span class="grad">check today?</span></h1>
+    <p class="finder-sub sr">Search 500+ tests &amp; packages, or pick a category below — NABL-accredited results, collected free from your home.</p>
+    <div class="finder-search sr">
+      <svg class="fic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="cFind" type="text" autocomplete="off" placeholder="Try “Full Body”, “Thyroid”, “Vitamin D”, “Diabetes”…" aria-label="Search tests and packages">
+      <button class="finder-sbtn" type="button">Search</button>
+    </div>
+    <div class="finder-chips sr"><span>NABL Accredited</span><span>Reports in 24 hrs</span><span>Free home collection</span><span>60+ cities</span></div>
+    <div class="hi-rail sr">
+      <figure class="hi"><img src="assets/lab/lab-interior.jpg" alt="Biocity NABL-accredited laboratory" loading="lazy"><figcaption><span class="hi-dot"></span>NABL Lab</figcaption></figure>
+      <figure class="hi"><img src="assets/lab/phlebotomy.png" alt="Free home sample collection by trained phlebotomist" loading="lazy"><figcaption><span class="hi-dot"></span>Free Home Collection</figcaption></figure>
+      <figure class="hi"><img src="assets/lab/about-tp.jpg" alt="Temperature-controlled sample transport" loading="lazy"><figcaption><span class="hi-dot"></span>Safe Cold-Chain</figcaption></figure>
+      <figure class="hi"><img src="assets/welfare/welfare1.jpg" alt="Families trusting Biocity Healthcare" loading="lazy"><figcaption><span class="hi-dot"></span>39L+ Families</figcaption></figure>
+    </div>
+    <div class="console sr">
+      <div class="console-tabs" role="tablist">
+        <button class="ctab on" data-t="popular">Popular</button>
+        <button class="ctab" data-t="gender">By Age &amp; Gender</button>
+        <button class="ctab" data-t="concern">Health Concerns</button>
+        <button class="ctab" data-t="full">Full Body</button>
+        <button class="ctab" data-t="tests">Individual Tests</button>
+      </div>
+      <div class="cpanel on" data-p="popular">
+        <a class="tile" href="pages/full-body-checkup.html"><span class="tile-ic"><svg class="ic"><use href="#i-stethoscope"/></svg></span><span class="tile-tx"><b>Full Body Checkup</b><small>80+ params · from <span class="pr">₹999</span></small></span></a>
+        <a class="tile" href="#packages"><span class="tile-ic"><svg class="ic"><use href="#i-scan"/></svg></span><span class="tile-tx"><b>Comprehensive</b><small>Bestseller · from <span class="pr">₹1,799</span></small></span></a>
+        <a class="tile" href="pages/test-thyroid.html"><span class="tile-ic"><svg class="ic"><use href="#i-gauge"/></svg></span><span class="tile-tx"><b>Thyroid Profile</b><small>T3 · T4 · TSH · <span class="pr">₹899</span></small></span></a>
+        <a class="tile" href="pages/test-vitamin-d.html"><span class="tile-ic"><svg class="ic"><use href="#i-moon"/></svg></span><span class="tile-tx"><b>Vitamin D</b><small>25-OH · <span class="pr">₹699</span></small></span></a>
+        <a class="tile" href="pages/test-cbc.html"><span class="tile-ic"><svg class="ic"><use href="#i-droplet"/></svg></span><span class="tile-tx"><b>Complete Blood Count</b><small>24 params · <span class="pr">₹299</span></small></span></a>
+        <a class="tile" href="pages/test-blood-sugar.html"><span class="tile-ic"><svg class="ic"><use href="#i-activity"/></svg></span><span class="tile-tx"><b>Blood Sugar</b><small>Fasting / PP · <span class="pr">₹99</span></small></span></a>
+      </div>
+      <div class="cpanel" data-p="gender">
+        <a class="tile" href="#recommender"><span class="tile-ic"><svg class="ic"><use href="#i-heart"/></svg></span><span class="tile-tx"><b>Women's Health</b><small>Hormones, iron, thyroid</small></span></a>
+        <a class="tile" href="#recommender"><span class="tile-ic"><svg class="ic"><use href="#i-activity"/></svg></span><span class="tile-tx"><b>Men's Health</b><small>Heart, sugar, liver</small></span></a>
+        <a class="tile" href="#recommender"><span class="tile-ic"><svg class="ic"><use href="#i-usercheck"/></svg></span><span class="tile-tx"><b>Seniors 55+</b><small>Full body + vitals</small></span></a>
+        <a class="tile" href="#recommender"><span class="tile-ic"><svg class="ic"><use href="#i-target"/></svg></span><span class="tile-tx"><b>Young &amp; Fit</b><small>Preventive basics</small></span></a>
+        <a class="tile" href="#packages"><span class="tile-ic"><svg class="ic"><use href="#i-home"/></svg></span><span class="tile-tx"><b>Family Package</b><small>Whole family, one visit</small></span></a>
+        <a class="tile" href="#recommender"><span class="tile-ic"><svg class="ic"><use href="#i-shield"/></svg></span><span class="tile-tx"><b>Kids &amp; Teens</b><small>Growth &amp; immunity</small></span></a>
+      </div>
+      <div class="cpanel" data-p="concern">
+        <a class="tile" href="pages/condition-diabetes.html"><span class="tile-ic"><svg class="ic"><use href="#i-droplet"/></svg></span><span class="tile-tx"><b>Diabetes</b><small>Sugar &amp; HbA1c</small></span></a>
+        <a class="tile" href="pages/test-lipid-profile.html"><span class="tile-ic"><svg class="ic"><use href="#i-heart"/></svg></span><span class="tile-tx"><b>Heart &amp; Cholesterol</b><small>Lipid profile · <span class="pr">₹499</span></small></span></a>
+        <a class="tile" href="pages/test-thyroid.html"><span class="tile-ic"><svg class="ic"><use href="#i-gauge"/></svg></span><span class="tile-tx"><b>Thyroid Imbalance</b><small>T3 · T4 · TSH</small></span></a>
+        <a class="tile" href="pages/test-haemoglobin.html"><span class="tile-ic"><svg class="ic"><use href="#i-activity"/></svg></span><span class="tile-tx"><b>Anaemia / Fatigue</b><small>Haemoglobin · <span class="pr">₹199</span></small></span></a>
+        <a class="tile" href="pages/test-kidney-kft.html"><span class="tile-ic"><svg class="ic"><use href="#i-scan"/></svg></span><span class="tile-tx"><b>Kidney Health</b><small>KFT panel · <span class="pr">₹499</span></small></span></a>
+        <a class="tile" href="pages/test-vitamin-d.html"><span class="tile-ic"><svg class="ic"><use href="#i-bone"/></svg></span><span class="tile-tx"><b>Bone &amp; Vitamin D</b><small>25-OH · <span class="pr">₹699</span></small></span></a>
+      </div>
+      <div class="cpanel" data-p="full">
+        <a class="tile" href="pages/full-body-checkup.html"><span class="tile-ic"><svg class="ic"><use href="#i-droplet"/></svg></span><span class="tile-tx"><b>Essential</b><small>40+ params · <span class="pr">₹999</span></small></span></a>
+        <a class="tile" href="#packages"><span class="tile-ic"><svg class="ic"><use href="#i-stethoscope"/></svg></span><span class="tile-tx"><b>Comprehensive</b><small>80+ params · <span class="pr">₹1,799</span></small></span></a>
+        <a class="tile" href="#packages"><span class="tile-ic"><svg class="ic"><use href="#i-scan"/></svg></span><span class="tile-tx"><b>Advanced</b><small>100+ params · <span class="pr">₹2,999</span></small></span></a>
+        <a class="tile" href="#packages"><span class="tile-ic"><svg class="ic"><use href="#i-award"/></svg></span><span class="tile-tx"><b>Platinum</b><small>130+ params · <span class="pr">₹5,499</span></small></span></a>
+      </div>
+      <div class="cpanel" data-p="tests">
+        <a class="tile" href="pages/test-cbc.html"><span class="tile-ic"><svg class="ic"><use href="#i-droplet"/></svg></span><span class="tile-tx"><b>Complete Blood Count</b><small>24 params · <span class="pr">₹299</span></small></span></a>
+        <a class="tile" href="pages/test-lipid-profile.html"><span class="tile-ic"><svg class="ic"><use href="#i-heart"/></svg></span><span class="tile-tx"><b>Lipid Profile</b><small>Cholesterol · <span class="pr">₹499</span></small></span></a>
+        <a class="tile" href="pages/test-thyroid.html"><span class="tile-ic"><svg class="ic"><use href="#i-gauge"/></svg></span><span class="tile-tx"><b>Thyroid Package</b><small>T3 · T4 · TSH · <span class="pr">₹899</span></small></span></a>
+        <a class="tile" href="pages/test-blood-sugar.html"><span class="tile-ic"><svg class="ic"><use href="#i-activity"/></svg></span><span class="tile-tx"><b>Blood Sugar</b><small>Fasting / PP · <span class="pr">₹99</span></small></span></a>
+        <a class="tile" href="pages/test-vitamin-d.html"><span class="tile-ic"><svg class="ic"><use href="#i-moon"/></svg></span><span class="tile-tx"><b>Vitamin D</b><small>25-OH · <span class="pr">₹699</span></small></span></a>
+        <a class="tile" href="pages/test-haemoglobin.html"><span class="tile-ic"><svg class="ic"><use href="#i-activity"/></svg></span><span class="tile-tx"><b>Haemoglobin (Hb)</b><small>Anaemia · <span class="pr">₹199</span></small></span></a>
+        <a class="tile" href="pages/test-kidney-kft.html"><span class="tile-ic"><svg class="ic"><use href="#i-scan"/></svg></span><span class="tile-tx"><b>Kidney (KFT)</b><small>Renal panel · <span class="pr">₹499</span></small></span></a>
+      </div>
+      <div class="cpanel" data-p="results" id="cSearch"></div>
+      <div class="console-empty" id="cEmpty">No matches — try “full body”, “thyroid”, “vitamin”, “sugar” or “kidney”.</div>
+    </div>
+    <a href="#hero-main" class="scroll-cue sr" aria-label="Scroll to explore" style="margin-top:6px;color:var(--text3);font-size:.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px">Explore packages <svg class="ic" style="width:14px;height:14px;animation:bob 1.8s ease-in-out infinite"><use href="#i-chevron"/></svg></a>
+  </div>
+</section>
+
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="hero-main">
 <div class="hero-atom" aria-hidden="true"><svg class="atom-svg" viewBox="0 0 200 200" fill="none"><defs><linearGradient id="flaskFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbbf24"/><stop offset="1" stop-color="#f97316"/></linearGradient></defs><g><ellipse class="orbit" cx="100" cy="100" rx="82" ry="30"/><circle class="electron e1" cx="0" cy="0" r="7"/></g><g transform="rotate(60 100 100)"><ellipse class="orbit" cx="100" cy="100" rx="82" ry="30"/><circle class="electron e2" cx="0" cy="0" r="7"/></g><g transform="rotate(120 100 100)"><ellipse class="orbit" cx="100" cy="100" rx="82" ry="30"/><circle class="electron e3" cx="0" cy="0" r="7"/></g><g class="flask"><path class="flask-liquid" d="M84.8,116 L115.2,116 L120,130 Q120,134 116,134 L84,134 Q80,134 80,130 Z"/><path class="flask-body" d="M92,79 L92,100 L80,130 Q80,134 84,134 L116,134 Q120,134 120,130 L108,100 L108,79"/><path class="flask-neck" d="M89,79 L111,79"/><circle class="bub b1" cx="96" cy="128" r="2.4"/><circle class="bub b2" cx="105" cy="130" r="1.8"/><circle class="bub b3" cx="100" cy="126" r="1.5"/></g></svg></div>
 <div class="hero-ecg"><svg viewBox="0 0 1200 100" preserveAspectRatio="none"><path class="ecg-base" fill="none" d="M0,55 L150,55 L168,55 L178,30 L188,80 L200,18 L212,62 L228,55 L400,55 L418,55 L428,30 L438,80 L450,18 L462,62 L478,55 L650,55 L668,55 L678,30 L688,80 L700,18 L712,62 L728,55 L900,55 L918,55 L928,30 L938,80 L950,18 L962,62 L978,55 L1200,55"/><path class="ecg-run" pathLength="1" fill="none" d="M0,55 L150,55 L168,55 L178,30 L188,80 L200,18 L212,62 L228,55 L400,55 L418,55 L428,30 L438,80 L450,18 L462,62 L478,55 L650,55 L668,55 L678,30 L688,80 L700,18 L712,62 L728,55 L900,55 L918,55 L928,30 L938,80 L950,18 L962,62 L978,55 L1200,55"/></svg></div>
 <div class="w hero-g">
   <div class="hero-c">
     <div class="hero-badge"><span class="dot"></span>NABL Accredited &bull; ISO 15189:2022 Certified</div>
-    <h1 class="display">Health checks that<br><span class="grad">come to you.</span><span class="dm">Not the other way around.</span></h1>
+    <h2 class="display">Health checks that<br><span class="grad">come to you.</span><span class="dm">Not the other way around.</span></h2>
     <p class="hero-p">Full body health checkups from your couch. 80+ parameters, NABL-certified accuracy, reports within 24 hours. Trusted by 50 lakh+ families across 60+ cities.</p>
     <div class="hero-btns"><a href="#recommender" class="btn btn-f">Find My Test <svg class="ic"><use href="#i-arrow"/></svg></a><a href="tel:+918860606141" class="btn btn-g"><svg class="ic"><use href="#i-phone"/></svg>Call Us Free</a></div>
     <div class="hero-proof"><span><svg class="ic" style="fill:var(--accent);stroke:none"><use href="#i-star"/></svg>4.9/5 — 3,300+ Reviews</span><span><svg class="ic"><use href="#i-shield"/></svg>100% Hygienic &amp; Safe</span></div>
@@ -1312,6 +1471,15 @@ html{scrollbar-width:thin;scrollbar-color:var(--text3) transparent}
 
 <a href="https://wa.me/918860606141?text=Hi%2C%20I%20want%20to%20book%20a%20health%20checkup" target="_blank" class="wa" aria-label="WhatsApp"><svg class="ic"><use href="#i-wa"/></svg></a>
 <div class="mbar" id="mbar"><a href="tel:+918860606141" class="mb-l">Call Now</a><a href="#" class="mb-f" onclick="openModal();return false">Book Home Visit</a></div>
+<div class="cbar" id="cbar"><div class="cbar-in">
+  <div class="cbar-ic"><svg class="ic"><use href="#i-phone"/></svg></div>
+  <div class="cbar-tx"><b>Confused? Get a free callback.</b><span>Share your number — our health advisor calls in 5 minutes.</span></div>
+  <form class="cbar-form" id="cbarForm">
+    <div class="cbar-fld"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><input type="tel" inputmode="numeric" maxlength="10" placeholder="Enter 10-digit mobile number" aria-label="Mobile number" required></div>
+    <button type="submit" class="cbar-go">Request Callback</button>
+  </form>
+  <button class="cbar-x" id="cbarX" aria-label="Dismiss"><svg class="ic"><use href="#i-x"/></svg></button>
+</div></div>
 <div class="mod-bg" id="modal"><div class="mod"><button class="mod-x" onclick="closeModal()"><svg class="ic"><use href="#i-x"/></svg></button><h3>Book Your Checkup</h3><p>Fill in your details. We'll confirm within 30 minutes.</p><div class="mpkg" id="modPkgInfo" hidden><div class="mpkg-h"><span class="mpkg-name" id="modPkgName">Package</span><span class="mpkg-pr" id="modPkgPrice"></span></div><ul class="mpkg-list" id="modTests"></ul><a class="mpkg-blog" id="modBlog" href="pages/blog.html" target="_blank" rel="noopener">Not sure what you need? Read our health guides <svg class="ic"><use href="#i-arrow"/></svg></a></div><form onsubmit="submitForm(event)"><div class="mf"><label>Full Name</label><input type="text" placeholder="Your name" required></div><div class="mf"><label>Phone</label><input type="tel" placeholder="+91 XXXXX XXXXX" required></div><div class="mf"><label>City</label><select required><option value="">Select city</option><option>Delhi</option><option>Noida</option><option>Gurgaon</option><option>Ghaziabad</option><option>Faridabad</option><option>Lucknow</option><option>Chandigarh</option><option>Jaipur</option><option>Other</option></select></div><div class="mf"><label>Package</label><select id="modPkg" onchange="onModPkgChange()"><option value="">Select package</option><option>Essential — ₹999</option><option>Comprehensive — ₹1,799</option><option>Advanced — ₹2,999</option><option>Platinum — ₹5,499</option><option>Custom / Prescription</option></select></div><button type="submit" class="m-go" id="mGoBtn">Book My Appointment</button></form></div></div>
 
 <script>
@@ -1519,6 +1687,59 @@ function subscribeNews(e){e.preventDefault();const n=document.getElementById('ne
     when.textContent=MON[best.dt.getMonth()]+' '+best.dt.getDate()+' \u00b7 in '+days+' day'+(days===1?'':'s');
     D.textContent=pad(days);H.textContent=pad(hrs);M.textContent=pad(mins);S.textContent=pad(secs);}
   tick();setInterval(tick,1000);
+})();
+
+/* ── Lab Finder console: tabs + live search + parallax ── */
+(function(){
+  const finder=document.getElementById('finder');if(!finder)return;
+  const tabs=[...finder.querySelectorAll('.ctab')];
+  const panels=[...finder.querySelectorAll('.cpanel[data-p]:not(#cSearch)')];
+  const results=finder.querySelector('#cSearch');
+  const empty=finder.querySelector('#cEmpty');
+  const search=finder.querySelector('#cFind');
+  const btn=finder.querySelector('.finder-sbtn');
+  const allTiles=[...finder.querySelectorAll('.cpanel[data-p]:not(#cSearch) .tile')];
+  let active='popular';
+  function showTab(t){active=t;tabs.forEach(b=>b.classList.toggle('on',b.dataset.t===t));panels.forEach(p=>p.classList.toggle('on',p.dataset.p===t));results.classList.remove('on');empty.classList.remove('on');}
+  tabs.forEach(b=>b.addEventListener('click',()=>{search.value='';showTab(b.dataset.t)}));
+  function filter(){
+    const q=search.value.trim().toLowerCase();
+    if(!q){showTab(active);return;}
+    tabs.forEach(b=>b.classList.remove('on'));
+    panels.forEach(p=>p.classList.remove('on'));
+    const m=allTiles.filter(t=>t.textContent.toLowerCase().includes(q));
+    results.innerHTML='';m.slice(0,9).forEach(t=>results.appendChild(t.cloneNode(true)));
+    results.classList.toggle('on',m.length>0);
+    empty.classList.toggle('on',m.length===0);
+  }
+  search.addEventListener('input',filter);
+  function go(){
+    const q=search.value.trim().toLowerCase();
+    if(q){const m=allTiles.find(t=>t.textContent.toLowerCase().includes(q));if(m){location.href=m.getAttribute('href');return;}}
+    const rec=document.getElementById('recommender');if(rec)rec.scrollIntoView({behavior:'smooth'});
+  }
+  btn.addEventListener('click',go);
+  search.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();go();}});
+  if(!matchMedia('(pointer:coarse)').matches){
+    const bg=finder.querySelector('.finder-bg');let raf;
+    finder.addEventListener('mousemove',e=>{if(raf)cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{const r=finder.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;bg.style.setProperty('--px',(x*16).toFixed(1)+'px');bg.style.setProperty('--py',(y*16).toFixed(1)+'px');});},{passive:true});
+  }
+})();
+
+/* ── sticky callback bar (1mg-style) ── */
+(function(){
+  const bar=document.getElementById('cbar');if(!bar)return;
+  const form=document.getElementById('cbarForm');
+  const fld=bar.querySelector('.cbar-fld');
+  let shown=false,dismissed=false;
+  addEventListener('scroll',()=>{if(dismissed)return;const y=window.pageYOffset||document.documentElement.scrollTop;if(y>780){if(!shown){shown=true;bar.classList.add('on')}}else if(shown){shown=false;bar.classList.remove('on')}},{passive:true});
+  document.getElementById('cbarX').addEventListener('click',()=>{dismissed=true;bar.classList.remove('on')});
+  form.addEventListener('submit',e=>{e.preventDefault();const inp=form.querySelector('input');const v=(inp.value||'').replace(/\D/g,'');
+    if(v.length<10){fld.style.borderColor='#ef4444';inp.focus();return;}
+    fld.style.borderColor='';
+    bar.querySelector('.cbar-in').innerHTML='<div style="width:100%;text-align:center;padding:8px;font-weight:700;color:var(--accent)"><svg class="ic" style="width:18px;height:18px;display:inline-block;vertical-align:-3px;margin-right:8px"><use href="#i-check"/></svg>Thank you! Our health advisor will call you within 5 minutes.</div>';
+    setTimeout(()=>{dismissed=true;bar.classList.remove('on')},4000);
+  });
 })();
 </script>
 </body>
