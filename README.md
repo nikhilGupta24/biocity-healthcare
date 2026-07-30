@@ -1,5 +1,9 @@
 # Biocity Healthcare — Website
 
+> 📖 **Start here:** [`docs/KNOWLEDGE_BANK.md`](docs/KNOWLEDGE_BANK.md) is the living technical
+> knowledge bank (architecture, components, deploy workflow, caveats). It is the source of
+> truth for the current site — parts of this README describe the earlier prototype.
+
 A fast, fully self-contained marketing website for Biocity Healthcare (NABL-accredited diagnostics, home sample collection, full-body health checkups).
 
 Every page is a single HTML file with **all CSS and JavaScript inlined** — no build step, no dependencies, no external asset files. Open any file directly in a browser and it just works (light/dark mode, animations, mobile-responsive, print-friendly).
