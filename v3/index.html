@@ -855,6 +855,9 @@ section { padding: 84px 0; }
 @media (max-width: 980px) {
   .hero-grid   { grid-template-columns: 1fr; gap: 40px; }
   .hero h1     { font-size: 2.5rem; }
+  /* Stacked layout puts the photo at the hero's bottom edge, so pull the
+     pulse into the gap underneath it instead of hiding behind it */
+  .hero-ecg    { height: 90px; }
   .pkg-grid,
   .test-grid   { grid-template-columns: repeat(2, 1fr); }
   .steps       { grid-template-columns: repeat(2, 1fr); gap: 32px 24px; }
@@ -871,7 +874,7 @@ section { padding: 84px 0; }
   /* .nav carried the auto margin that pushed the bar right; it's hidden now */
   .header-actions { margin-left: auto; }
   section { padding: 60px 0; }
-  .hero { padding: 44px 0 60px; }
+  .hero { padding: 44px 0 76px; }
   .hero h1 { font-size: 2.1rem; }
   .hero-grid { gap: 32px; }
   .hero-media img { aspect-ratio: 16 / 11; }
