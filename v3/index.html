@@ -489,26 +489,6 @@ section { padding: 84px 0; }
 
 .finder { position: relative; overflow: hidden; padding: 48px 0 80px; }
 
-/* Four symmetric photos drifting together behind the console */
-.finder-bg {
-  position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  transform: translate3d(var(--px, 0), var(--py, 0), 0);
-  transition: transform .3s ease-out;
-}
-.ff {
-  position: absolute; border-radius: 18px;
-  background-size: cover; background-position: center;
-  opacity: .14; filter: saturate(.9);
-  box-shadow: 0 24px 60px rgba(0,0,0,.28);
-  width: min(200px, 15vw); height: min(256px, 19vw);
-  animation: ffFloat 8s ease-in-out infinite;
-}
-.ff1 { top: 12%; left: 2%; }
-.ff2 { top: 52%; left: 2%; }
-.ff3 { top: 12%; right: 2%; }
-.ff4 { top: 52%; right: 2%; }
-@keyframes ffFloat { 0%,100% { translate: 0 0; } 50% { translate: 0 -9px; } }
-
 .finder-in {
   position: relative; z-index: 2; text-align: center;
   display: flex; flex-direction: column; align-items: center; gap: 20px;
@@ -884,7 +864,6 @@ section { padding: 84px 0; }
   .review-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 34px; }
   .cpanel      { grid-template-columns: 1fr 1fr; }
-  .ff          { opacity: .1; animation: none; }
 }
 
 @media (max-width: 720px) {
@@ -905,7 +884,6 @@ section { padding: 84px 0; }
   .finder-in { gap: 16px; }
   .hi-rail { display: grid; grid-template-columns: 1fr 1fr; }
   .cpanel { grid-template-columns: 1fr; }
-  .ff2, .ff4 { display: none; }
 }
 </style>
 </head>
@@ -1203,13 +1181,6 @@ section { padding: 84px 0; }
 
 <!-- ================= Lab Finder console ================= -->
 <section class="finder" id="finder">
-  <div class="finder-bg" aria-hidden="true">
-    <span class="ff ff1" style="background-image:url(../assets/welfare/s07.jpg)"></span>
-    <span class="ff ff2" style="background-image:url(../assets/welfare/welfare2.jpg)"></span>
-    <span class="ff ff3" style="background-image:url(../assets/lab/tracking.png)"></span>
-    <span class="ff ff4" style="background-image:url(../assets/welfare/s08.jpg)"></span>
-  </div>
-
   <div class="wrap finder-in">
     <div class="finder-badge"><span class="dot"></span>Book a lab test in under 60 seconds</div>
 
@@ -1958,21 +1929,6 @@ if (!matchMedia('(pointer: coarse)').matches) {
   input.addEventListener('keydown', e => {
     if (e.key === 'Enter') { e.preventDefault(); go(); }
   });
-
-  if (!matchMedia('(pointer: coarse)').matches) {
-    const bg = finder.querySelector('.finder-bg');
-    let pending;
-    finder.addEventListener('mousemove', e => {
-      if (pending) cancelAnimationFrame(pending);
-      pending = requestAnimationFrame(() => {
-        const r = finder.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width  - .5;
-        const y = (e.clientY - r.top)  / r.height - .5;
-        bg.style.setProperty('--px', (x * 16).toFixed(1) + 'px');
-        bg.style.setProperty('--py', (y * 16).toFixed(1) + 'px');
-      });
-    }, { passive: true });
-  }
 })();
 
 /* ---------- Scroll reveal + stat counters ---------- */
