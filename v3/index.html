@@ -855,7 +855,6 @@ section { padding: 84px 0; }
 @media (max-width: 980px) {
   .hero-grid   { grid-template-columns: 1fr; gap: 40px; }
   .hero h1     { font-size: 2.5rem; }
-  .hero-media  { order: -1; }
   .pkg-grid,
   .test-grid   { grid-template-columns: repeat(2, 1fr); }
   .steps       { grid-template-columns: repeat(2, 1fr); gap: 32px 24px; }
@@ -869,9 +868,13 @@ section { padding: 84px 0; }
   /* Book Now lives in the burger menu on phones, so drop it from the bar */
   .nav, .call-link, .header-actions > .btn { display: none; }
   .burger { display: grid; }
+  /* .nav carried the auto margin that pushed the bar right; it's hidden now */
+  .header-actions { margin-left: auto; }
   section { padding: 60px 0; }
   .hero { padding: 44px 0 60px; }
   .hero h1 { font-size: 2.1rem; }
+  .hero-grid { gap: 32px; }
+  .hero-media img { aspect-ratio: 16 / 11; }
   .section-head h2, .cta-band h2 { font-size: 1.7rem; }
   .stats { grid-template-columns: repeat(2, 1fr); gap: 30px 20px; }
   .pkg-grid, .test-grid, .review-grid { grid-template-columns: 1fr; }
