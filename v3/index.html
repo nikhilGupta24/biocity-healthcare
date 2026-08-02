@@ -858,6 +858,9 @@ section { padding: 84px 0; }
   /* Stacked layout puts the photo at the hero's bottom edge, so pull the
      pulse into the gap underneath it instead of hiding behind it */
   .hero-ecg    { height: 90px; }
+  /* Same reason: shrink the watermark's box to the text half so the atom
+     (and the disc that clears the grid behind it) centre above the photo */
+  .hero-atom   { bottom: auto; height: 78%; }
   .pkg-grid,
   .test-grid   { grid-template-columns: repeat(2, 1fr); }
   .steps       { grid-template-columns: repeat(2, 1fr); gap: 32px 24px; }
