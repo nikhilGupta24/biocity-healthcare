@@ -694,10 +694,15 @@ section { padding: 84px 0; }
 .pkg.wip .sk-btn    { height: 46px; width: 100%; border-radius: 10px; }
 .sk-list li { padding: 8px 0; }
 
+.sk-tx { display: flex; flex-direction: column; gap: 9px; }
 .test.wip .test-ic { background: var(--border); }
-.test.wip .sk-tx { display: flex; flex-direction: column; gap: 9px; }
 
-.faq-a .sk + .sk { margin-top: 10px; }
+.review.wip { border-style: dashed; }
+.review.wip .stars  { color: var(--border); }
+.review.wip .avatar { background: var(--border); }
+
+.faq-a .sk + .sk,
+.review.wip p .sk + .sk { margin-top: 10px; }
 
 /* ---------- How it works ---------- */
 
@@ -1462,42 +1467,54 @@ section { padding: 84px 0; }
     </div>
 
     <div class="review-grid">
-      <div class="review reveal">
-        <div class="stars">
+      <div class="review wip reveal" aria-label="Review not added yet">
+        <div class="stars" aria-hidden="true">
           <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
           <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
         </div>
-        <p>"Booked at 9 PM, the technician was at my door by 7 the next morning. Report came
-           the same evening. My father is 74 and this saved us a hospital trip entirely."</p>
-        <div class="review-who">
-          <span class="avatar">RM</span>
-          <div><strong>Rohit Mehra</strong><small>Noida</small></div>
+        <p aria-hidden="true">
+          <span class="sk" style="width:98%"></span>
+          <span class="sk" style="width:91%"></span>
+          <span class="sk" style="width:64%"></span>
+        </p>
+        <div class="review-who" aria-hidden="true">
+          <span class="avatar"></span>
+          <div class="sk-tx"><span class="sk" style="width:98px"></span>
+                             <span class="sk" style="width:54px"></span></div>
         </div>
       </div>
 
-      <div class="review reveal">
-        <div class="stars">
+      <div class="review wip reveal" aria-label="Review not added yet">
+        <div class="stars" aria-hidden="true">
           <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
           <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
         </div>
-        <p>"The doctor actually called to explain my thyroid results instead of just mailing a
-           PDF. Nobody does that. Have moved my whole family's testing to Biocity."</p>
-        <div class="review-who">
-          <span class="avatar">SK</span>
-          <div><strong>Sneha Kapoor</strong><small>Delhi</small></div>
+        <p aria-hidden="true">
+          <span class="sk" style="width:94%"></span>
+          <span class="sk" style="width:97%"></span>
+          <span class="sk" style="width:52%"></span>
+        </p>
+        <div class="review-who" aria-hidden="true">
+          <span class="avatar"></span>
+          <div class="sk-tx"><span class="sk" style="width:84px"></span>
+                             <span class="sk" style="width:48px"></span></div>
         </div>
       </div>
 
-      <div class="review reveal">
-        <div class="stars">
+      <div class="review wip reveal" aria-label="Review not added yet">
+        <div class="stars" aria-hidden="true">
           <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
           <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
         </div>
-        <p>"I compared four labs before choosing. Biocity was the only one where the price
-           quoted was the price I paid — no collection fee added at the end."</p>
-        <div class="review-who">
-          <span class="avatar">AV</span>
-          <div><strong>Arun Verma</strong><small>Gurgaon</small></div>
+        <p aria-hidden="true">
+          <span class="sk" style="width:96%"></span>
+          <span class="sk" style="width:88%"></span>
+          <span class="sk" style="width:71%"></span>
+        </p>
+        <div class="review-who" aria-hidden="true">
+          <span class="avatar"></span>
+          <div class="sk-tx"><span class="sk" style="width:92px"></span>
+                             <span class="sk" style="width:60px"></span></div>
         </div>
       </div>
     </div>
