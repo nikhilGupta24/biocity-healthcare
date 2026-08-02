@@ -620,25 +620,6 @@ section { padding: 84px 0; }
 .stat-v { font-size: 2.3rem; font-weight: 700; letter-spacing: -.03em; color: var(--accent); }
 .stat-l { font-size: .87rem; color: var(--text-soft); margin-top: 2px; }
 
-/* ---------- Cards (shared) ---------- */
-
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 26px;
-  transition: border-color .2s, box-shadow .2s, transform .2s;
-}
-.card:hover { border-color: var(--accent); box-shadow: var(--shadow); transform: translateY(-3px); }
-
-.card-icon {
-  width: 44px; height: 44px; border-radius: 11px;
-  background: var(--accent-soft); color: var(--accent);
-  display: grid; place-items: center; margin-bottom: 16px;
-}
-.card h3 { font-size: 1.05rem; margin-bottom: 7px; }
-.card p  { font-size: .92rem; color: var(--text-soft); }
-
 /* ---------- Packages ---------- */
 
 .pkg-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; align-items: start; }
@@ -699,6 +680,25 @@ section { padding: 84px 0; }
 .test-price { font-size: .82rem; color: var(--text-soft); }
 .test-price b { color: var(--accent); font-size: .92rem; }
 
+/* ---------- Placeholders for sections still being built ---------- */
+
+.sk { display: block; height: 11px; border-radius: 6px; background: var(--border); }
+.wip-tag { background: var(--border); color: var(--text-soft); }
+
+.pkg.wip { border-style: dashed; }
+.pkg.wip .sk-title  { height: 19px; width: 56%; }
+.pkg.wip .sk-for    { min-height: 40px; margin: 12px 0 18px;
+                      display: flex; flex-direction: column; gap: 9px; }
+.pkg.wip .sk-price  { height: 30px; width: 58%; margin-bottom: 10px; }
+.pkg.wip .sk-params { height: 12px; width: 42%; margin-bottom: 20px; }
+.pkg.wip .sk-btn    { height: 46px; width: 100%; border-radius: 10px; }
+.sk-list li { padding: 8px 0; }
+
+.test.wip .test-ic { background: var(--border); }
+.test.wip .sk-tx { display: flex; flex-direction: column; gap: 9px; }
+
+.faq-a .sk + .sk { margin-top: 10px; }
+
 /* ---------- How it works ---------- */
 
 .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
@@ -718,10 +718,6 @@ section { padding: 84px 0; }
   content: ''; position: absolute; top: 21px; left: 54px; right: -28px;
   height: 1px; background: var(--border);
 }
-
-/* ---------- Why us ---------- */
-
-.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 
 /* ---------- Testimonials ---------- */
 
@@ -860,7 +856,6 @@ section { padding: 84px 0; }
   .test-grid   { grid-template-columns: repeat(2, 1fr); }
   .steps       { grid-template-columns: repeat(2, 1fr); gap: 32px 24px; }
   .step::after { display: none; }
-  .why-grid,
   .review-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 34px; }
   .cpanel      { grid-template-columns: 1fr 1fr; }
@@ -875,7 +870,7 @@ section { padding: 84px 0; }
   .hero h1 { font-size: 2.1rem; }
   .section-head h2, .cta-band h2 { font-size: 1.7rem; }
   .stats { grid-template-columns: repeat(2, 1fr); gap: 30px 20px; }
-  .pkg-grid, .test-grid, .why-grid, .review-grid { grid-template-columns: 1fr; }
+  .pkg-grid, .test-grid, .review-grid { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr; gap: 26px; }
   .footer-grid { grid-template-columns: 1fr; }
   .float-card { left: 12px; bottom: 12px; }
@@ -1322,34 +1317,39 @@ section { padding: 84px 0; }
         <button class="btn btn-primary btn-block" onclick="openModal('Comprehensive')">Book — ₹1,799</button>
       </div>
 
-      <div class="pkg reveal">
+      <div class="pkg wip reveal">
+        <span class="pkg-tag wip-tag">In progress</span>
         <h3>Advanced</h3>
         <p class="pkg-for">Executive-grade screening with cancer markers and hormones.</p>
         <div class="pkg-price"><span class="now">₹2,999</span><span class="was">₹5,999</span></div>
         <div class="pkg-params">100+ parameters</div>
-        <ul class="pkg-list">
-          <li><svg><use href="#i-check"/></svg>Everything in Comprehensive</li>
-          <li><svg><use href="#i-check"/></svg>Cancer markers — PSA / CA-125</li>
-          <li><svg><use href="#i-check"/></svg>Hormone panel — LH, FSH</li>
-          <li><svg><use href="#i-check"/></svg>Arthritis — RA factor + CRP</li>
-          <li><svg><use href="#i-check"/></svg>STD panel + diet consultation</li>
+        <ul class="pkg-list sk-list" aria-hidden="true">
+          <li><span class="sk" style="width:88%"></span></li>
+          <li><span class="sk" style="width:71%"></span></li>
+          <li><span class="sk" style="width:80%"></span></li>
+          <li><span class="sk" style="width:64%"></span></li>
+          <li><span class="sk" style="width:76%"></span></li>
         </ul>
         <button class="btn btn-ghost btn-block" onclick="openModal('Advanced')">Book — ₹2,999</button>
       </div>
 
-      <div class="pkg reveal">
-        <h3>Platinum</h3>
-        <p class="pkg-for">The most complete audit we offer. Nothing left unchecked.</p>
-        <div class="pkg-price"><span class="now">₹5,499</span><span class="was">₹7,999</span></div>
-        <div class="pkg-params">130+ parameters</div>
-        <ul class="pkg-list">
-          <li><svg><use href="#i-check"/></svg>Everything in Advanced</li>
-          <li><svg><use href="#i-check"/></svg>Cardiac risk markers</li>
-          <li><svg><use href="#i-check"/></svg>Full vitamin panel — D, B12, B9, E</li>
-          <li><svg><use href="#i-check"/></svg>Electrolyte + pancreatic profile</li>
-          <li><svg><use href="#i-check"/></svg>Priority support + diet plan</li>
+      <div class="pkg wip reveal" aria-label="Fourth package, not built yet">
+        <span class="pkg-tag wip-tag">In progress</span>
+        <span class="sk sk-title" aria-hidden="true"></span>
+        <div class="sk-for" aria-hidden="true">
+          <span class="sk" style="width:93%"></span>
+          <span class="sk" style="width:68%"></span>
+        </div>
+        <span class="sk sk-price" aria-hidden="true"></span>
+        <span class="sk sk-params" aria-hidden="true"></span>
+        <ul class="pkg-list sk-list" aria-hidden="true">
+          <li><span class="sk" style="width:84%"></span></li>
+          <li><span class="sk" style="width:69%"></span></li>
+          <li><span class="sk" style="width:78%"></span></li>
+          <li><span class="sk" style="width:61%"></span></li>
+          <li><span class="sk" style="width:73%"></span></li>
         </ul>
-        <button class="btn btn-ghost btn-block" onclick="openModal('Platinum')">Book — ₹5,499</button>
+        <span class="sk sk-btn" aria-hidden="true"></span>
       </div>
     </div>
   </div>
@@ -1380,30 +1380,40 @@ section { padding: 84px 0; }
         <span><span class="test-name">Thyroid Profile</span><br>
               <span class="test-price">from <b>₹899</b></span></span>
       </button>
-      <button class="test" onclick="openModal('Blood Sugar')">
-        <span class="test-ic"><svg class="icon"><use href="#i-drop"/></svg></span>
-        <span><span class="test-name">Blood Sugar</span><br>
-              <span class="test-price">from <b>₹99</b></span></span>
+      <button class="test wip" onclick="openModal()" aria-label="Test still being added">
+        <span class="test-ic"></span>
+        <span class="sk-tx" aria-hidden="true">
+          <span class="sk" style="width:96px"></span>
+          <span class="sk" style="width:58px"></span>
+        </span>
       </button>
-      <button class="test" onclick="openModal('Vitamin D')">
-        <span class="test-ic"><svg class="icon"><use href="#i-award"/></svg></span>
-        <span><span class="test-name">Vitamin D</span><br>
-              <span class="test-price">from <b>₹699</b></span></span>
+      <button class="test wip" onclick="openModal()" aria-label="Test still being added">
+        <span class="test-ic"></span>
+        <span class="sk-tx" aria-hidden="true">
+          <span class="sk" style="width:78px"></span>
+          <span class="sk" style="width:64px"></span>
+        </span>
       </button>
-      <button class="test" onclick="openModal('Haemoglobin')">
-        <span class="test-ic"><svg class="icon"><use href="#i-drop"/></svg></span>
-        <span><span class="test-name">Haemoglobin</span><br>
-              <span class="test-price">from <b>₹199</b></span></span>
+      <button class="test wip" onclick="openModal()" aria-label="Test still being added">
+        <span class="test-ic"></span>
+        <span class="sk-tx" aria-hidden="true">
+          <span class="sk" style="width:104px"></span>
+          <span class="sk" style="width:52px"></span>
+        </span>
       </button>
-      <button class="test" onclick="openModal('Kidney Function (KFT)')">
-        <span class="test-ic"><svg class="icon"><use href="#i-shield"/></svg></span>
-        <span><span class="test-name">Kidney Function</span><br>
-              <span class="test-price">from <b>₹499</b></span></span>
+      <button class="test wip" onclick="openModal()" aria-label="Test still being added">
+        <span class="test-ic"></span>
+        <span class="sk-tx" aria-hidden="true">
+          <span class="sk" style="width:86px"></span>
+          <span class="sk" style="width:61px"></span>
+        </span>
       </button>
-      <button class="test" onclick="openModal('Custom / Prescription')">
-        <span class="test-ic"><svg class="icon"><use href="#i-file"/></svg></span>
-        <span><span class="test-name">Upload prescription</span><br>
-              <span class="test-price">we'll quote for you</span></span>
+      <button class="test wip" onclick="openModal()" aria-label="Test still being added">
+        <span class="test-ic"></span>
+        <span class="sk-tx" aria-hidden="true">
+          <span class="sk" style="width:92px"></span>
+          <span class="sk" style="width:55px"></span>
+        </span>
       </button>
     </div>
   </div>
@@ -1438,51 +1448,6 @@ section { padding: 84px 0; }
         <div class="step-n">4</div>
         <h3>Get your report</h3>
         <p>Digital report on WhatsApp and email within 24 hours, with a free consult.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= Why us ================= -->
-<section id="why" class="section-soft">
-  <div class="wrap">
-    <div class="section-head center reveal">
-      <span class="eyebrow">Why Biocity</span>
-      <h2>Accuracy you can act on</h2>
-      <p>Twenty years of diagnostics, built on accreditation rather than advertising.</p>
-    </div>
-
-    <div class="why-grid">
-      <div class="card reveal">
-        <div class="card-icon"><svg class="icon"><use href="#i-shield"/></svg></div>
-        <h3>NABL accredited</h3>
-        <p>ISO 15189:2022 certified for medical testing (Cert MC-6991). Our reports are
-           accepted at every major hospital.</p>
-      </div>
-      <div class="card reveal">
-        <div class="card-icon"><svg class="icon"><use href="#i-home"/></svg></div>
-        <h3>Genuinely free collection</h3>
-        <p>No hidden visit charge, no minimum order. The phlebotomist comes to you at no cost.</p>
-      </div>
-      <div class="card reveal">
-        <div class="card-icon"><svg class="icon"><use href="#i-clock"/></svg></div>
-        <h3>24-hour reporting</h3>
-        <p>Most reports land the next morning. You get an SMS the moment they're ready.</p>
-      </div>
-      <div class="card reveal">
-        <div class="card-icon"><svg class="icon"><use href="#i-user"/></svg></div>
-        <h3>Free doctor consult</h3>
-        <p>A physician walks you through what your numbers mean — included, not upsold.</p>
-      </div>
-      <div class="card reveal">
-        <div class="card-icon"><svg class="icon"><use href="#i-drop"/></svg></div>
-        <h3>Sealed, single-use kits</h3>
-        <p>Every kit is opened in front of you and samples move in a cold chain.</p>
-      </div>
-      <div class="card reveal">
-        <div class="card-icon"><svg class="icon"><use href="#i-pin"/></svg></div>
-        <h3>60+ cities</h3>
-        <p>Delhi NCR, Lucknow, Jaipur, Chandigarh and growing — same standard everywhere.</p>
       </div>
     </div>
   </div>
@@ -1549,34 +1514,40 @@ section { padding: 84px 0; }
 
     <div class="faq reveal">
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Do I need to fast before a full body checkup?</button>
-        <div class="faq-a"><p>Yes — 8 to 12 hours of overnight fasting is recommended for accurate
-          sugar and lipid readings. Plain water is completely fine.</p></div>
+        <button class="faq-q" onclick="toggleFaq(this)">FAQ 1</button>
+        <div class="faq-a"><p aria-hidden="true">
+          <span class="sk" style="width:97%"></span>
+          <span class="sk" style="width:64%"></span></p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">How quickly will I get my reports?</button>
-        <div class="faq-a"><p>Most reports are delivered within 24 hours by email and WhatsApp.
-          A few specialised tests take 48 to 72 hours, and we'll tell you upfront if yours does.</p></div>
+        <button class="faq-q" onclick="toggleFaq(this)">FAQ 2</button>
+        <div class="faq-a"><p aria-hidden="true">
+          <span class="sk" style="width:92%"></span>
+          <span class="sk" style="width:78%"></span></p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Are Biocity reports accepted by all hospitals?</button>
-        <div class="faq-a"><p>Yes. We are NABL accredited and ISO 15189:2022 certified for medical
-          testing, which is the standard hospitals and insurers look for.</p></div>
+        <button class="faq-q" onclick="toggleFaq(this)">FAQ 3</button>
+        <div class="faq-a"><p aria-hidden="true">
+          <span class="sk" style="width:95%"></span>
+          <span class="sk" style="width:57%"></span></p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Is home sample collection really free?</button>
-        <div class="faq-a"><p>It is. There is no visit charge and no minimum order value across all
-          60+ cities we operate in. The price you see is the price you pay.</p></div>
+        <button class="faq-q" onclick="toggleFaq(this)">FAQ 4</button>
+        <div class="faq-a"><p aria-hidden="true">
+          <span class="sk" style="width:89%"></span>
+          <span class="sk" style="width:71%"></span></p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Which cities do you cover?</button>
-        <div class="faq-a"><p>We serve 60+ cities including Delhi NCR, Noida, Gurgaon, Ghaziabad,
-          Faridabad, Lucknow, Jaipur and Chandigarh. Call us to confirm your pincode.</p></div>
+        <button class="faq-q" onclick="toggleFaq(this)">FAQ 5</button>
+        <div class="faq-a"><p aria-hidden="true">
+          <span class="sk" style="width:96%"></span>
+          <span class="sk" style="width:52%"></span></p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Can I book a test on a prescription?</button>
-        <div class="faq-a"><p>Absolutely. Send us your prescription on WhatsApp and our team will
-          quote the exact panel and book a collection slot for you.</p></div>
+        <button class="faq-q" onclick="toggleFaq(this)">FAQ 6</button>
+        <div class="faq-a"><p aria-hidden="true">
+          <span class="sk" style="width:93%"></span>
+          <span class="sk" style="width:68%"></span></p></div>
       </div>
     </div>
   </div>
@@ -1631,7 +1602,6 @@ section { padding: 84px 0; }
       <div>
         <h4>Company</h4>
         <ul>
-          <li><a href="#why">Why Biocity</a></li>
           <li><a href="#process">How It Works</a></li>
           <li><a href="#tests">Lab Tests</a></li>
           <li><a href="#faq">FAQ</a></li>
