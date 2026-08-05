@@ -174,6 +174,7 @@ persists in `localStorage('theme')`. Both themes fully tokenized.
 | **Booking modal** | all | `#modal`, `openModal([pkg])`, `closeModal()`, `submitForm(e)` (shows confirm, resets). |
 | **WhatsApp FAB** | all | `.wa` → `wa.me/918860606141` |
 | **Mobile action bar** | all | `.mbar#mbar` (Call Now / Book) — shows on scroll (>600px). Mobile only. |
+| **Landing atom mark** | all | `.phero-atom` — a **highlighted** animated atom (green tile + glow) in the first landing section of every page. On interior shared-asset pages it is **injected by `site.js`** into the first hero (`.phero-in`/`.hero-c`/`.hero .w`/`.blog-hero`); on `index.html` + the 4 self-contained pages it is **inline markup + inline CSS**. Reuses the `.la-orbit/.la-e/.la-nuc` atom styles. |
 
 **Contact constants:** phone `+91 8860 606 141` (`+918860606141`), email
 `care@biocityhealthcare.com`, address `Plot No 434, 2nd Floor, Jagriti Enclave, Vikas Marg,
@@ -187,9 +188,12 @@ Top → bottom:
 
 1. **Lab Finder console** (`.finder`, top of page — the primary hero; added 2026-07-30).
    Inspired by 1mg's labs landing.
-   - `.finder-bg` — **4 aligned, symmetric** background photos (`.ff1..4`, mirrored left/right,
-     equal size), one *synchronized* gentle float + together-parallax on mouse-move.
-     (History: replaced earlier scattered/drifting cards that "fell from the sky".)
+   - `.finder-bg` — **4 aligned, symmetric, STATIC** background photos (`.ff1..4`, mirrored
+     left/right, equal size). They are **lab/medical photos only** (`assets/lab/*`) — no float,
+     no parallax (removed on request: "images should not be off-topic and should not be
+     moving"). The section has a **solid `--bg`** so the site-wide graph-paper grid does **not**
+     show through this first section (removed on request: "grid lines… feel cluttered").
+   - **Highlighted BioCity atom** (`.phero-atom`) sits above the badge — see §6.
    - `.hi-rail` — **foreground highlight rail**: 4 captioned photo cards (NABL Lab · Free Home
      Collection · Safe Cold-Chain · 39L+ Families).
    - **Live search** `#cFind` — filters `.tile`s as you type (clones matches into `#cSearch`);
@@ -346,6 +350,10 @@ When you make a change to the site, **in the same commit**:
 
 ## 16. Changelog
 
+- **2026-07-30** — **Highlighted landing atom** (`.phero-atom`) added to the first section of
+  every page (home finder, all interior pages via `site.js`, and the 4 self-contained pages via
+  inline edits). Home Lab Finder: **removed the graph-paper grid** from the first section (solid
+  `--bg`), and made the background photos **static + lab-only** (removed float/parallax).
 - **2026-07-30** — Home **Lab Finder console** (live search + category tabs/tiles), foreground
   **highlight photo rail**, **aligned** symmetric background photos (replacing scattered drift),
   and **1mg-style sticky callback bar** (`.cbar`, desktop/tablet). Old hero heading demoted to
@@ -380,3 +388,7 @@ When you make a change to the site, **in the same commit**:
 9. **GA4 is a placeholder** (`G-XXXXXXXXXX`) — replace before launch.
 10. **`docs/BIOCITY_PLAYBOOK.md` + `docs/KNOWLEDGE_BANK.html` + `README.md` are stale** for the
     current site; trust **this file** for site specifics.
+11. **The landing atom (`.phero-atom`) lives in 4 places** — `index.html` (inline),
+    `assets/site.css` + `assets/site.js` (interior pages), and the **4 self-contained pages'
+    inline `<style>`** (`city-noida`, `condition-diabetes`, `blog`, `blog-vitamin-d-deficiency`),
+    because those pages do **not** load the shared assets. Change all 4 if you restyle it.
