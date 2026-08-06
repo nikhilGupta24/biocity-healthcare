@@ -87,7 +87,7 @@ _size = shutil.get_terminal_size((100, 30))
 COLS = max(74, min(_size.columns, 104))
 
 _env = os.environ
-USE_COLOR = sys.stdout.isatty() and _env.get("NO_COLOR") is None and "--mono" not in ARGS
+USE_COLOR = False
 TRUECOLOR = any(x in (_env.get("COLORTERM", "").lower()) for x in ("truecolor", "24bit"))
 
 ANSI_RE = re.compile(r"\x1b\[[0-9;]*m")
