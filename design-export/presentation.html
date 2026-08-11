@@ -1,0 +1,68 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+@page{size:A4;margin:0}
+:root{--ink:#0e1512;--mut:#6b7a76;--line:#e3e8e6;--accent:#10B981}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#eef1f0;color:var(--ink)}
+.cover{height:297mm;display:flex;flex-direction:column;justify-content:center;padding:0 26mm;
+  background:linear-gradient(150deg,#0b3d33,#0e1512 70%);color:#eafff7;break-after:page}
+.cover .k{font:600 12px/1 ui-monospace,monospace;letter-spacing:3px;text-transform:uppercase;color:#5eead4;margin-bottom:20px}
+.cover h1{font-size:52px;font-weight:800;letter-spacing:-1.5px;line-height:1.05;margin-bottom:16px}
+.cover h1 span{color:#34d399}
+.cover p{font-size:16px;color:#9fc7bd;max-width:460px;line-height:1.6}
+.cover .meta{margin-top:40px;display:flex;gap:10px;flex-wrap:wrap}
+.cover .meta b{font:600 12px/1 ui-monospace,monospace;letter-spacing:1px;background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.16);padding:9px 14px;border-radius:100px;color:#d7fff2}
+.board{break-before:page;padding:14mm 14mm 0;background:#eef1f0}
+.board img{break-inside:avoid-page}
+.cap{margin-bottom:14px}
+.tag{font:700 11px/1 ui-monospace,monospace;letter-spacing:2px;text-transform:uppercase;color:var(--mut);
+  background:#fff;border:1px solid var(--line);padding:8px 14px;border-radius:100px}
+.win{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;
+  box-shadow:0 18px 50px rgba(14,21,18,.14)}
+.bar{height:38px;display:flex;align-items:center;gap:7px;padding:0 14px;background:#f6f8f7;border-bottom:1px solid var(--line)}
+.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.url{margin-left:12px;font:500 12px/1 ui-monospace,monospace;color:var(--mut);
+  background:#fff;border:1px solid var(--line);padding:6px 16px;border-radius:100px}
+.stack{font-size:0;line-height:0}
+.stack img{width:100%;display:block}
+.phone{width:300px;margin:0 auto;border:11px solid #12100f;border-radius:42px;overflow:hidden;
+  background:#12100f;box-shadow:0 22px 60px rgba(14,21,18,.22);position:relative}
+.phone .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:22px;
+  background:#12100f;border-radius:0 0 16px 16px;z-index:2}
+.phone .stack{border-radius:30px;overflow:hidden}
+</style></head><body>
+<div class="cover">
+  <div class="k">Biocity Healthcare · v3</div>
+  <h1>Website Design<br><span>Preview Board</span></h1>
+  <p>The v3 diagnostics website, shown in desktop and mobile layouts across light and dark themes.</p>
+  <div class="meta"><b>4 Artboards</b><b>Light + Dark</b><b>Web + Mobile</b><b>08 Aug 2026</b></div>
+</div>
+
+        <section class="board">
+          <div class="cap"><span class="tag">Desktop · Light</span></div>
+          <div class="win">
+            <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+              <span class="url">biocityhealthcare.com</span></div>
+            <div class="stack"><img src="desktop-light-0.png" alt="Desktop · Light"></div>
+          </div>
+        </section>
+        <section class="board">
+          <div class="cap"><span class="tag">Desktop · Dark</span></div>
+          <div class="win">
+            <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+              <span class="url">biocityhealthcare.com</span></div>
+            <div class="stack"><img src="desktop-dark-0.png" alt="Desktop · Dark"></div>
+          </div>
+        </section>
+        <section class="board">
+          <div class="cap"><span class="tag">Mobile · Light</span></div>
+          <div class="phone"><span class="notch"></span><div class="stack"><img src="mobile-light-0.png" alt="Mobile · Light"><img src="mobile-light-1.png" alt="Mobile · Light"><img src="mobile-light-2.png" alt="Mobile · Light"></div></div>
+        </section>
+        <section class="board">
+          <div class="cap"><span class="tag">Mobile · Dark</span></div>
+          <div class="phone"><span class="notch"></span><div class="stack"><img src="mobile-dark-0.png" alt="Mobile · Dark"><img src="mobile-dark-1.png" alt="Mobile · Dark"><img src="mobile-dark-2.png" alt="Mobile · Dark"></div></div>
+        </section>
+</body></html>

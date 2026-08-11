@@ -1,0 +1,246 @@
+#!/usr/bin/env python3
+"""
+Biocity — realistic MOBILE preview of hero-carousel.html.
+
+Shows the live page inside a phone with real mobile-browser chrome
+(status bar + address bar showing the URL) and the sticky Call/Book bar,
+so the client sees exactly how it looks on a phone — and we can confirm
+the top alignment once the browser's address bar takes its space.
+
+    python3 make_mobile_preview.py
+"""
+import base64, os, subprocess, tempfile, threading, time
+from datetime import datetime
+from functools import partial
+from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+import make_design_pdf as mdp
+
+ROOT = mdp.ROOT
+OUT = os.path.join(ROOT, "design-export")
+os.makedirs(OUT, exist_ok=True)
+PAGE = "/hero-carousel.html"
+
+# hide our own sticky bar for the capture (we re-draw it pinned in the mock),
+# force the theme, and report the full content height.
+MEASURE = """
+(function(t){
+  document.documentElement.setAttribute('data-theme',t);
+  var b=document.querySelector('.mobilebar'); if(b) b.style.display='none';
+  document.body.style.paddingBottom='0';
+  return document.body.scrollHeight;
+})('%T%')
+"""
+
+
+def cap(dbg, url, theme):
+    w, dsf = 390, 3
+    tgt = mdp.http_json(f"{dbg}/json/new?about:blank", method="PUT")
+    ws = mdp.WS(tgt["webSocketDebuggerUrl"])
+    try:
+        ws.call("Page.enable"); ws.call("Runtime.enable")
+        ws.call("Emulation.setDeviceMetricsOverride",
+                {"width": w, "height": 844, "deviceScaleFactor": 1, "mobile": True})
+        ws.call("Page.navigate", {"url": url})
+        ws.wait_event("Page.loadEventFired", timeout=30)
+        time.sleep(1.0)
+        res = ws.call("Runtime.evaluate",
+                      {"expression": MEASURE.replace("%T%", theme), "returnByValue": True})
+        h = int(res.get("result", {}).get("value") or 900)
+        ws.call("Emulation.setDeviceMetricsOverride",
+                {"width": w, "height": h, "deviceScaleFactor": 1, "mobile": True})
+        time.sleep(0.4)
+        shot = ws.call("Page.captureScreenshot", {"format": "png",
+            "captureBeyondViewport": True, "fromSurface": True,
+            "clip": {"x": 0, "y": 0, "width": w, "height": h, "scale": dsf}}, timeout=90)
+        name = f"mob-page-{theme}.png"
+        with open(os.path.join(OUT, name), "wb") as f:
+            f.write(base64.b64decode(shot["data"]))
+        print(f"  captured {theme}: {w*dsf}px x {h*dsf}px")
+        return name
+    finally:
+        try: mdp.http_json(f"{dbg}/json/close/{tgt['id']}")
+        except Exception: pass
+        ws.close()
+
+
+def phone(img, theme):
+    dark = theme == "dark"
+    txt = "#e9f5ef" if dark else "#10251b"
+    chrome = "#0c1712" if dark else "#f2f5f4"
+    line = "#22332b" if dark else "#e3e8e6"
+    soft = "#94a99e" if dark else "#5b6d64"
+    return f"""
+    <div class="phone">
+      <div class="screen" data-theme="{theme}">
+        <div class="statusbar" style="background:{chrome};color:{txt}">
+          <span class="time">9:41</span>
+          <span class="sysic">
+            <svg viewBox="0 0 24 24" class="bars"><rect x="1" y="9" width="3" height="5" rx="1"/><rect x="6" y="6" width="3" height="8" rx="1"/><rect x="11" y="3" width="3" height="11" rx="1"/><rect x="16" y="6" width="3" height="8" rx="1" opacity=".35"/></svg>
+            <svg viewBox="0 0 24 24" class="wifi"><path d="M2 8.5a15 15 0 0 1 20 0"/><path d="M5 12a10 10 0 0 1 14 0"/><path d="M8.5 15.5a5 5 0 0 1 7 0"/><circle cx="12" cy="19" r="1.4" fill="currentColor" stroke="none"/></svg>
+            <svg viewBox="0 0 28 24" class="batt"><rect x="1" y="7" width="21" height="10" rx="3"/><rect x="3" y="9" width="15" height="6" rx="1.5" fill="currentColor" stroke="none"/><rect x="23.5" y="10" width="2" height="4" rx="1" fill="currentColor" stroke="none"/></svg>
+          </span>
+        </div>
+        <div class="addrbar" style="background:{chrome};border-color:{line}">
+          <span class="aA" style="color:{soft}">A<small>A</small></span>
+          <span class="url" style="color:{txt}">
+            <svg viewBox="0 0 24 24" class="lock"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+            biocityhealthcare.com</span>
+          <svg viewBox="0 0 24 24" class="reload" style="color:{soft}"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+        </div>
+        <div class="viewport"><img src="{img}" alt="Biocity mobile"></div>
+        <div class="ctabar" data-theme="{theme}">
+          <button class="mbtn ghost"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7A2 2 0 0 1 22 16.9z"/></svg> Call Now</button>
+          <button class="mbtn primary"><svg viewBox="0 0 24 24"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Book Home Visit</button>
+        </div>
+        <div class="toolbar" style="background:{chrome};border-color:{line};color:{soft}">
+          <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>
+          <svg viewBox="0 0 24 24" style="opacity:.4"><path d="M9 6l6 6-6 6"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 16V4M8 8l4-4 4 4"/><rect x="4" y="14" width="16" height="7" rx="2"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="cap">{'Dark' if dark else 'Light'} · with real mobile-browser bar</div>"""
+
+
+def build(imgs):
+    date = datetime.now().strftime("%d %b %Y")
+    phones = phone(imgs["light"], "light") + phone(imgs["dark"], "dark")
+    return f"""<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+*{{margin:0;padding:0;box-sizing:border-box}}
+@page{{size:A4 landscape;margin:0}}
+html{{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+body{{font-family:-apple-system,'Segoe UI',sans-serif;background:#eef1f0;color:#10251b;
+  min-height:210mm;padding:22mm 20mm}}
+h1{{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-bottom:4px}}
+.lead{{font-size:13px;color:#5b6d64;max-width:640px;line-height:1.55;margin-bottom:26px}}
+.row{{display:flex;gap:60px;justify-content:center;align-items:flex-start}}
+.phone{{width:330px}}
+.screen{{position:relative;height:686px;border:12px solid #0c0f0e;border-radius:46px;overflow:hidden;
+  background:#0c0f0e;box-shadow:0 30px 70px rgba(14,21,18,.28);display:flex;flex-direction:column}}
+.screen[data-theme=dark]{{background:#0b1410}}
+.statusbar{{height:40px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;font-size:14px;font-weight:600;flex:none}}
+.statusbar .sysic{{display:flex;align-items:center;gap:6px}}
+.statusbar svg{{height:13px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}}
+.statusbar .bars{{width:17px}}.statusbar .wifi{{width:16px}}.statusbar .batt{{width:26px;height:15px}}
+.addrbar{{height:42px;display:flex;align-items:center;gap:10px;padding:0 14px;
+  border-bottom:1px solid;flex:none}}
+.addrbar .aA{{font-size:15px;font-weight:600}}.addrbar .aA small{{font-size:11px}}
+.addrbar .url{{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;
+  font-size:14px;font-weight:500}}
+.addrbar .lock{{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2}}
+.addrbar .reload{{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}}
+.viewport{{flex:1;overflow:hidden;position:relative;background:#fff}}
+.screen[data-theme=dark] .viewport{{background:#0b1410}}
+.viewport img{{width:100%;display:block}}
+.ctabar{{flex:none;display:flex;gap:10px;padding:10px 14px 16px;background:rgba(255,255,255,.92);
+  border-top:1px solid #e3e8e6}}
+.ctabar[data-theme=dark]{{background:rgba(11,20,16,.92);border-color:#22332b}}
+.mbtn{{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;font-size:14px;
+  font-weight:600;border-radius:12px;padding:12px;border:1px solid transparent;font-family:inherit}}
+.mbtn svg{{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}}
+.mbtn.primary{{background:#059669;color:#fff;flex:1.35}}
+.mbtn.ghost{{background:transparent;color:#10251b;border-color:#e3e8e6}}
+.ctabar[data-theme=dark] .mbtn.ghost{{color:#e9f5ef;border-color:#22332b}}
+.ctabar[data-theme=dark] .mbtn.primary{{background:#10b981}}
+.toolbar{{height:46px;display:flex;align-items:center;justify-content:space-around;
+  border-top:1px solid;flex:none}}
+.toolbar svg{{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}}
+.cap{{text-align:center;margin-top:16px;font-size:12.5px;font-weight:600;color:#5b6d64}}
+</style></head><body>
+<h1>Biocity — Home hero on mobile</h1>
+<p class="lead">Shown inside a real phone with the mobile browser's status &amp; address bar
+   (<b>biocityhealthcare.com</b>). The address bar takes the top strip, so the page starts
+   just below it — the badge, headline and package carousel stay perfectly aligned, and the
+   <b>Call Now / Book Home Visit</b> bar stays pinned at the bottom. · {date}</p>
+<div class="row">{phones}</div>
+</body></html>"""
+
+
+def render_pdf(dbg, path):
+    tgt = mdp.http_json(f"{dbg}/json/new?about:blank", method="PUT")
+    ws = mdp.WS(tgt["webSocketDebuggerUrl"])
+    try:
+        ws.call("Page.enable")
+        ws.call("Page.navigate", {"url": "file://" + path})
+        ws.wait_event("Page.loadEventFired", timeout=30)
+        time.sleep(1.0)
+        res = ws.call("Page.printToPDF", {"printBackground": True, "landscape": True,
+            "preferCSSPageSize": True, "marginTop": 0, "marginBottom": 0,
+            "marginLeft": 0, "marginRight": 0}, timeout=90)
+        out = os.path.join(OUT, "Biocity-Hero-Mobile-Preview.pdf")
+        with open(out, "wb") as f:
+            f.write(base64.b64decode(res["data"]))
+        return out
+    finally:
+        try: mdp.http_json(f"{dbg}/json/close/{tgt['id']}")
+        except Exception: pass
+        ws.close()
+
+
+def render_png(dbg, path):
+    tgt = mdp.http_json(f"{dbg}/json/new?about:blank", method="PUT")
+    ws = mdp.WS(tgt["webSocketDebuggerUrl"])
+    try:
+        ws.call("Page.enable")
+        ws.call("Emulation.setDeviceMetricsOverride",
+                {"width": 1240, "height": 900, "deviceScaleFactor": 2, "mobile": False})
+        ws.call("Page.navigate", {"url": "file://" + path})
+        ws.wait_event("Page.loadEventFired", timeout=30)
+        time.sleep(1.0)
+        res = ws.call("Runtime.evaluate",
+                      {"expression": "Math.ceil(document.body.scrollHeight)", "returnByValue": True})
+        h = int(res.get("result", {}).get("value") or 900)
+        ws.call("Emulation.setDeviceMetricsOverride",
+                {"width": 1240, "height": h, "deviceScaleFactor": 2, "mobile": False})
+        time.sleep(0.3)
+        shot = ws.call("Page.captureScreenshot",
+                       {"format": "png", "captureBeyondViewport": True, "fromSurface": True}, timeout=90)
+        out = os.path.join(OUT, "mobile-preview.png")
+        with open(out, "wb") as f:
+            f.write(base64.b64decode(shot["data"]))
+        return out
+    finally:
+        try: mdp.http_json(f"{dbg}/json/close/{tgt['id']}")
+        except Exception: pass
+        ws.close()
+
+
+def main():
+    port = mdp.free_port()
+    httpd = ThreadingHTTPServer(("127.0.0.1", port),
+        partial(SimpleHTTPRequestHandler, directory=ROOT))
+    httpd.RequestHandlerClass.log_message = lambda *a, **k: None
+    threading.Thread(target=httpd.serve_forever, daemon=True).start()
+    url = f"http://127.0.0.1:{port}{PAGE}"
+    dbg_port = mdp.free_port()
+    profile = tempfile.mkdtemp(prefix="mob-preview-")
+    proc = subprocess.Popen([mdp.CHROME, "--headless=new", "--disable-gpu",
+        "--hide-scrollbars", "--no-first-run", "--no-default-browser-check",
+        "--force-color-profile=srgb", f"--remote-debugging-port={dbg_port}",
+        f"--user-data-dir={profile}"],
+        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    dbg = f"http://127.0.0.1:{dbg_port}"
+    for _ in range(100):
+        try: mdp.http_json(f"{dbg}/json/version"); break
+        except Exception: time.sleep(0.1)
+    try:
+        print("capturing mobile page…")
+        imgs = {"light": cap(dbg, url, "light"), "dark": cap(dbg, url, "dark")}
+        path = os.path.join(OUT, "_mobile-preview.html")
+        with open(path, "w") as f:
+            f.write(build(imgs))
+        png = render_png(dbg, path)
+        pdf = render_pdf(dbg, path)
+        print(f"\n✓ preview PNG: {png}")
+        print(f"✓ preview PDF: {pdf}")
+    finally:
+        proc.terminate(); httpd.shutdown()
+
+
+if __name__ == "__main__":
+    main()

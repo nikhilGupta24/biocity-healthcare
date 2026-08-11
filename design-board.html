@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Biocity v3 — Design Board</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0e1211;--grid:rgba(255,255,255,.04);--ink:#e7efec;--mut:#8a9793;--line:rgba(255,255,255,.10);--accent:#10B981}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
+
+/* infinite canvas */
+#stage{position:fixed;inset:0;cursor:grab;
+  background-color:var(--bg);
+  background-image:radial-gradient(var(--grid) 1.4px,transparent 1.4px);
+  background-size:26px 26px}
+#stage.grab{cursor:grabbing}
+#world{position:absolute;top:0;left:0;transform-origin:0 0;will-change:transform}
+
+/* frame */
+.frame{position:absolute}
+.flabel{position:absolute;top:-46px;left:0;display:flex;align-items:center;gap:10px;
+  font:700 15px/1 ui-monospace,monospace;letter-spacing:1px;color:var(--mut);white-space:nowrap}
+.flabel .sw{width:12px;height:12px;border-radius:50%}
+.flabel .l{background:#fef3c7;border:1px solid #f59e0b}
+.flabel .d{background:#0b1220;border:1px solid #334155}
+
+.device{background:#fff;border:1px solid var(--line);box-shadow:0 30px 90px rgba(0,0,0,.5)}
+.device.desktop{border-radius:14px;overflow:hidden}
+.dbar{height:40px;display:flex;align-items:center;gap:8px;padding:0 16px;background:#f6f8f7;border-bottom:1px solid #e3e8e6}
+.dbar .dot{width:12px;height:12px;border-radius:50%}
+.dbar .r{background:#ff5f57}.dbar .y{background:#febc2e}.dbar .g{background:#28c840}
+.dbar .url{margin-left:14px;font:500 13px/1 ui-monospace,monospace;color:#6b7a76;
+  background:#fff;border:1px solid #e3e8e6;padding:7px 18px;border-radius:100px}
+.device.mobile{border-radius:44px;padding:14px;background:#111}
+.device.mobile .notch{position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  width:130px;height:26px;background:#111;border-radius:0 0 16px 16px;z-index:3}
+.device.mobile iframe{border-radius:30px}
+.screen{position:relative;background:#fff;overflow:hidden}
+.device.mobile .screen{border-radius:30px}
+iframe{border:0;display:block;pointer-events:none;background:#fff}
+
+/* toolbar */
+#bar{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:20;display:flex;align-items:center;gap:6px;
+  background:rgba(20,26,25,.86);backdrop-filter:blur(14px);border:1px solid var(--line);
+  border-radius:16px;padding:8px;box-shadow:0 16px 50px rgba(0,0,0,.5)}
+.btn{height:38px;min-width:38px;padding:0 12px;border-radius:11px;background:transparent;color:var(--ink);
+  border:1px solid transparent;font:600 13px/1 -apple-system,sans-serif;cursor:pointer;display:inline-flex;
+  align-items:center;justify-content:center;gap:6px;transition:.15s}
+.btn:hover{background:rgba(255,255,255,.08)}
+.btn.pri{background:var(--accent);color:#04150f;font-weight:700}
+.btn.pri:hover{background:#34d399}
+#zpct{min-width:58px;text-align:center;font:700 13px/1 ui-monospace,monospace;color:var(--mut)}
+.sep{width:1px;height:24px;background:var(--line);margin:0 4px}
+
+/* header */
+#head{position:fixed;top:18px;left:20px;z-index:20;display:flex;align-items:center;gap:12px}
+#head .logo{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#0b3d33,#10B981);
+  display:grid;place-items:center;color:#fff;font-weight:800;font-family:ui-monospace,monospace}
+#head h1{font-size:15px;font-weight:700}
+#head p{font-size:12px;color:var(--mut)}
+#hint{position:fixed;top:22px;right:20px;z-index:20;font-size:12px;color:var(--mut);text-align:right;line-height:1.7}
+#hint b{color:var(--ink)}
+@media(max-width:640px){#hint{display:none}}
+</style>
+</head>
+<body>
+<div id="head">
+  <div class="logo">B</div>
+  <div><h1>Biocity · v3 Design Board</h1><p>Homepage — desktop &amp; mobile · light &amp; dark</p></div>
+</div>
+<div id="hint"><b>Scroll / pinch</b> to zoom · <b>Drag</b> to pan<br><b>Double-click</b> a frame to open it live</div>
+
+<div id="stage">
+  <div id="world"></div>
+</div>
+
+<div id="bar">
+  <button class="btn" data-jump="dl">Desktop L</button>
+  <button class="btn" data-jump="dd">Desktop D</button>
+  <button class="btn" data-jump="ml">Mobile L</button>
+  <button class="btn" data-jump="md">Mobile D</button>
+  <span class="sep"></span>
+  <button class="btn" id="zout">−</button>
+  <span id="zpct">100%</span>
+  <button class="btn" id="zin">+</button>
+  <span class="sep"></span>
+  <button class="btn pri" id="fit">Fit all</button>
+</div>
+
+<script>
+const FRAMES = [
+  {id:'dl', label:'Desktop · Light', src:'v3/index.html', w:1440, device:'desktop', theme:'light'},
+  {id:'dd', label:'Desktop · Dark',  src:'v3/index.html', w:1440, device:'desktop', theme:'dark'},
+  {id:'ml', label:'Mobile · Light',  src:'v3/index.html', w:390,  device:'mobile',  theme:'light'},
+  {id:'md', label:'Mobile · Dark',   src:'v3/index.html', w:390,  device:'mobile',  theme:'dark'},
+];
+const GAP = 180, BARH = 40, BEZEL = 14;
+const world = document.getElementById('world');
+const stage = document.getElementById('stage');
+const items = {};
+
+// build frames
+for (const f of FRAMES) {
+  const el = document.createElement('div');
+  el.className = 'frame';
+  const swClass = f.theme === 'light' ? 'l' : 'd';
+  const chrome = f.device === 'desktop'
+    ? `<div class="device desktop"><div class="dbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">biocityhealthcare.com</span></div><div class="screen"><iframe id="if-${f.id}" src="${f.src}" style="width:${f.w}px;height:900px"></iframe></div></div>`
+    : `<div class="device mobile" style="position:relative"><span class="notch"></span><div class="screen"><iframe id="if-${f.id}" src="${f.src}" style="width:${f.w}px;height:844px"></iframe></div></div>`;
+  el.innerHTML = `<div class="flabel"><span class="sw ${swClass}"></span>${f.label}</div>${chrome}`;
+  world.appendChild(el);
+  items[f.id] = {def:f, el, h:(f.device==='desktop'?900+BARH:844+BEZEL*2)};
+}
+
+function frameSize(id){
+  const it = items[id], f = it.def;
+  const w = f.device==='desktop' ? f.w : f.w + BEZEL*2;
+  return {w, h: it.h};
+}
+
+function relayout(){
+  // desktops on the top row, mobiles on the bottom row
+  let x = 0, deskBottom = 0;
+  for (const id of ['dl','dd']) {
+    const s = frameSize(id);
+    items[id].el.style.left = x + 'px';
+    items[id].el.style.top  = '0px';
+    x += s.w + GAP;
+    deskBottom = Math.max(deskBottom, s.h);
+  }
+  const my = deskBottom + GAP + 40;
+  let mx = 0;
+  for (const id of ['ml','md']) {
+    const s = frameSize(id);
+    items[id].el.style.left = mx + 'px';
+    items[id].el.style.top  = my + 'px';
+    mx += s.w + GAP;
+  }
+  const right = Math.max(x - GAP, mx - GAP);
+  const bottom = my + Math.max(frameSize('ml').h, frameSize('md').h);
+  world._bounds = {w: right, h: bottom};
+}
+
+// when each iframe loads: force theme, kill animations, force-reveal, size to content
+for (const f of FRAMES) {
+  const ifr = document.getElementById('if-' + f.id);
+  ifr.addEventListener('load', () => {
+    try {
+      const doc = ifr.contentDocument;
+      doc.documentElement.setAttribute('data-theme', f.theme);
+      const st = doc.createElement('style');
+      st.textContent = '*{animation:none!important;transition:none!important;scroll-behavior:auto!important}'
+        + '.reveal{opacity:1!important;transform:none!important}';
+      doc.head.appendChild(st);
+      doc.querySelectorAll('.reveal').forEach(e => e.classList.add('visible'));
+      const h = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight);
+      ifr.style.height = h + 'px';
+      items[f.id].h = h + (f.device === 'desktop' ? BARH : BEZEL * 2);
+      relayout();
+    } catch (e) { /* cross-origin guard — shouldn't happen same-origin */ }
+  });
+  // open the real, clickable page in a new tab on double-click
+  ifr.parentElement.parentElement.addEventListener('dblclick', () => window.open(f.src, '_blank'));
+}
+
+// ── pan + zoom ──────────────────────────────────────────────────────────────
+let scale = 1, tx = 0, ty = 0;
+function apply(){
+  world.style.transform = `translate(${tx}px,${ty}px) scale(${scale})`;
+  document.getElementById('zpct').textContent = Math.round(scale * 100) + '%';
+}
+function zoomAt(cx, cy, factor){
+  const ns = Math.min(4, Math.max(0.03, scale * factor));
+  tx = cx - (cx - tx) * (ns / scale);
+  ty = cy - (cy - ty) * (ns / scale);
+  scale = ns; apply();
+}
+stage.addEventListener('wheel', e => {
+  e.preventDefault();
+  if (e.ctrlKey || e.metaKey) {              // trackpad pinch / ⌘-scroll → zoom
+    zoomAt(e.clientX, e.clientY, Math.exp(-e.deltaY * 0.01));
+  } else if (e.shiftKey) {                    // shift-scroll → horizontal pan
+    tx -= e.deltaY; apply();
+  } else {                                    // plain scroll → zoom (Figma-like)
+    zoomAt(e.clientX, e.clientY, Math.exp(-e.deltaY * 0.0016));
+  }
+}, {passive:false});
+
+let dragging = false, sx = 0, sy = 0;
+stage.addEventListener('pointerdown', e => {
+  dragging = true; sx = e.clientX - tx; sy = e.clientY - ty;
+  stage.classList.add('grab'); stage.setPointerCapture(e.pointerId);
+});
+stage.addEventListener('pointermove', e => {
+  if (!dragging) return; tx = e.clientX - sx; ty = e.clientY - sy; apply();
+});
+stage.addEventListener('pointerup', e => { dragging = false; stage.classList.remove('grab'); });
+
+function fit(){
+  const b = world._bounds || {w:3600, h:6000};
+  const pad = 120;
+  scale = Math.min((innerWidth - pad*2) / b.w, (innerHeight - pad*2 - 120) / b.h);
+  scale = Math.min(scale, 1);
+  tx = (innerWidth - b.w * scale) / 2;
+  ty = (innerHeight - 120 - b.h * scale) / 2 + 20;
+  apply();
+}
+function jump(id){
+  const it = items[id]; const left = parseFloat(it.el.style.left)||0, top = parseFloat(it.el.style.top)||0;
+  const s = frameSize(id);
+  scale = Math.min(0.9, (innerWidth - 200) / s.w);
+  tx = (innerWidth - s.w * scale) / 2 - left * scale;
+  ty = 120 - top * scale;
+  apply();
+}
+document.getElementById('zin').onclick  = () => zoomAt(innerWidth/2, innerHeight/2, 1.25);
+document.getElementById('zout').onclick = () => zoomAt(innerWidth/2, innerHeight/2, 0.8);
+document.getElementById('fit').onclick  = fit;
+document.querySelectorAll('[data-jump]').forEach(b => b.onclick = () => jump(b.dataset.jump));
+
+relayout();
+setTimeout(fit, 400);        // initial fit once first layout is in
+setTimeout(fit, 2500);       // refit after iframes report real heights
+</script>
+</body>
+</html>
