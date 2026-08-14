@@ -1842,20 +1842,6 @@ function confetti(host){if(!host)return;const cv=document.createElement('canvas'
 </script>
 
 <script>
-/* ── DEMO MODE: single-page preview — interior page links are inert ── */
-(function(){
-  function inert(a){
-    var h=a.getAttribute('href')||'';
-    if(h.indexOf('pages/')>-1 || /\.html($|[?#])/.test(h)){
-      a.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();},true);
-      a.setAttribute('data-demo-disabled','');
-      a.style.cursor='default';
-    }
-  }
-  document.querySelectorAll('a[href]').forEach(inert);
-})();
-</script>
-<script>
 /* ── buttery-smooth stat counters: sub-step ticking (decimals for lakh values),
       then a clean final value with no visible jump. Overrides the page default. ── */
 function animateCounters(){
