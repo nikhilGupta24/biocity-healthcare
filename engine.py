@@ -26,8 +26,8 @@ Pure Python standard library. No dependencies. No network.
     python3 engine.py --no-clear     # keep scrollback
     python3 engine.py --mono         # disable colour
 
-After the pipeline it starts a real local web server for the mirrored Biocity
-v3 site, opens Google Chrome at http://localhost:<port>/v3/, and then streams a
+After the pipeline it starts a real local web server rooted at the self-contained
+v3/ site, opens Google Chrome at http://localhost:<port>/, and then streams a
 LIVE mission-control dashboard: real HTTP access-log events plus rolling vitals
 (req/s, p50/p95 latency, bytes served, status classes, clients, cpu/mem).
 
@@ -789,15 +789,21 @@ def stage_serve():
                     with lock:
                         events.append(ev)
 
-    server, port = _bind_server(partial(Tele, directory=ROOT), PORT)
+    # Serve the self-contained v3 site as the web root, so a fresh clone can just
+    # run `python3 engine.py` and get the full v3 experience hosted locally.
+    site = os.path.join(ROOT, "v3")
+    if not os.path.isfile(os.path.join(site, "index.html")):
+        log("WARN", f"v3/index.html not found under {site} — falling back to repo root")
+        site = ROOT
+    server, port = _bind_server(partial(Tele, directory=site), PORT)
     if server is None:
         log("WARN", f"could not bind a local port near {PORT} — skipping live host")
         return
-    url = f"http://localhost:{port}/v3/"
+    url = f"http://localhost:{port}/"
     threading.Thread(target=server.serve_forever, name="httpd", daemon=True).start()
     log(
         "NET",
-        f"edge node online  ·  bound {C('127.0.0.1:' + str(port), INK, bold=True)}  ·  document-root {C(ROOT, MUTE)}",
+        f"edge node online  ·  bound {C('127.0.0.1:' + str(port), INK, bold=True)}  ·  document-root {C(site, MUTE)}",
     )
     log("OK", f"Biocity v3 is live  →  {C(url, SKY, bold=True)}")
     if NO_OPEN:
